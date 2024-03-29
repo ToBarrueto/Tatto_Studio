@@ -19,7 +19,7 @@
           <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link btn" href="#">Nosotros</a>
+                <a class="nav-link btn" href="#">Nosotrosss</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link btn" href="#">Tatuadores</a>
