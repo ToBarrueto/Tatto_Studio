@@ -19,7 +19,7 @@
           <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link btn" href="#">Nosotr</a>
+                <a class="nav-link btn" href="#">Nosotros</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link btn" href="#">Tatuadores</a>
@@ -58,7 +58,7 @@
   }
   
   /// Realizar la consulta a la base de datos para obtener los datos de los tatuadores
-  $sql = "SELECT nombre, estilos, imagen_perfil FROM tatuadores";
+  $sql = "SELECT id,nombre, estilos, imagen_perfil FROM tatuadores";
   $resultado = $conn->query($sql);
   
   // Verificar si se obtuvieron resultados
@@ -71,7 +71,7 @@ if ($resultado->num_rows > 0) {
         echo '<img class="imagen-tatuador" src="' . $row["imagen_perfil"] . '" alt="' . $row["nombre"] . '">';
         echo '<h2>' . $row["nombre"] . '</h2>';
         echo '<p>' . $row["estilos"] . '</p>';
-        echo '<a href="tatuadores_view.php" ><button class="btn-ver">Ver </button></a>';
+        echo '<a class="btn-ver" href="tatuador_detalle.php?id=' . $row["id"] . '">Ver detalles</a>';
         echo '</div>';
     }
 } else {echo "No se encontraron tatuadores.";
