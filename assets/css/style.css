@@ -105,6 +105,27 @@
     
 }
 
+.card-perfil {
+    background-color: rgba(238, 0, 0, 0.3) !important;
+    color: white !important;
+    font-family: "Grenze Gotisch", serif;
+    line-height: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-left: 100px;
+    margin-bottom: 50px;
+    width: calc(25% - 20px);
+    box-sizing: border-box;
+    /* Incluir padding y borde en el ancho */
+}
+
+.card-perfil img {
+    width: 100%; /* La imagen ocupará el ancho completo del card */
+    height: auto; /* La altura se ajustará automáticamente para mantener la proporción de aspecto */
+}
+
+
 .h1-custom {
     font-family: "Grenze Gotisch", serif;
     font-size: 32px;
@@ -121,6 +142,10 @@
     height: 400px;
 }
 
+.imagen-tatuador-perfil{
+    margin-left: 100px;
+}
+
 .btn-ver {
     background-color: rgba(0, 0, 0, 0.7) !important;
     font-size: 16px !important;
@@ -135,6 +160,7 @@
     margin-left: auto;
     margin-right: auto;
 }
+
 
 
 @media (max-width: 768px) {
