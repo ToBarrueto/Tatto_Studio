@@ -16,6 +16,7 @@ if(isset($_POST['inicioSesion'])){
 
         if ($detalles){
             session_start();
+            $_SESSION['usuario_id'] = $detalles['id'];
             $_SESSION['usuario'] = $detalles['username'];
             $_SESSION['tipo_usuario'] = $detalles['tipo_usuario'];
 

@@ -35,8 +35,8 @@ session_start();
                 <a class="nav-link btn" href="#">Perforadores</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link btn" href="#">Intranet</a>
-              </li>
+            <a class="nav-link btn" href="../index.php">Cerrar Sesion</a>
+          </li>
             </ul>
           </div>
         </nav>
