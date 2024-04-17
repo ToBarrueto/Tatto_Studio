@@ -1,3 +1,10 @@
+<?php 
+session_start();
+  if ($_SESSION['tipo_usuario'] == 'cliente')
+    {
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,3 +79,8 @@
     </div>
 </body>
 </html>
+
+<?php }
+  else{
+    header("Location:../index.php");
+  }?>
