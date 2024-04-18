@@ -44,43 +44,69 @@ session_start();
 
         <?php
         // Establecer la conexión con la base de datos
-        include '../conexion.php'; // Asegúrate de tener este archivo con la conexión a la base de datos
+        include '../conexion.php'; 
 
-        // Obtener el ID del tatuador de la URL
-        if (isset($_GET['id'])) {
-            $tatuador_id = $_GET['id'];
+    // Obtener el ID del tatuador de la URL
+    if (isset($_GET['id'])) {
+        $tatuador_id = $_GET['id'];
+
+        // Consultar el ID de usuario del tatuador
+        $sql_usuario_id = "SELECT usuario_id FROM tatuadores WHERE id = $tatuador_id";
+        $resultado_usuario_id = $conexion->query($sql_usuario_id);
+
+        if ($resultado_usuario_id->num_rows > 0) {
+            $fila_usuario_id = $resultado_usuario_id->fetch_assoc();
+            $usuario_id = $fila_usuario_id['usuario_id'];
 
             // Consultar los datos del tatuador con el ID especificado
-            $sql = "SELECT * FROM tatuadores WHERE id = $tatuador_id";
-            $resultado = $conexion->query($sql);
-            
+            $sql_tatuador = "SELECT * FROM tatuadores WHERE id = $tatuador_id";
+            $resultado_tatuador = $conexion->query($sql_tatuador);
 
-            if ($resultado->num_rows > 0) {
+            if ($resultado_tatuador->num_rows > 0) {
                 // Mostrar los detalles del tatuador
-                $tatuador = $resultado->fetch_assoc();
+                $tatuador = $resultado_tatuador->fetch_assoc();
 
-                echo '<div class="card-perfil" >';
+                echo '<div class="card-perfil">';
                 echo "<h1>{$tatuador['nombre']}</h2>";
-                echo '<img  src="' . $tatuador["imagen_perfil"] . '" alt="' . $tatuador["nombre"] . '">';
+                echo '<img src="' . $tatuador["imagen_perfil"] . '" alt="' . $tatuador["nombre"] . '">';
                 echo "<p>Estilos: {$tatuador['estilos']}</p>";
                 echo "<p>Sobre mi: {$tatuador['descripcion']}</p>";
                 echo '</div>';
-                // Aquí puedes mostrar el portafolio de trabajos del tatuador
+
+                // Consultar el portafolio del tatuador
+                $sql_portafolio = "SELECT * FROM portafolio WHERE usuario_id = $usuario_id";
+                $resultado_portafolio = $conexion->query($sql_portafolio);
+
+                if ($resultado_portafolio->num_rows > 0) {
+                    echo '<div>';
+                    echo '<div class="row">';
+
+                    while ($fila_portafolio = $resultado_portafolio->fetch_assoc()) {
+                        echo '<div class="col-md-4">';
+                        echo '<div class="card" >';
+                        echo '<img src="'. $fila_portafolio["ruta_imagen"].'" alt="Imagen de Tatuaje">';
+                        echo '</div>';
+                        echo '</div>';
+                    }
+
+                    echo '</div>';
+                    echo '</div>';
+                } else {
+                    echo 'El tatuador no tiene imágenes en su portafolio.';
+                }
             } else {
                 echo "Tatuador no encontrado.";
             }
         } else {
-            echo "ID del tatuador no especificado.";
+            echo "ID de tatuador no válido.";
         }
+    } else {
+        echo "ID del tatuador no especificado.";
+    }
 
-        // Cerrar la conexión a la base de datos
-        $conexion->close();
-        ?>
-    </div>
-</body>
-</html>
-
-<?php }
-  else{
+    // Cerrar la conexión a la base de datos
+    $conexion->close();
+} else {
     header("Location:../index.php");
-  }?>
+}
+?>
