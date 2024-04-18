@@ -1,8 +1,6 @@
 <?php 
 session_start();
-  if ($_SESSION['tipo_usuario'] == 'cliente')
-    {
-
+if ($_SESSION['tipo_usuario'] == 'cliente') {
 ?>
 
 <!DOCTYPE html>
@@ -13,8 +11,41 @@ session_start();
     <title>Detalles del Tatuador</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        .card-perfil {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .portafolio {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            margin-top: 5px;
+        }
+        .portafolio .card {
+            width: calc(33.33% - 20px);
+        }
+        .portafolio .card img {
+            max-width: 100%;
+            height: auto;
+        }
+        @media (max-width: 992px) {
+            .portafolio .card {
+                width: calc(50% - 20px);
+            }
+        }
+        @media (max-width: 768px) {
+            .portafolio .card {
+                width: calc(50% - 20px);
+            }
+        }
+        @media (max-width: 576px) {
+            .portafolio .card {
+                width: calc(100% - 20px);
+            }
+        }
+    </style>
 </head>
-<body>
 <body class="fondo">
 <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
@@ -42,71 +73,64 @@ session_start();
         </nav>
     </div>
 
-        <?php
-        // Establecer la conexión con la base de datos
-        include '../conexion.php'; 
+<?php
+include '../conexion.php'; 
 
-    // Obtener el ID del tatuador de la URL
-    if (isset($_GET['id'])) {
-        $tatuador_id = $_GET['id'];
+if (isset($_GET['id'])) {
+    $tatuador_id = $_GET['id'];
 
-        // Consultar el ID de usuario del tatuador
-        $sql_usuario_id = "SELECT usuario_id FROM tatuadores WHERE id = $tatuador_id";
-        $resultado_usuario_id = $conexion->query($sql_usuario_id);
+    $sql_usuario_id = "SELECT usuario_id FROM tatuadores WHERE id = $tatuador_id";
+    $resultado_usuario_id = $conexion->query($sql_usuario_id);
 
-        if ($resultado_usuario_id->num_rows > 0) {
-            $fila_usuario_id = $resultado_usuario_id->fetch_assoc();
-            $usuario_id = $fila_usuario_id['usuario_id'];
+    if ($resultado_usuario_id->num_rows > 0) {
+        $fila_usuario_id = $resultado_usuario_id->fetch_assoc();
+        $usuario_id = $fila_usuario_id['usuario_id'];
 
-            // Consultar los datos del tatuador con el ID especificado
-            $sql_tatuador = "SELECT * FROM tatuadores WHERE id = $tatuador_id";
-            $resultado_tatuador = $conexion->query($sql_tatuador);
+        $sql_tatuador = "SELECT * FROM tatuadores WHERE id = $tatuador_id";
+        $resultado_tatuador = $conexion->query($sql_tatuador);
 
-            if ($resultado_tatuador->num_rows > 0) {
-                // Mostrar los detalles del tatuador
-                $tatuador = $resultado_tatuador->fetch_assoc();
+        if ($resultado_tatuador->num_rows > 0) {
+            $tatuador = $resultado_tatuador->fetch_assoc();
 
-                echo '<div class="card-perfil">';
-                echo "<h1>{$tatuador['nombre']}</h2>";
-                echo '<img src="' . $tatuador["imagen_perfil"] . '" alt="' . $tatuador["nombre"] . '">';
-                echo "<p>Estilos: {$tatuador['estilos']}</p>";
-                echo "<p>Sobre mi: {$tatuador['descripcion']}</p>";
-                echo '</div>';
+            echo '<div class="card-perfil">';
+            echo "<h1>{$tatuador['nombre']}</h2>";
+            echo '<img src="' . $tatuador["imagen_perfil"] . '" alt="' . $tatuador["nombre"] . '">';
+            echo "<p>Estilos: {$tatuador['estilos']}</p>";
+            echo "<p>Sobre mi: {$tatuador['descripcion']}</p>";
+            echo '</div>';
 
-                // Consultar el portafolio del tatuador
-                $sql_portafolio = "SELECT * FROM portafolio WHERE usuario_id = $usuario_id";
-                $resultado_portafolio = $conexion->query($sql_portafolio);
 
-                if ($resultado_portafolio->num_rows > 0) {
-                    echo '<div>';
-                    echo '<div class="row">';
+            ?>
+            <?php
+            $sql_portafolio = "SELECT * FROM portafolio WHERE usuario_id = $usuario_id";
+            $resultado_portafolio = $conexion->query($sql_portafolio);
 
-                    while ($fila_portafolio = $resultado_portafolio->fetch_assoc()) {
-                        echo '<div class="col-md-4">';
-                        echo '<div class="card" >';
-                        echo '<img src="'. $fila_portafolio["ruta_imagen"].'" alt="Imagen de Tatuaje">';
-                        echo '</div>';
-                        echo '</div>';
-                    }
-
+            if ($resultado_portafolio->num_rows > 0) {
+              echo '<h1 class="h1-custom">Portafolio</h1>';
+                echo '<div class="portafolio">';
+                while ($fila_portafolio = $resultado_portafolio->fetch_assoc()) {
+                    echo '<div class="card">';
+                    echo '<img src="'. $fila_portafolio["ruta_imagen"].'" alt="Imagen de Tatuaje">';
                     echo '</div>';
-                    echo '</div>';
-                } else {
-                    echo 'El tatuador no tiene imágenes en su portafolio.';
                 }
+                echo '</div>';
             } else {
-                echo "Tatuador no encontrado.";
+                echo 'El tatuador no tiene imágenes en su portafolio.';
             }
         } else {
-            echo "ID de tatuador no válido.";
+            echo "Tatuador no encontrado.";
         }
     } else {
-        echo "ID del tatuador no especificado.";
+        echo "ID de tatuador no válido.";
     }
+} else {
+    echo "ID del tatuador no especificado.";
+}
 
-    // Cerrar la conexión a la base de datos
-    $conexion->close();
+$conexion->close();
 } else {
     header("Location:../index.php");
 }
 ?>
+</body>
+</html>

@@ -161,6 +161,39 @@
     margin-right: auto;
 }
 
+.card-perfil {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.portafolio {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-top: 5px;
+}
+.portafolio .card {
+    width: calc(33.33% - 20px);
+}
+.portafolio .card img {
+    max-width: 100%;
+    height: auto;
+}
+@media (max-width: 992px) {
+    .portafolio .card {
+        width: calc(50% - 20px);
+    }
+}
+@media (max-width: 768px) {
+    .portafolio .card {
+        width: calc(50% - 20px);
+    }
+}
+@media (max-width: 576px) {
+    .portafolio .card {
+        width: calc(100% - 20px);
+    }
+}
+
 
 
 @media (max-width: 768px) {
