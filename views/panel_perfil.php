@@ -27,7 +27,7 @@ session_start();
                     <i class="lni lni-grid-alt"></i>
                 </button>
                 <div class="sidebar-logo">
-                    <a href="panel_tatuador.php">StudioINK</a>
+                <a href="panel_tatuador.php">TattoStudioINK</a>
                 </div>
             </div>
             <ul class="sidebar-nav">

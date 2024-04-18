@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($actualizar) {
             // Redirigir al usuario de vuelta a su perfil con un mensaje de éxito
-            header("Location: panel_tatuador.php?exito=1");
+            header("Location: panel_perfil.php?exito=1");
             exit();
         } else {
             // Si la actualización falla, mostrar un mensaje de error

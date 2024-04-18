@@ -32,7 +32,7 @@ session_start();
             </div>
             <ul class="sidebar-nav">
 
-            <li class="sidebar-item">
+                <li class="sidebar-item">
                     <a href="panel_tatuador.php" class="sidebar-link">
                         <i class="lni lni-world"></i>
                         <span>Resumen</span>
@@ -69,7 +69,7 @@ session_start();
             </div>
         </aside>
 
-        
+
         <div class="main">
             <nav class="navbar navbar-expand px-4 py-3">
                 <form action="#" class="d-none d-sm-inline-block">
@@ -93,6 +93,74 @@ session_start();
                 <div class="container-fluid">
                     <div class="mb-3">
                         <h3 class="fw-bold fs-4 mb-3">Portafolio</h3>
+
+                        
+
+                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                            <?php
+                            // Incluir archivo de conexión a la base de datos
+                            include '../conexion.php';
+
+                            // Obtener el ID del tatuador de la sesión
+                            $usuario_id = $_SESSION['usuario_id'];
+
+                            // Consulta para obtener todas las imágenes del tatuador
+                            $consulta = "SELECT id, ruta_imagen, descripcion FROM portafolio WHERE usuario_id = ?";
+                            $stmt = mysqli_prepare($conexion, $consulta);
+                            mysqli_stmt_bind_param($stmt, "i", $usuario_id);
+                            mysqli_stmt_execute($stmt);
+                            $resultado = mysqli_stmt_get_result($stmt);
+
+                            // Verificar si se encontraron imágenes
+                            if ($resultado && mysqli_num_rows($resultado) > 0) {
+                                // Mostrar cada imagen
+                                while ($fila = mysqli_fetch_assoc($resultado)) {
+                                    $id_imagen = $fila['id'];
+                                    $ruta_imagen = $fila['ruta_imagen'];
+                                    $descripcion = $fila['descripcion'];
+
+                                    // Mostrar la imagen y la descripción
+                                    echo '<div class="col">';
+                                    echo '<div class="card h-100">';
+                                    echo '<img src="' . $ruta_imagen . '" class="card-img-top img-thumbnail" alt="Imagen">';
+                                    echo '<div class="card-body">';
+                                    echo '<p class="card-text">' . $descripcion . '</p>';
+                                    echo '<form action="eliminar_imagen.php" method="POST">';
+                                    echo '<input type="hidden" name="id_imagen" value="' . $id_imagen . '">';
+                                    echo '<button type="submit" class="btn btn-danger">Eliminar</button>';
+                                    echo '</form>';
+                                    echo '</div>';
+                                    echo '</div>';
+                                    echo '</div>';
+                                }
+                            } else {
+                                echo '<p >Tu portafolio no tiene imagenes</p>';
+                            }
+
+                            // Cerrar la conexión a la base de datos
+                            mysqli_close($conexion);
+                            ?>
+                        </div>
+
+                        <form action="subir_imagen.php" method="POST" enctype="multipart/form-data">
+                            <div class="mt-3">
+                                <label for="imagen">Agregar imagen al portafolio:</label>
+
+                                <div class="mt-3">
+                                <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*"
+                                    required>
+                                </div>
+
+                            </div>
+                            <div class="mt-3">
+                                <label for="descripcion">Descripción:</label>
+                                <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
+                            </div>
+                            <div class="mt-3">
+                            <button type="submit" class="btn btn-primary">Subir imagen</button>
+                                </div>
+                        </form>
+
                     </div>
                 </div>
             </main>
