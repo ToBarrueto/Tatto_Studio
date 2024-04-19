@@ -112,9 +112,8 @@ session_start();
                 <div class="container-fluid">
                     <div class="mb-3">
 
-                        <?php 
-                        echo "<h3>Bienvenido $_SESSION[usuario] </h3>";
-                        ?>
+                        <h3>Estadisticas</h3>
+                        
 
                     </div>
 

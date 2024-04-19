@@ -112,9 +112,48 @@ session_start();
                 <div class="container-fluid">
                     <div class="mb-3">
 
-                        <?php 
-                        echo "<h3>Bienvenido $_SESSION[usuario] </h3>";
-                        ?>
+                        <h3 class="mb-5">Trabajadores del estudio</h3>
+
+                        <?php
+        // Incluir el archivo de conexión a la base de datos
+        include '../conexion.php';
+
+        // Realizar la consulta para obtener todos los tatuadores
+        $sql = "SELECT * FROM tatuadores";
+        $resultado = $conexion->query($sql);
+
+        // Verificar si hay resultados
+        if ($resultado->num_rows > 0) {
+            // Mostrar una tabla HTML con la información de cada tatuador
+            echo "<h5>Tatuadores</h5>";
+            echo "<div class='table-responsive'>";
+            echo "<table class='table table-striped table-bordered'>";
+            echo "<thead>";
+            echo "<tr>";
+            echo "<th>Nombre</th>";
+            echo "<th>Descripción</th>";
+            echo "<th>Estilos</th>";
+            echo "</tr>";
+            echo "</thead>";
+            echo "<tbody>";
+            while ($row = $resultado->fetch_assoc()) {
+                echo "<tr>";
+                echo "<td>" . $row['nombre'] . "</td>";
+                echo "<td>" . $row['descripcion'] . "</td>";
+                echo "<td>" . $row['estilos'] . "</td>";
+                echo "</tr>";
+            }
+            echo "</tbody>";
+            echo "</table>";
+            echo "</div>";
+        } else {
+            echo "<p class='text-muted'>No se encontraron tatuadores.</p>";
+        }
+
+        // Cerrar la conexión a la base de datos
+        $conexion->close();
+        ?>
+                        
 
                     </div>
 

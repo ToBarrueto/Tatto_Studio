@@ -23,7 +23,7 @@ session_start();
 
 <body>
     <div class="wrapper">
-    <aside id="sidebar">
+        <aside id="sidebar">
             <div class="d-flex">
                 <button class="toggle-btn" type="button">
                     <i class="lni lni-grid-alt"></i>
@@ -43,38 +43,38 @@ session_start();
 
                 <li class="sidebar-item">
                     <a href="panel_crearusuario.php" class="sidebar-link">
-                    <i class="lni lni-circle-plus"></i>
+                        <i class="lni lni-circle-plus"></i>
                         <span>Crear usuario</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a href="panel_agregartrabajador.php" class="sidebar-link">
-                    <i class="lni lni-users"></i>
+                        <i class="lni lni-users"></i>
                         <span>Registrar trabajador</span>
                     </a>
                 </li>
 
-                
+
 
                 <li class="sidebar-item">
                     <a href="panel_trabajadores.php" class="sidebar-link">
-                    
-                    <i class="lni lni-network"></i>
+
+                        <i class="lni lni-network"></i>
                         <span> Ver Trabajadores</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a href="panel_estadisticas.php" class="sidebar-link">
-                    <i class="lni lni-bar-chart"></i>
+                        <i class="lni lni-bar-chart"></i>
                         <span>Estadisticas</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a href="panel_reportes.php" class="sidebar-link">
-                    <i class="lni lni-clipboard"></i>
+                        <i class="lni lni-clipboard"></i>
                         <span>Reportes</span>
                     </a>
                 </li>
@@ -88,48 +88,47 @@ session_start();
             </div>
         </aside>
 
-
-        <div class="main">
-            <nav class="navbar navbar-expand px-4 py-3">
-                <form action="#" class="d-none d-sm-inline-block">
-
-                </form>
-                <div class="navbar-collapse collapse">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item dropdown">
-                            <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
-                                <img src="../assets/img/account.png" class="avatar img-fluid" alt="">
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end rounded">
-
-                            </div>
-                        </li>
-                    </ul>
+        <div class="container">
+            <h3 class="mb-3 mt-5">Registrar Trabajadores</h3>
+            <form action="agregar_trabajador.php" method="POST">
+                <div class="mb-2 mt-4">
+                    <label for="nombre" class="form-label">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" class="form-control" required>
                 </div>
-            </nav>
-
-            <main class="content px-3 py-4">
-                <div class="container-fluid">
-                    <div class="mb-3">
-
-                        <?php 
-                        echo "<h3>Bienvenido $_SESSION[usuario] </h3>";
-                        ?>
-
-                    </div>
-
-                        
-
+                <div class="mb-2">
+                    <label for="descripcion" class="form-label">Descripción:</label>
+                    <textarea id="descripcion" name="descripcion" rows="4" class="form-control" required></textarea>
                 </div>
+                <div class="mb-2">
+                    <label for="estilos" class="form-label">Estilos:</label>
+                    <input type="text" id="estilos" name="estilos" class="form-control" required>
+                </div>
+                <div class="mb-2">
+                    <label for="imagen_perfil" class="form-label">Imagen de Perfil:</label>
+                    <input type="file" id="imagen_perfil" name="imagen_perfil" class="form-control" required
+                        accept="image/*">
+                </div>
+                <div class="mb-2">
+                    <label for="usuario_id" class="form-label">ID del Trabajador:</label>
+                    <input type="number" id="usuario_id" name="usuario_id" class="form-control" required>
+                </div>
+                <div class="mb-2">
+                    <label for="tipo_usuario" class="form-label">Tipo de Usuario:</label>
+                    <select id="tipo_usuario" name="tipo_usuario" class="form-control" required>
+                        <option value="tatuador">Tatuador</option>
+                        <option value="perforador">Perforador</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">Agregar Usuario</button>
+            </form>
         </div>
-    </div>
-    </main>
-    </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
-    <script src="../assets/js/script.js"></script>
+
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+        <script src="../assets/js/script.js"></script>
 </body>
 
 </html>

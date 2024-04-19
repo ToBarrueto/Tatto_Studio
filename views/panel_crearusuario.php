@@ -112,9 +112,77 @@ session_start();
                 <div class="container-fluid">
                     <div class="mb-3">
 
-                        <?php 
-                        echo "<h3>Bienvenido $_SESSION[usuario] </h3>";
-                        ?>
+                        <h3> Crear usuarios</h3>
+                        
+                        <?php
+// Incluir el archivo de conexión a la base de datos
+include '../conexion.php';
+
+// Obtener todos los usuarios registrados
+$sql_usuarios = "SELECT * FROM usuarios";
+$resultado_usuarios = $conexion->query($sql_usuarios);
+?>
+
+
+    <div class="container mt-5">
+        <h5 class="mt-3 mb-3">Usuarios Registrados</h5>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre de usuario</th>
+                    <th>Tipo de usuario</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if ($resultado_usuarios->num_rows > 0) {
+                    while ($fila = $resultado_usuarios->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . $fila['id'] . "</td>";
+                        echo "<td>" . $fila['username'] . "</td>";
+                        echo "<td>" . $fila['tipo_usuario'] . "</td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='3'>No se encontraron usuarios.</td></tr>";
+                }
+                ?>
+             </tbody>
+        </table>
+
+        <hr>
+
+        <h5 class="mt-3 mb-3">Agregar Nuevo Usuario</h5>
+        <form action="crear_usuario.php" method="POST">
+            <div  class="form-group mt-3 mb-3">
+                <label for="username">Nombre de usuario:</label>
+                <input type="text" name="username" id="username" class="form-control" required>
+            </div>
+            <div class="form-group mt-3 mb-3">
+                <label for="password">Contraseña:</label>
+                <input type="password" name="password" id="password" class="form-control" required>
+            </div>
+            <div class="form-group mt-3 mb-3">
+                <label for="tipo_usuario">Tipo de usuario:</label>
+                <select name="tipo_usuario" id="tipo_usuario" class="form-control" required>
+                    <option value="cliente">Cliente</option>
+                    <option value="tatuador">Tatuador</option>
+                    <option value="admin">Administrador</option>
+                </select>
+            </div>
+            <!-- Otros campos del usuario si es necesario -->
+            <button type="submit" class="btn btn-primary">Agregar Usuario</button>
+        </form>
+    </div>
+</body>
+
+</html>
+
+<?php
+// Cerrar la conexión a la base de datos
+$conexion->close();
+?>
 
                     </div>
 
