@@ -27,53 +27,36 @@ session_start();
                     <i class="lni lni-grid-alt"></i>
                 </button>
                 <div class="sidebar-logo">
-                    <a href="panel_admin.php">TattoStudioINK</a>
+                    <a href="panel_tatuador.php">StudioINK</a>
                 </div>
             </div>
             <ul class="sidebar-nav">
 
                 <li class="sidebar-item">
-                    <a href="panel_admin.php" class="sidebar-link">
+                    <a href="panel_tatuador.php" class="sidebar-link">
                         <i class="lni lni-world"></i>
                         <span>Resumen</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a href="panel_crearusuario.php" class="sidebar-link">
-                    <i class="lni lni-circle-plus"></i>
-                        <span>Crear usuario</span>
+                    <a href="panel_agenda.php" class="sidebar-link">
+                        <i class="lni lni-calendar"></i>
+                        <span>Agenda</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a href="panel_agregartrabajador.php" class="sidebar-link">
-                    <i class="lni lni-users"></i>
-                        <span>Registrar trabajador</span>
-                    </a>
-                </li>
-
-                
-
-                <li class="sidebar-item">
-                    <a href="panel_trabajadores.php" class="sidebar-link">
-                    
-                    <i class="lni lni-network"></i>
-                        <span> Ver Trabajadores</span>
+                    <a href="panel_perfil.php" class="sidebar-link">
+                        <i class="lni lni-user"></i>
+                        <span>Mi perfil</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a href="panel_estadisticas.php" class="sidebar-link">
-                    <i class="lni lni-bar-chart"></i>
-                        <span>Estadisticas</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a href="panel_reportes.php" class="sidebar-link">
-                    <i class="lni lni-clipboard"></i>
-                        <span>Reportes</span>
+                    <a href="panel_portafolio.php" class="sidebar-link">
+                        <i class="lni lni-briefcase"></i>
+                        <span>Portafolio</span>
                     </a>
                 </li>
 
