@@ -3,8 +3,6 @@ session_start();
   if ($_SESSION['tipo_usuario'] == 'tatuador')
     {
 
-
-
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +27,7 @@ session_start();
                     <i class="lni lni-grid-alt"></i>
                 </button>
                 <div class="sidebar-logo">
-                    <a href="panel_tatuador.php">TattoStudioINK</a>
+                <a href="panel_tatuador.php">TattoStudioINK</a>
                 </div>
             </div>
             <ul class="sidebar-nav">
@@ -49,7 +47,7 @@ session_start();
                 </li>
 
                 <li class="sidebar-item">
-                    <a href="panel_perfil.php" class="sidebar-link">
+                    <a href="#" class="sidebar-link">
                         <i class="lni lni-user"></i>
                         <span>Mi perfil</span>
                     </a>
@@ -93,42 +91,55 @@ session_start();
 
             <main class="content px-3 py-4">
                 <div class="container-fluid">
-                    <div class="mb-3">
+                <div class="mb-3">
+    <h3 class="fw-bold fs-4 mb-3">Editar Perfil</h3>
 
-                        <?php 
-                        echo "<h3>Bienvenido $_SESSION[usuario] </h3>";
-                        ?>
+    <form action="actualizar_perfil.php" method="POST">
+        <?php
+        // Verificar si la sesión está iniciada y obtener el ID del usuario
+        if (isset($_SESSION['usuario_id'])) {
+            // Incluir el archivo de conexión a la base de datos
+            include '../conexion.php';
+
+            // Obtener el ID del usuario de la sesión
+            $usuario_id = $_SESSION['usuario_id'];
+
+            // Consultar la tabla "tatuadores" para obtener los datos del tatuador
+            $consulta_tatuador = mysqli_query($conexion, "SELECT * FROM tatuadores WHERE usuario_id = '$usuario_id'");
+            $datos_tatuador = mysqli_fetch_array($consulta_tatuador);
+
+            // Verificar si se encontraron datos del tatuador
+            if ($datos_tatuador) {
+                // Mostrar los datos del tatuador en un formulario
+        ?>
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre:</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $datos_tatuador['nombre']; ?>">
+                </div>
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label">Descripción:</label>
+                    <textarea class="form-control" id="descripcion" name="descripcion"><?php echo $datos_tatuador['descripcion']; ?></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="estilos" class="form-label">Estilos:</label>
+                    <input type="text" class="form-control" id="estilos" name="estilos" value="<?php echo $datos_tatuador['estilos']; ?>">
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        <?php
+            } else {
+                echo "<p>No se encontraron datos del tatuador.</p>";
+            }
+        } else {
+            echo "<p>No se ha iniciado sesión.</p>";
+        }
+        ?>
+    </form>
+</div>
 
                     </div>
-
-                        <?php
-
-                    if (isset($_SESSION['usuario_id'])) {
-
-                        include '../conexion.php';
-
-                        $usuario_id = $_SESSION['usuario_id'];
-
-                        $consulta_tatuador = mysqli_query($conexion, "SELECT * FROM tatuadores WHERE usuario_id = '$usuario_id'");
-                        $datos_tatuador = mysqli_fetch_array($consulta_tatuador);
-                        
-                        if ($datos_tatuador) {
-                            echo "<p>Nombre: " . $datos_tatuador['nombre'] . "</p>";
-                            echo "<p>Descripción: " . $datos_tatuador['descripcion'] . "</p>";
-                            echo "<p>Estilos: " . $datos_tatuador['estilos'] . "</p>";
-                        } else {
-                            echo "<p>No se encontraron datos del tatuador.</p>";
-                        }
-                    } else {
-                        echo "<p>No se ha iniciado sesión.</p>";
-                    }
-                    ?>
-
                 </div>
+            </main>
         </div>
-    </div>
-    </main>
-    </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"

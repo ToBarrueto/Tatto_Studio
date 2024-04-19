@@ -3,8 +3,6 @@ session_start();
   if ($_SESSION['tipo_usuario'] == 'tatuador')
     {
 
-
-
 ?>
 
 <!DOCTYPE html>
@@ -23,42 +21,59 @@ session_start();
 
 <body>
     <div class="wrapper">
-        <aside id="sidebar">
+    <aside id="sidebar">
             <div class="d-flex">
                 <button class="toggle-btn" type="button">
                     <i class="lni lni-grid-alt"></i>
                 </button>
                 <div class="sidebar-logo">
-                    <a href="panel_tatuador.php">TattoStudioINK</a>
+                    <a href="panel_admin.php">TattoStudioINK</a>
                 </div>
             </div>
             <ul class="sidebar-nav">
 
                 <li class="sidebar-item">
-                    <a href="panel_tatuador.php" class="sidebar-link">
+                    <a href="panel_admin.php" class="sidebar-link">
                         <i class="lni lni-world"></i>
                         <span>Resumen</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a href="panel_agenda.php" class="sidebar-link">
-                        <i class="lni lni-calendar"></i>
-                        <span>Agenda</span>
+                    <a href="panel_crearusuario.php" class="sidebar-link">
+                    <i class="lni lni-circle-plus"></i>
+                        <span>Crear usuario</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a href="panel_perfil.php" class="sidebar-link">
-                        <i class="lni lni-user"></i>
-                        <span>Mi perfil</span>
+                    <a href="panel_agregartrabajador.php" class="sidebar-link">
+                    <i class="lni lni-users"></i>
+                        <span>Registrar trabajador</span>
+                    </a>
+                </li>
+
+                
+
+                <li class="sidebar-item">
+                    <a href="panel_trabajadores.php" class="sidebar-link">
+                    
+                    <i class="lni lni-network"></i>
+                        <span> Ver Trabajadores</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a href="panel_portafolio.php" class="sidebar-link">
-                        <i class="lni lni-briefcase"></i>
-                        <span>Portafolio</span>
+                    <a href="panel_estadisticas.php" class="sidebar-link">
+                    <i class="lni lni-bar-chart"></i>
+                        <span>Estadisticas</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a href="panel_reportes.php" class="sidebar-link">
+                    <i class="lni lni-clipboard"></i>
+                        <span>Reportes</span>
                     </a>
                 </li>
 
@@ -71,7 +86,7 @@ session_start();
             </div>
         </aside>
 
-
+        
         <div class="main">
             <nav class="navbar navbar-expand px-4 py-3">
                 <form action="#" class="d-none d-sm-inline-block">
@@ -94,41 +109,11 @@ session_start();
             <main class="content px-3 py-4">
                 <div class="container-fluid">
                     <div class="mb-3">
-
-                        <?php 
-                        echo "<h3>Bienvenido $_SESSION[usuario] </h3>";
-                        ?>
-
+                        <h3 class="fw-bold fs-4 mb-3">Agenda</h3>
                     </div>
-
-                        <?php
-
-                    if (isset($_SESSION['usuario_id'])) {
-
-                        include '../conexion.php';
-
-                        $usuario_id = $_SESSION['usuario_id'];
-
-                        $consulta_tatuador = mysqli_query($conexion, "SELECT * FROM tatuadores WHERE usuario_id = '$usuario_id'");
-                        $datos_tatuador = mysqli_fetch_array($consulta_tatuador);
-                        
-                        if ($datos_tatuador) {
-                            echo "<p>Nombre: " . $datos_tatuador['nombre'] . "</p>";
-                            echo "<p>Descripción: " . $datos_tatuador['descripcion'] . "</p>";
-                            echo "<p>Estilos: " . $datos_tatuador['estilos'] . "</p>";
-                        } else {
-                            echo "<p>No se encontraron datos del tatuador.</p>";
-                        }
-                    } else {
-                        echo "<p>No se ha iniciado sesión.</p>";
-                    }
-                    ?>
-
                 </div>
+            </main>
         </div>
-    </div>
-    </main>
-    </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
