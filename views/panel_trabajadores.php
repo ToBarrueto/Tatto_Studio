@@ -115,44 +115,51 @@ session_start();
                         <h3 class="mb-5">Trabajadores del estudio</h3>
 
                         <?php
-        // Incluir el archivo de conexión a la base de datos
-        include '../conexion.php';
+    // Incluir el archivo de conexión a la base de datos
+    include '../conexion.php';
 
-        // Realizar la consulta para obtener todos los tatuadores
-        $sql = "SELECT * FROM tatuadores";
-        $resultado = $conexion->query($sql);
+    // Realizar la consulta para obtener todos los tatuadores
+    $sql = "SELECT * FROM tatuadores";
+    $resultado = $conexion->query($sql);
 
-        // Verificar si hay resultados
-        if ($resultado->num_rows > 0) {
-            // Mostrar una tabla HTML con la información de cada tatuador
-            echo "<h5>Tatuadores</h5>";
-            echo "<div class='table-responsive'>";
-            echo "<table class='table table-striped table-bordered'>";
-            echo "<thead>";
+    // Verificar si hay resultados
+    if ($resultado->num_rows > 0) {
+        // Mostrar una tabla HTML con la información de cada tatuador
+        echo "<h5>Tatuadores</h5>";
+        echo "<div class='table-responsive'>";
+        echo "<table class='table table-striped table-bordered'>";
+        echo "<thead>";
+        echo "<tr>";
+        echo "<th>Nombre</th>";
+        echo "<th>Descripción</th>";
+        echo "<th>Estilos</th>";
+        echo "<th>Acciones</th>"; // Columna para acciones
+        echo "</tr>";
+        echo "</thead>";
+        echo "<tbody>";
+        while ($row = $resultado->fetch_assoc()) {
             echo "<tr>";
-            echo "<th>Nombre</th>";
-            echo "<th>Descripción</th>";
-            echo "<th>Estilos</th>";
+            echo "<td>" . $row['nombre'] . "</td>";
+            echo "<td>" . $row['descripcion'] . "</td>";
+            echo "<td>" . $row['estilos'] . "</td>";
+            echo "<td>"; // Inicio de la celda de acciones
+            echo "<form action='procesar_eliminar_usuario.php' method='POST'>";
+            echo "<input type='hidden' name='id_usuario' value='" . $row['usuario_id'] . "'>";
+            echo "<button type='submit' class='btn btn-danger' onclick='return confirm(\"¿Estás seguro de que quieres eliminar a este usuario?\")'><i class='lni lni-trash-can'></i></button>";
+            echo "</form>";
+            echo "</td>"; // Fin de la celda de acciones
             echo "</tr>";
-            echo "</thead>";
-            echo "<tbody>";
-            while ($row = $resultado->fetch_assoc()) {
-                echo "<tr>";
-                echo "<td>" . $row['nombre'] . "</td>";
-                echo "<td>" . $row['descripcion'] . "</td>";
-                echo "<td>" . $row['estilos'] . "</td>";
-                echo "</tr>";
-            }
-            echo "</tbody>";
-            echo "</table>";
-            echo "</div>";
-        } else {
-            echo "<p class='text-muted'>No se encontraron tatuadores.</p>";
         }
+        echo "</tbody>";
+        echo "</table>";
+        echo "</div>";
+    } else {
+        echo "<p class='text-muted'>No se encontraron tatuadores.</p>";
+    }
 
-        // Cerrar la conexión a la base de datos
-        $conexion->close();
-        ?>
+    // Cerrar la conexión a la base de datos
+    $conexion->close();
+?>
                         
 
                     </div>
