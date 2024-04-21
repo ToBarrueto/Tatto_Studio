@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
+
 ::after,
 ::before {
     box-sizing: border-box;
@@ -17,6 +18,7 @@ li {
 
 body {
     font-family: 'Poppins', sans-serif;
+    
 }
 
 .wrapper {
@@ -30,7 +32,7 @@ body {
     width: 100%;
     overflow: hidden;
     transition: all 0.35s ease-in-out;
-    background-color: #fff;
+    background-color: #F8F9FC;
     min-width: 0;
 }
 
@@ -169,7 +171,112 @@ a.sidebar-link:hover {
     width: 40px;
 }
 
+.card-custom,.card-custom2, .card-custom3, .card-custom4 {
+    background-color: #ffffff;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px 0px 0px 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
 
 
 
-@media (min-width: 768px) {}
+.card-custom:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-body-custom {
+    padding: 16px;
+}
+
+.card-title-custom {
+    font-size: 1.25rem;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 5px;
+    color: #4E73DF;
+}
+
+.card-title-custom2 {
+    font-size: 1.25rem;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 5px;
+    color: #1CC88A;
+}
+
+.card-title-custom3 {
+    font-size: 1.25rem;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 5px;
+    color: #36B9CC;
+}
+
+.card-title-custom4 {
+    font-size: 1.25rem;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 5px;
+    color: #F6C23E;
+}
+
+.card-text-custom {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #0c0b0b;
+}
+
+.card-custom, .card-custom2, .card-custom3, .card-custom4 {
+    position: relative;
+}
+
+.card-custom::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -10px; /* Cambiar el valor para ajustar el ancho del borde derecho */
+    bottom: 0;
+    width: 10px; /* Ancho del borde derecho */
+    background-color: #4E73DF; /* Color del borde derecho */
+    border-top-right-radius: 16px; /* Para que el borde derecho tenga la misma curvatura que la tarjeta */
+    border-bottom-right-radius: 16px; /* Para que el borde derecho tenga la misma curvatura que la tarjeta */
+}
+
+.card-custom2::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -10px; /* Cambiar el valor para ajustar el ancho del borde derecho */
+    bottom: 0;
+    width: 10px; /* Ancho del borde derecho */
+    background-color: #1CC88A; /* Color del borde derecho */
+    border-top-right-radius: 16px; /* Para que el borde derecho tenga la misma curvatura que la tarjeta */
+    border-bottom-right-radius: 16px; /* Para que el borde derecho tenga la misma curvatura que la tarjeta */
+}
+
+.card-custom3::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -10px; /* Cambiar el valor para ajustar el ancho del borde derecho */
+    bottom: 0;
+    width: 10px; /* Ancho del borde derecho */
+    background-color: #36B9CC; /* Color del borde derecho */
+    border-top-right-radius: 16px; /* Para que el borde derecho tenga la misma curvatura que la tarjeta */
+    border-bottom-right-radius: 16px; /* Para que el borde derecho tenga la misma curvatura que la tarjeta */
+}
+
+.card-custom4::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -10px; /* Cambiar el valor para ajustar el ancho del borde derecho */
+    bottom: 0;
+    width: 10px; /* Ancho del borde derecho */
+    background-color: #F6C23E; /* Color del borde derecho */
+    border-top-right-radius: 16px; /* Para que el borde derecho tenga la misma curvatura que la tarjeta */
+    border-bottom-right-radius: 16px; /* Para que el borde derecho tenga la misma curvatura que la tarjeta */
+}
+
+
+
+
+

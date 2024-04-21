@@ -88,40 +88,51 @@ session_start();
             </div>
         </aside>
 
-        <div class="container">
-            <h3 class="mb-3 mt-5">Registrar Trabajadores</h3>
-            <form action="agregar_trabajador.php" method="POST">
-                <div class="mb-2 mt-4">
-                    <label for="nombre" class="form-label">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" class="form-control" required>
+        <main class="main">
+
+            
+
+
+            <div class="content px-3 py-4">
+                <div class="container-fluid">
+                    <div class="mb-3">
+                        <h3 class="">Registrar Trabajadores</h3>
+                        <form action="agregar_trabajador.php" method="POST" enctype="multipart/form-data">>
+                            <div class="mb-2 mt-4">
+                                <label for="nombre" class="form-label">Nombre:</label>
+                                <input type="text" id="nombre" name="nombre" class="form-control" required>
+                            </div>
+                            <div class="mb-2">
+                                <label for="descripcion" class="form-label">Descripción:</label>
+                                <textarea id="descripcion" name="descripcion" rows="4" class="form-control"
+                                    required></textarea>
+                            </div>
+                            <div class="mb-2">
+                                <label for="estilos" class="form-label">Estilos:</label>
+                                <input type="text" id="estilos" name="estilos" class="form-control" required>
+                            </div>
+                            <div class="mb-2">
+                                <label for="imagen_perfil" class="form-label">Imagen de Perfil:</label>
+                                <input type="file" id="imagen_perfil" name="imagen_perfil" class="form-control" required
+                                    accept="image/*">
+                            </div>
+                            <div class="mb-2">
+                                <label for="usuario_id" class="form-label">ID del Trabajador:</label>
+                                <input type="number" id="usuario_id" name="usuario_id" class="form-control" required>
+                            </div>
+                            <div class="mb-2">
+                                <label for="tipo_usuario" class="form-label">Tipo de Usuario:</label>
+                                <select id="tipo_usuario" name="tipo_usuario" class="form-control" required>
+                                    <option value="tatuador">Tatuador</option>
+                                    <option value="perforador">Perforador</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-2">Agregar Usuario</button>
+                        </form>
+                    </div>
                 </div>
-                <div class="mb-2">
-                    <label for="descripcion" class="form-label">Descripción:</label>
-                    <textarea id="descripcion" name="descripcion" rows="4" class="form-control" required></textarea>
-                </div>
-                <div class="mb-2">
-                    <label for="estilos" class="form-label">Estilos:</label>
-                    <input type="text" id="estilos" name="estilos" class="form-control" required>
-                </div>
-                <div class="mb-2">
-                    <label for="imagen_perfil" class="form-label">Imagen de Perfil:</label>
-                    <input type="file" id="imagen_perfil" name="imagen_perfil" class="form-control" required
-                        accept="image/*">
-                </div>
-                <div class="mb-2">
-                    <label for="usuario_id" class="form-label">ID del Trabajador:</label>
-                    <input type="number" id="usuario_id" name="usuario_id" class="form-control" required>
-                </div>
-                <div class="mb-2">
-                    <label for="tipo_usuario" class="form-label">Tipo de Usuario:</label>
-                    <select id="tipo_usuario" name="tipo_usuario" class="form-control" required>
-                        <option value="tatuador">Tatuador</option>
-                        <option value="perforador">Perforador</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary mt-2">Agregar Usuario</button>
-            </form>
-        </div>
+            </div>
+        </main>
 
 
 

@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@100..900&family=Mina:wght@400;700&family=Staatliches&display=swap');
 
+
 .fondo {
     background-image: url(../img/fondo.jpg);
     background-size: cover;
@@ -102,7 +103,7 @@
     /* Para mostrar 4 tarjetas por fila */
     box-sizing: border-box;
     /* Incluir padding y borde en el ancho */
-    
+
 }
 
 .card-perfil {
@@ -121,8 +122,10 @@
 }
 
 .card-perfil img {
-    width: 100%; /* La imagen ocupará el ancho completo del card */
-    height: auto; /* La altura se ajustará automáticamente para mantener la proporción de aspecto */
+    width: 100%;
+    /* La imagen ocupará el ancho completo del card */
+    height: auto;
+    /* La altura se ajustará automáticamente para mantener la proporción de aspecto */
 }
 
 
@@ -142,7 +145,7 @@
     height: 400px;
 }
 
-.imagen-tatuador-perfil{
+.imagen-tatuador-perfil {
     margin-left: 100px;
 }
 
@@ -165,29 +168,35 @@
     text-align: center;
     margin-bottom: 20px;
 }
+
 .portafolio {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     margin-top: 5px;
 }
+
 .portafolio .card {
     width: calc(33.33% - 20px);
 }
+
 .portafolio .card img {
     max-width: 100%;
     height: auto;
 }
+
 @media (max-width: 992px) {
     .portafolio .card {
         width: calc(50% - 20px);
     }
 }
+
 @media (max-width: 768px) {
     .portafolio .card {
         width: calc(50% - 20px);
     }
 }
+
 @media (max-width: 576px) {
     .portafolio .card {
         width: calc(100% - 20px);
@@ -205,7 +214,10 @@
 
 
     }
+
     .card {
-            width: calc(100% - 20px); /* Para mostrar 1 tarjeta por fila en dispositivos móviles */
-        }
-    } 
+        width: calc(100% - 20px);
+        /* Para mostrar 1 tarjeta por fila en dispositivos móviles */
+    }
+}
+

@@ -23,7 +23,7 @@ session_start();
 
 <body>
     <div class="wrapper">
-    <aside id="sidebar">
+        <aside id="sidebar">
             <div class="d-flex">
                 <button class="toggle-btn" type="button">
                     <i class="lni lni-grid-alt"></i>
@@ -43,38 +43,38 @@ session_start();
 
                 <li class="sidebar-item">
                     <a href="panel_crearusuario.php" class="sidebar-link">
-                    <i class="lni lni-circle-plus"></i>
+                        <i class="lni lni-circle-plus"></i>
                         <span>Crear usuario</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a href="panel_agregartrabajador.php" class="sidebar-link">
-                    <i class="lni lni-users"></i>
+                        <i class="lni lni-users"></i>
                         <span>Registrar trabajador</span>
                     </a>
                 </li>
 
-                
+
 
                 <li class="sidebar-item">
                     <a href="panel_trabajadores.php" class="sidebar-link">
-                    
-                    <i class="lni lni-network"></i>
+
+                        <i class="lni lni-network"></i>
                         <span> Ver Trabajadores</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a href="panel_estadisticas.php" class="sidebar-link">
-                    <i class="lni lni-bar-chart"></i>
+                        <i class="lni lni-bar-chart"></i>
                         <span>Estadisticas</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a href="panel_reportes.php" class="sidebar-link">
-                    <i class="lni lni-clipboard"></i>
+                        <i class="lni lni-clipboard"></i>
                         <span>Reportes</span>
                     </a>
                 </li>
@@ -90,34 +90,17 @@ session_start();
 
 
         <div class="main">
-            <nav class="navbar navbar-expand px-4 py-3">
-                <form action="#" class="d-none d-sm-inline-block">
-
-                </form>
-                <div class="navbar-collapse collapse">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item dropdown">
-                            <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
-                                <img src="../assets/img/account.png" class="avatar img-fluid" alt="">
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end rounded">
-
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
 
             <main class="content px-3 py-4">
                 <div class="container-fluid">
                     <div class="mb-3">
 
                         <h3>Estadisticas</h3>
-                        
+
 
                     </div>
 
-                        
+
 
                 </div>
         </div>
@@ -126,8 +109,8 @@ session_start();
     </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
     <script src="../assets/js/script.js"></script>
 </body>
 

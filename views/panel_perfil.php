@@ -27,7 +27,7 @@ session_start();
                     <i class="lni lni-grid-alt"></i>
                 </button>
                 <div class="sidebar-logo">
-                <a href="panel_tatuador.php">TattoStudioINK</a>
+                    <a href="panel_tatuador.php">TattoStudioINK</a>
                 </div>
             </div>
             <ul class="sidebar-nav">
@@ -71,31 +71,15 @@ session_start();
 
 
         <div class="main">
-            <nav class="navbar navbar-expand px-4 py-3">
-                <form action="#" class="d-none d-sm-inline-block">
 
-                </form>
-                <div class="navbar-collapse collapse">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item dropdown">
-                            <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
-                                <img src="../assets/img/account.png" class="avatar img-fluid" alt="">
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end rounded">
-
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
 
             <main class="content px-3 py-4">
                 <div class="container-fluid">
-                <div class="mb-3">
-    <h3 class="fw-bold fs-4 mb-3">Editar Perfil</h3>
+                    <div class="mb-3">
+                        <h3 class="fw-bold fs-4 mb-3">Editar Perfil</h3>
 
-    <form action="actualizar_perfil.php" method="POST">
-        <?php
+                        <form action="actualizar_perfil.php" method="POST">
+                            <?php
         // Verificar si la sesión está iniciada y obtener el ID del usuario
         if (isset($_SESSION['usuario_id'])) {
             // Incluir el archivo de conexión a la base de datos
@@ -112,20 +96,27 @@ session_start();
             if ($datos_tatuador) {
                 // Mostrar los datos del tatuador en un formulario
         ?>
-                <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre:</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $datos_tatuador['nombre']; ?>">
-                </div>
-                <div class="mb-3">
-                    <label for="descripcion" class="form-label">Descripción:</label>
-                    <textarea class="form-control" id="descripcion" name="descripcion"><?php echo $datos_tatuador['descripcion']; ?></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="estilos" class="form-label">Estilos:</label>
-                    <input type="text" class="form-control" id="estilos" name="estilos" value="<?php echo $datos_tatuador['estilos']; ?>">
-                </div>
-                <button type="submit" class="btn btn-primary">Guardar cambios</button>
-        <?php
+                            
+                            <div class="mb-3 ">
+                                <label for="nombre" class="form-label">Nombre:</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre"
+                                    value="<?php echo $datos_tatuador['nombre']; ?>">
+                            </div>
+                            <div class="mb-3">
+                                <label for="descripcion" class="form-label">Descripción:</label>
+                                <textarea class="form-control" id="descripcion"
+                                    name="descripcion"><?php echo $datos_tatuador['descripcion']; ?></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="estilos" class="form-label">Estilos:</label>
+                                <input type="text" class="form-control" id="estilos" name="estilos"
+                                    value="<?php echo $datos_tatuador['estilos']; ?>">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                          
+
+
+                            <?php
             } else {
                 echo "<p>No se encontraron datos del tatuador.</p>";
             }
@@ -133,17 +124,17 @@ session_start();
             echo "<p>No se ha iniciado sesión.</p>";
         }
         ?>
-    </form>
-</div>
-
+                        </form>
                     </div>
+
                 </div>
-            </main>
         </div>
+        </main>
+    </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
     <script src="../assets/js/script.js"></script>
 </body>
 

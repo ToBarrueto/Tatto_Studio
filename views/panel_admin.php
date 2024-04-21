@@ -23,7 +23,7 @@ session_start();
 
 <body>
     <div class="wrapper">
-    <aside id="sidebar">
+        <aside id="sidebar">
             <div class="d-flex">
                 <button class="toggle-btn" type="button">
                     <i class="lni lni-grid-alt"></i>
@@ -43,38 +43,38 @@ session_start();
 
                 <li class="sidebar-item">
                     <a href="panel_crearusuario.php" class="sidebar-link">
-                    <i class="lni lni-circle-plus"></i>
+                        <i class="lni lni-circle-plus"></i>
                         <span>Crear usuario</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a href="panel_agregartrabajador.php" class="sidebar-link">
-                    <i class="lni lni-users"></i>
+                        <i class="lni lni-users"></i>
                         <span>Registrar trabajador</span>
                     </a>
                 </li>
 
-                
+
 
                 <li class="sidebar-item">
                     <a href="panel_trabajadores.php" class="sidebar-link">
-                    
-                    <i class="lni lni-network"></i>
+
+                        <i class="lni lni-network"></i>
                         <span> Ver Trabajadores</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a href="panel_estadisticas.php" class="sidebar-link">
-                    <i class="lni lni-bar-chart"></i>
+                        <i class="lni lni-bar-chart"></i>
                         <span>Estadisticas</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a href="panel_reportes.php" class="sidebar-link">
-                    <i class="lni lni-clipboard"></i>
+                        <i class="lni lni-clipboard"></i>
                         <span>Reportes</span>
                     </a>
                 </li>
@@ -90,23 +90,7 @@ session_start();
 
 
         <div class="main">
-            <nav class="navbar navbar-expand px-4 py-3">
-                <form action="#" class="d-none d-sm-inline-block">
 
-                </form>
-                <div class="navbar-collapse collapse">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item dropdown">
-                            <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
-                                <img src="../assets/img/account.png" class="avatar img-fluid" alt="">
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end rounded">
-
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
 
             <main class="content px-3 py-4">
                 <div class="container-fluid">
@@ -116,9 +100,75 @@ session_start();
                         echo "<h3>Bienvenido $_SESSION[usuario] </h3>";
                         ?>
 
+                        <?php
+// Incluir el archivo de conexión a la base de datos
+include '../conexion.php';
+
+// Consulta para obtener la cantidad de clientes registrados
+$sql_clientes = "SELECT COUNT(*) AS total_clientes FROM usuarios WHERE tipo_usuario = 'cliente'";
+$resultado_clientes = $conexion->query($sql_clientes);
+$total_clientes = $resultado_clientes->fetch_assoc()['total_clientes'];
+
+// Consulta para obtener la cantidad de tatuadores registrados
+$sql_tatuadores = "SELECT COUNT(*) AS total_tatuadores FROM usuarios WHERE tipo_usuario = 'tatuador'";
+$resultado_tatuadores = $conexion->query($sql_tatuadores);
+$total_tatuadores = $resultado_tatuadores->fetch_assoc()['total_tatuadores'];
+
+// Consulta para obtener la cantidad de perforadores registrados
+$sql_perforadores = "SELECT COUNT(*) AS total_perforadores FROM usuarios WHERE tipo_usuario = 'perforador'";
+$resultado_perforadores = $conexion->query($sql_perforadores);
+$total_perforadores = $resultado_perforadores->fetch_assoc()['total_perforadores'];
+
+// Consulta para obtener la cantidad total de usuarios registrados
+$sql_total_usuarios = "SELECT COUNT(*) AS total_usuarios FROM usuarios";
+$resultado_total_usuarios = $conexion->query($sql_total_usuarios);
+$total_usuarios = $resultado_total_usuarios->fetch_assoc()['total_usuarios'];
+
+// Cerrar la conexión a la base de datos
+$conexion->close();
+?>
+
+                        <!-- Mostrar las tarjetas con el resumen -->
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="card-custom">
+                                    <div class="card-body-custom">
+                                        <h5 class="card-title-custom">Clientes Registrados</h5>
+                                        <p class="card-text-custom"><?php echo $total_clientes; ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card-custom2">
+                                    <div class="card-body-custom">
+                                        <h5 class="card-title-custom2">Tatuadores Registrados</h5>
+                                        <p class="card-text-custom"><?php echo $total_tatuadores; ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card-custom3">
+                                    <div class="card-body-custom">
+                                        <h5 class="card-title-custom3">Perforadores Registrados</h5>
+                                        <p class="card-text-custom"><?php echo $total_perforadores; ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card-custom4">
+                                    <div class="card-body-custom">
+                                        <h5 class="card-title-custom4">Usuarios Registrados</h5>
+                                        <p class="card-text-custom"><?php echo $total_usuarios; ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
                     </div>
 
-                        
+
 
                 </div>
         </div>
@@ -127,8 +177,8 @@ session_start();
     </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
     <script src="../assets/js/script.js"></script>
 </body>
 
