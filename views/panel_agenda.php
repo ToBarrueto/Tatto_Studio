@@ -80,6 +80,136 @@ session_start();
                     </div>
                 </div>
             </main>
+
+            <div class="container">
+        <div class="row">
+            <!-- Columna del formulario (1/3) -->
+            <div class="col-md-4">
+                <!-- Formulario para agregar un nuevo horario -->
+                <div class="mt-3">
+                    <h3>Agregar Hora</h3>
+                    <form action="agregar_horario.php" method="POST">
+                        <div class="mb-3">
+                            <label for="fecha" class="form-label">Fecha:</label>
+                            <input type="date" id="fecha" name="fecha" class="form-control" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="turno" class="form-label">Turno:</label>
+                            <select id="turno" name="turno" class="form-select" required>
+                                <option value="am">Mañana</option>
+                                <option value="pm">Tarde</option>
+                            </select>
+                        </div>
+
+
+
+
+                        <button type="submit" class="btn btn-primary">Agregar Horario</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Columna de la tabla (2/3) -->
+            <div class="col-md-8">
+                <!-- Mostrar los horarios disponibles -->
+                <div class="mt-3">
+                    <h3>Agenda</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Turno</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Aquí se mostrarán los horarios disponibles utilizando PHP -->
+                            <?php
+// Conexión a la base de datos
+include '../conexion.php';
+
+// Consulta SQL para obtener los horarios disponibles
+$sql = "SELECT id, fecha, turno, estado FROM horarios_disponibles WHERE usuario_id = ?";
+$stmt = mysqli_prepare($conexion, $sql);
+$usuario_id = $_SESSION['usuario_id'];
+mysqli_stmt_bind_param($stmt, "i", $usuario_id);
+mysqli_stmt_execute($stmt);
+mysqli_stmt_bind_result($stmt, $id, $fecha, $turno, $estado);
+
+// Mostrar los resultados
+
+    while (mysqli_stmt_fetch($stmt)) {
+        echo "<tr>";
+        echo "<td>$fecha</td>";
+        echo "<td>$turno</td>";
+        echo "<td>$estado</td>";
+        echo "<td>";
+        echo "<button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#editarModal$id'>Editar</button> ";
+        echo "<button type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#eliminarModal$id'>Eliminar</button>";
+        echo "</td>";
+        echo "</tr>";
+
+        // Modal de edición para cada hora
+        echo "<div class='modal fade' id='editarModal$id' tabindex='-1' aria-labelledby='editarModalLabel$id' aria-hidden='true'>";
+        echo "<div class='modal-dialog'>";
+        echo "<div class='modal-content'>";
+        echo "<div class='modal-header'>";
+        echo "<h5 class='modal-title' id='editarModalLabel$id'>Editar Hora</h5>";
+        echo "<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>";
+        echo "</div>";
+        echo "<div class='modal-body'>";
+        echo "<form action='editar_horario.php' method='POST'>";
+        echo "<input type='hidden' name='id' value='$id'>";
+        echo "<div class='mb-3'>";
+        echo "<label for='estado' class='form-label'>Estado:</label>";
+        echo "<select id='estado' name='estado' class='form-select' required>";
+        echo "<option value='Disponible' ".($estado == 'Disponible' ? 'selected' : '').">Disponible</option>";
+        echo "<option value='Tomada' ".($estado == 'Tomada' ? 'selected' : '').">Tomada</option>";
+        echo "<option value='Cerrada' ".($estado == 'Cerrada' ? 'selected' : '').">Cerrada</option>";
+        echo "</select>";
+        echo "</div>";
+        echo "<button type='submit' class='btn btn-primary'>Guardar Cambios</button>";
+        echo "</form>";
+        echo "</div>";
+        echo "</div>";
+        echo "</div>";
+        echo "</div>";
+
+        // Modal de eliminación para cada hora
+        echo "<div class='modal fade' id='eliminarModal$id' tabindex='-1' aria-labelledby='eliminarModalLabel$id' aria-hidden='true'>";
+        echo "<div class='modal-dialog'>";
+        echo "<div class='modal-content'>";
+        echo "<div class='modal-header'>";
+        echo "<h5 class='modal-title' id='eliminarModalLabel$id'>Confirmar Eliminación</h5>";
+        echo "<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>";
+        echo "</div>";
+        echo "<div class='modal-body'>";
+        echo "¿Estás seguro de que quieres eliminar este horario?";
+        echo "</div>";
+        echo "<div class='modal-footer'>";
+        echo "<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cancelar</button>";
+        echo "<a href='eliminar_horario.php?id=$id' class='btn btn-danger'>Eliminar</a>";
+        echo "</div>";
+        echo "</div>";
+        echo "</div>";
+        echo "</div>";
+}
+
+// Cerrar la consulta y la conexión a la base de datos
+mysqli_stmt_close($stmt);
+mysqli_close($conexion);
+?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
