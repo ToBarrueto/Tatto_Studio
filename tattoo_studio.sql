@@ -19,6 +19,29 @@ CREATE TABLE `citas` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `horarios_disponibles`
+--
+
+CREATE TABLE `horarios_disponibles` (
+  `id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  `turno` enum('am','pm') NOT NULL,
+  `estado` enum('Disponible','Tomada','Cerrada') NOT NULL DEFAULT 'Disponible'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `horarios_disponibles`
+--
+
+INSERT INTO `horarios_disponibles` (`id`, `usuario_id`, `fecha`, `turno`, `estado`) VALUES
+(20, 3, '2024-04-22', 'pm', 'Cerrada'),
+(21, 3, '2024-04-23', 'pm', 'Tomada'),
+(22, 3, '2024-04-24', 'pm', 'Disponible');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `portafolio`
 --
 
@@ -82,8 +105,7 @@ INSERT INTO `tatuadores` (`id`, `usuario_id`, `nombre`, `descripcion`, `imagen_p
 (6, 3, 'Juan Carlos Bodoquee', 'cobro baratito ugu ugu', '../assets/img/tatuador1.jpg', 'Paneles,Anime.'),
 (7, 4, 'Nikko Hurtadoo', 'Especializado en tatuajes de estilo geométrico y minimalista.', '../assets/img/tatuador2.jpg', 'Geometrico, Minimalista'),
 (8, 6, 'Oscar Akermo', 'Especializado en El estilo Japonés Tradicional.', '../assets/img/tatuador3.jpg', 'Japonés'),
-(9, 7, 'Luna Inkheart', 'Especializada en Retratos realistas y Black and grey.', '../assets/img/tatuador4.jpg', 'Realista, Black And Grey.'),
-(11, 9, 'Tomas Barrueto', 'prueba', '../assets/img/tatuador5.jpg', 'prueba');
+(9, 7, 'Luna Inkheart', 'Especializada en Retratos realistas y Black and grey.', '../assets/img/tatuador4.jpg', 'Realista, Black And Grey.');
 
 -- --------------------------------------------------------
 
@@ -109,7 +131,7 @@ INSERT INTO `usuarios` (`id`, `username`, `password`, `tipo_usuario`) VALUES
 (4, 'Nikko', '1', 'tatuador'),
 (6, 'Oscar', '1', 'tatuador'),
 (7, 'Luna', '1', 'tatuador'),
-(9, 'Tomas', '1', 'tatuador');
+(10, 'cliente', '1', 'cliente');
 
 --
 -- Índices para tablas volcadas
@@ -122,6 +144,13 @@ ALTER TABLE `citas`
   ADD PRIMARY KEY (`id`),
   ADD KEY `cliente_id` (`cliente_id`),
   ADD KEY `tatuador_id` (`tatuador_id`);
+
+--
+-- Indices de la tabla `horarios_disponibles`
+--
+ALTER TABLE `horarios_disponibles`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `usuario_id` (`usuario_id`);
 
 --
 -- Indices de la tabla `portafolio`
@@ -154,22 +183,28 @@ ALTER TABLE `citas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `horarios_disponibles`
+--
+ALTER TABLE `horarios_disponibles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
 -- AUTO_INCREMENT de la tabla `portafolio`
 --
 ALTER TABLE `portafolio`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT de la tabla `tatuadores`
 --
 ALTER TABLE `tatuadores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Restricciones para tablas volcadas
@@ -183,6 +218,12 @@ ALTER TABLE `citas`
   ADD CONSTRAINT `citas_ibfk_2` FOREIGN KEY (`tatuador_id`) REFERENCES `tatuadores` (`id`);
 
 --
+-- Filtros para la tabla `horarios_disponibles`
+--
+ALTER TABLE `horarios_disponibles`
+  ADD CONSTRAINT `fk_tatuador_horario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`);
+
+--
 -- Filtros para la tabla `portafolio`
 --
 ALTER TABLE `portafolio`
@@ -194,5 +235,3 @@ ALTER TABLE `portafolio`
 ALTER TABLE `tatuadores`
   ADD CONSTRAINT `tatuadores_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`);
 COMMIT;
-
-
