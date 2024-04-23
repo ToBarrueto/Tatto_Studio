@@ -2,9 +2,7 @@
 
 
 .fondo {
-    background-image: url(../img/fondo.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
+    background-color: #1F1F1F;
 }
 
 .logo {
@@ -171,14 +169,11 @@
 
 .portafolio {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    margin-top: 5px;
+    flex-wrap: nowrap;
+    
 }
 
-.portafolio .card {
-    width: calc(33.33% - 20px);
-}
+
 
 .portafolio .card img {
     max-width: 100%;
@@ -220,4 +215,14 @@
         /* Para mostrar 1 tarjeta por fila en dispositivos móviles */
     }
 }
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Para ocultar la barra de desplazamiento horizontal si aún está presente */
+}
+
+
+
+
 

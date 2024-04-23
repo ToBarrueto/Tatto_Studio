@@ -11,40 +11,7 @@ if ($_SESSION['tipo_usuario'] == 'cliente') {
     <title>Detalles del Tatuador</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <style>
-        .card-perfil {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .portafolio {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-            margin-top: 5px;
-        }
-        .portafolio .card {
-            width: calc(33.33% - 20px);
-        }
-        .portafolio .card img {
-            max-width: 100%;
-            height: auto;
-        }
-        @media (max-width: 992px) {
-            .portafolio .card {
-                width: calc(50% - 20px);
-            }
-        }
-        @media (max-width: 768px) {
-            .portafolio .card {
-                width: calc(50% - 20px);
-            }
-        }
-        @media (max-width: 576px) {
-            .portafolio .card {
-                width: calc(100% - 20px);
-            }
-        }
-    </style>
+    
 </head>
 <body class="fondo">
 <div class="container">
@@ -65,6 +32,9 @@ if ($_SESSION['tipo_usuario'] == 'cliente') {
                 <li class="nav-item">
                     <a class="nav-link btn" href="#">Perforadores</a>
                 </li>
+                <li class="nav-item">
+            <a class="nav-link btn" href="#">Mi Cuenta</a>
+          </li>
                 <li class="nav-item">
                     <a class="nav-link btn" href="../index.php">Cerrar Sesion</a>
                 </li>
@@ -92,48 +62,73 @@ if (isset($_GET['id'])) {
         if ($resultado_tatuador->num_rows > 0) {
             $tatuador = $resultado_tatuador->fetch_assoc();
 
-            echo '<div class="card">';
+            // Mostrar el portafolio del tatuador
+            $sql_portafolio = "SELECT * FROM portafolio WHERE usuario_id = $usuario_id";
+            $resultado_portafolio = $conexion->query($sql_portafolio);
+
+            if ($resultado_portafolio->num_rows > 0) {
+                echo '<h1 class="h1-custom">Portafolio</h1>';
+                echo '<div class="portafolio">';
+                while ($fila_portafolio = $resultado_portafolio->fetch_assoc()) {
+                    echo '<div class="card">';
+                    echo '<img src="'. $fila_portafolio["ruta_imagen"].'" alt="Imagen de Tatuaje">';
+                    echo '</div>';
+                }
+                echo '</div>';
+            } else {
+                echo 'El tatuador no tiene imágenes en su portafolio.';
+            }
+
+            echo '<h1 class="h1-custom mb-4">Haz tu reserva</h1>';
+            
+            echo '<div class="row">';
+            echo '<div class="card col-3 ms-4">';
             echo "<h1>{$tatuador['nombre']}</h2>";
             echo '<img src="' . $tatuador["imagen_perfil"] . '" alt="' . $tatuador["nombre"] . '">';
             echo "<p>Estilos: {$tatuador['estilos']}</p>";
             echo "<p>Sobre mi: {$tatuador['descripcion']}</p>";
             echo '</div>';
 
-            // Formulario de reserva de citas
-            echo '<div class="container formulario-reserva">';
-            echo '<div class="card">';
+             // Formulario de reserva de citas
+           
+            echo '<div class="card col-8 ms-5">';
+            echo '<div class="card-body">';
             echo '<h2>Reservar Cita</h2>';
             echo '<form action="procesar_reserva.php" method="POST" enctype="multipart/form-data">';
             echo '<input type="hidden" name="tatuador_id" value="' . $tatuador_id . '">';
 
             // Campos adicionales
+            echo '<div class="row">';
+            echo '<div class="col-md-6">';
             echo '<div class="mb-3">';
-            echo '<label for="nombre_cliente" class="form-label">Nombre:</label>';
+            echo '<label for="nombre_cliente" class="form-label">Nombre Completo:</label>';
             echo '<input type="text" class="form-control" id="nombre_cliente" name="nombre_cliente" required>';
             echo '</div>';
 
             echo '<div class="mb-3">';
-            echo '<label for="telefono" class="form-label">Número de celular:</label>';
+            echo '<label for="telefono" class="form-label">Número de Celular:</label>';
             echo '<input type="tel" class="form-control" id="telefono" name="telefono" required>';
             echo '</div>';
 
             echo '<div class="mb-3">';
-            echo '<label for="correo" class="form-label">Correo electrónico:</label>';
+            echo '<label for="correo" class="form-label">Correo Electrónico:</label>';
             echo '<input type="email" class="form-control" id="correo" name="correo" required>';
             echo '</div>';
 
             echo '<div class="mb-3">';
-            echo '<label for="imagen_referencia" class="form-label">Imagen de referencia:</label>';
+            echo '<label for="imagen_referencia" class="form-label">Imagen de Referencia:</label>';
             echo '<input type="file" class="form-control" id="imagen_referencia" name="imagen_referencia">';
             echo '</div>';
+            echo '</div>';
 
+            echo '<div class="col-md-6">';
             echo '<div class="mb-3">';
-            echo '<label for="alto" class="form-label">Alto del tatuaje (cm):</label>';
+            echo '<label for="alto" class="form-label">Alto del Tatuaje (cm):</label>';
             echo '<input type="number" class="form-control" id="alto" name="alto" required>';
             echo '</div>';
 
             echo '<div class="mb-3">';
-            echo '<label for="ancho" class="form-label">Ancho del tatuaje (cm):</label>';
+            echo '<label for="ancho" class="form-label">Ancho del Tatuaje (cm):</label>';
             echo '<input type="number" class="form-control" id="ancho" name="ancho" required>';
             echo '</div>';
 
@@ -146,7 +141,7 @@ if (isset($_GET['id'])) {
             echo '</div>';
 
             echo '<div class="mb-3">';
-            echo '<label for="parte_cuerpo" class="form-label">Parte del cuerpo:</label>';
+            echo '<label for="parte_cuerpo" class="form-label">Zona:</label>';
             echo '<select class="form-select" id="parte_cuerpo" name="parte_cuerpo">';
             echo '<option value="Tronco-Espalda">Tronco-Espalda</option>';
             echo '<option value="Cuello">Cuello</option>';
@@ -157,7 +152,7 @@ if (isset($_GET['id'])) {
             echo '</div>';
 
             echo '<div class="mb-3">';
-            echo '<label for="cantidad_sesiones" class="form-label">Cantidad de sesiones:</label>';
+            echo '<label for="cantidad_sesiones" class="form-label">Cantidad de Sesiones:</label>';
             echo '<input type="number" class="form-control" id="cantidad_sesiones" name="cantidad_sesiones" min="1" max="5" required>';
             echo '</div>';
 
@@ -165,10 +160,15 @@ if (isset($_GET['id'])) {
             echo '<label for="cotizacion" class="form-label">Cotización:</label>';
             echo '<span id="cotizacion_aproximada"></span>';
             echo '</div>';
+            echo '</div>';
+            
+            
+            echo '</div>';
+            echo '</div>';
 
             // Selección de hora disponible
             echo '<div class="mb-3">';
-            echo '<label for="hora" class="form-label">Seleccionar hora disponible:</label>';
+            echo '<label for="hora" class="form-label">Seleccionar Hora Disponible:</label>';
             echo '<select class="form-select" id="hora" name="hora" required>';
             echo '</div>';
             
@@ -198,23 +198,10 @@ if (isset($_GET['id'])) {
             echo '<button type="submit" class="btn btn-primary">Reservar cita</button>';
             echo '</form>';
             echo '</div>';
+            echo '</div>';
+            echo '</div>';
 
-            // Mostrar el portafolio del tatuador
-            $sql_portafolio = "SELECT * FROM portafolio WHERE usuario_id = $usuario_id";
-            $resultado_portafolio = $conexion->query($sql_portafolio);
-
-            if ($resultado_portafolio->num_rows > 0) {
-                echo '<h1 class="h1-custom">Portafolio</h1>';
-                echo '<div class="portafolio">';
-                while ($fila_portafolio = $resultado_portafolio->fetch_assoc()) {
-                    echo '<div class="card">';
-                    echo '<img src="'. $fila_portafolio["ruta_imagen"].'" alt="Imagen de Tatuaje">';
-                    echo '</div>';
-                }
-                echo '</div>';
-            } else {
-                echo 'El tatuador no tiene imágenes en su portafolio.';
-            }
+            
         } else {
             echo "Tatuador no encontrado.";
         }
@@ -231,4 +218,11 @@ $conexion->close();
 }
 ?>
 </body>
+
+<footer class="bg-dark text-white mt-3">
+  <div class="text-center py-3 fondo">
+    <p class="mb-0">&copy; 2024 TattoStudioINK</p>
+  </div>
+</footer>
+
 </html>

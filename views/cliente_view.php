@@ -40,6 +40,9 @@ session_start();
             <a class="nav-link btn" href="#">Perforadores</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link btn" href="#">Mi Cuenta</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link btn" href="../index.php">Cerrar Sesion</a>
           </li>
         </ul>
@@ -85,6 +88,12 @@ session_start();
   </div>
 
 </body>
+
+<footer class="bg-dark text-white  fixed-bottom">
+  <div class="text-center py-3 fondo">
+    <p class="mb-0">&copy; 2024 TattoStudioINK</p>
+  </div>
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
   integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
