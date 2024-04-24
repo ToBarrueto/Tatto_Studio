@@ -95,7 +95,7 @@ echo '<div class="card col-8 ms-5">';
 echo '<div class="card-body">';
 echo '<h2>Reservar Cita</h2>';
 echo '<form action="procesar_reserva.php" method="POST" enctype="multipart/form-data">';
-echo '<input type="hidden" name="tatuador_id" value="' . $tatuador_id . '">';
+echo '<input type="hidden" name="tatuador_id" value="' . $usuario_id . '">';
 
 // Campo de ID de cliente
 echo '<input type="hidden" name="cliente_id" value="' . $_SESSION['usuario_id'] . '">';

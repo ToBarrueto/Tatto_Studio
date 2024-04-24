@@ -21,12 +21,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["cliente_id"])) {
     $hora_disponible_id = $_POST['hora']; // ID de la hora seleccionada
     
     // Directorio donde se guardará la imagen de referencia
-    $directorio_destino = '../referencias/'; // Ruta del directorio donde deseas guardar las imágenes
+    $directorio_destino = '../uploads/'; // Ruta del directorio donde deseas guardar las imágenes
     
     // Mover la imagen de referencia al directorio de destino
     if(move_uploaded_file($_FILES['imagen_referencia']['tmp_name'], $directorio_destino . $imagen_referencia)) {
         // Insertar los datos en la tabla citas
-        $sql_insertar_cita = "INSERT INTO citas (cliente_id, tatuador_id, nombre_cliente, telefono, correo, imagen_referencia, zona, alto, ancho, color, cantidad_sesiones, hora_disponible_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql_insertar_cita = "INSERT INTO citas (cliente_id, usuario_id, nombre_cliente, telefono, correo, imagen_referencia, zona, alto, ancho, color, cantidad_sesiones, hora_disponible_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         // Preparar la consulta
         $stmt = mysqli_prepare($conexion, $sql_insertar_cita);
@@ -36,7 +36,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["cliente_id"])) {
         
         // Ejecutar la consulta
         if (mysqli_stmt_execute($stmt)) {
-            echo "Cita reservada con éxito.";
+            // Marcar la hora seleccionada como tomada en la tabla horarios_disponibles
+            $sql_actualizar_hora = "UPDATE horarios_disponibles SET estado = 'Tomada' WHERE id = ?";
+            $stmt_actualizar_hora = mysqli_prepare($conexion, $sql_actualizar_hora);
+            mysqli_stmt_bind_param($stmt_actualizar_hora, "i", $hora_disponible_id);
+            if (mysqli_stmt_execute($stmt_actualizar_hora)) {
+                echo "Cita reservada con éxito.";
+            } else {
+                echo "Error al reservar la cita: " . mysqli_error($conexion);
+            }
         } else {
             echo "Error al reservar la cita: " . mysqli_error($conexion);
         }
