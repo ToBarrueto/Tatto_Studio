@@ -96,8 +96,8 @@ session_start();
             <div class="content px-3 py-4">
                 <div class="container-fluid">
                     <div class="mb-3">
-                        <h3 class="">Registrar Trabajadores</h3>
-                        <form action="agregar_trabajador.php" method="POST" enctype="multipart/form-data">>
+                        <h3 >Registrar Trabajadores</h3>
+                        <form action="agregar_trabajador.php" method="POST" enctype="multipart/form-data">
                             <div class="mb-2 mt-4">
                                 <label for="nombre" class="form-label">Nombre:</label>
                                 <input type="text" id="nombre" name="nombre" class="form-control" required>

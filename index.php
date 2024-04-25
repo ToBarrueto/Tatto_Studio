@@ -25,6 +25,9 @@ include("controllers/validar.php")
             <div class="mb-3">
                 <label class="form-label">Contraseña</label>
                 <input type="password" class="form-control" name="Pass" placeholder="Contraseña">
+                <div class="mt-2">
+                    <a href="views/registrarse.php">No tienes una cuenta? Registraste aqui.</a>
+                </div>
             </div>
             <button type="submit" class="btn btn-primary" name="inicioSesion" >Iniciar Sesión</button>
         </form>

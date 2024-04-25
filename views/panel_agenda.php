@@ -71,8 +71,6 @@ if ($_SESSION['tipo_usuario'] == 'tatuador') {
 
 
         <div class="main">
-
-
             <main class="content px-3 py-4">
                 <div class="container-fluid">
                     <div class="mb-3">

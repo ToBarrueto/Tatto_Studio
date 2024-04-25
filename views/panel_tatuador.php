@@ -133,29 +133,54 @@ if ($_SESSION['tipo_usuario'] == 'tatuador') {
                             </div>
                         </div>
 
-                        <?php
+                        <div class="mt-3">
+                            <h3>Citas Reservadas</h3>
+                            <?php
+                            // Consulta SQL para obtener las citas del tatuador
+                            $sql_citas = "SELECT c.nombre_cliente, c.telefono, c.correo, hd.estado, hd.fecha
+                                        FROM citas c 
+                                        INNER JOIN horarios_disponibles hd ON c.hora_disponible_id = hd.id
+                                        WHERE c.usuario_id = ? AND hd.estado = 'Tomada'";
+                            $stmt_citas = mysqli_prepare($conexion, $sql_citas);
+                            mysqli_stmt_bind_param($stmt_citas, "i", $usuario_id);
+                            mysqli_stmt_execute($stmt_citas);
+                            $result_citas = mysqli_stmt_get_result($stmt_citas);
 
-                    if (isset($_SESSION['usuario_id'])) {
+                            // Comprobar si hay citas
+                            if (mysqli_num_rows($result_citas) > 0) {
+                                
+                                echo "<table class='table'>";
+                                echo "<thead>";
+                                echo "<tr>";
+                                echo "<th>Nombre Cliente</th>";
+                                echo "<th>Teléfono</th>";
+                                echo "<th>Correo</th>";
+                                echo "<th>Fecha</th>";
+                                echo "<th>Estado</th>";
+                                echo "</tr>";
+                                echo "</thead>";
+                                echo "<tbody>";
+                                while ($row_cita = mysqli_fetch_assoc($result_citas)) {
+                                    // Formatear la fecha
+                                    $fecha_formateada = date("d/m/Y", strtotime($row_cita['fecha']));
 
-                        include '../conexion.php';
+                                    // Mostrar los detalles de la cita
+                                    echo "<tr>";
+                                    echo "<td>" . $row_cita['nombre_cliente'] . "</td>";
+                                    echo "<td>" . $row_cita['telefono'] . "</td>";
+                                    echo "<td>" . $row_cita['correo'] . "</td>";
+                                    echo "<td>" . $fecha_formateada . "</td>"; // Fecha formateada
+                                    echo "<td>" . $row_cita['estado'] . "</td>"; // Estado
+                                    echo "</tr>";
+                                }
+                                echo "</tbody>";
+                                echo "</table>";
+                            } else {
+                                echo "<p>No hay citas reservadas en este momento.</p>";
+                            }
 
-                        $usuario_id = $_SESSION['usuario_id'];
-
-                        $consulta_tatuador = mysqli_query($conexion, "SELECT * FROM tatuadores WHERE usuario_id = '$usuario_id'");
-                        $datos_tatuador = mysqli_fetch_array($consulta_tatuador);
-                        
-                        if ($datos_tatuador) {
-                            echo "<h3 class='mt-3 mb-3'>Tus datos</h3>";
-                            echo "<p>Nombre: " . $datos_tatuador['nombre'] . "</p>";
-                            echo "<p>Descripción: " . $datos_tatuador['descripcion'] . "</p>";
-                            echo "<p>Estilos: " . $datos_tatuador['estilos'] . "</p>";
-                        } else {
-                            echo "<p>No se encontraron datos del tatuador.</p>";
-                        }
-                    } else {
-                        echo "<p>No se ha iniciado sesión.</p>";
-                    }
-                    ?>
+                            ?>
+                        </div>
                     </div>
                 </div>
              </div>
