@@ -97,8 +97,6 @@ if ($_SESSION['tipo_usuario'] == 'tatuador') {
                             mysqli_stmt_bind_param($stmt_citas, "i", $usuario_id);
                             mysqli_stmt_execute($stmt_citas);
                             $result_citas = mysqli_stmt_get_result($stmt_citas);
-
-                            // Comprobar si hay citas
                             if (mysqli_num_rows($result_citas) > 0) {
                                 
                                 echo "<table class='table'>";
