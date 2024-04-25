@@ -1,10 +1,24 @@
 <?php 
 session_start();
-  if ($_SESSION['tipo_usuario'] == 'tatuador')
-    {
+if ($_SESSION['tipo_usuario'] == 'tatuador') {
+    include '../conexion.php';
 
+    // Obtener el ID de usuario del tatuador
+    $usuario_id = $_SESSION['usuario_id'];
 
+    // Consulta para obtener las estadísticas de horas
+    $sql_horas = "SELECT 
+                    COUNT(*) AS total_horas,
+                    SUM(CASE WHEN estado = 'Disponible' THEN 1 ELSE 0 END) AS horas_disponibles,
+                    SUM(CASE WHEN estado = 'Tomada' THEN 1 ELSE 0 END) AS horas_tomadas,
+                    SUM(CASE WHEN estado = 'Cerrada' THEN 1 ELSE 0 END) AS horas_cerradas
+                  FROM horarios_disponibles 
+                  WHERE usuario_id = $usuario_id";
 
+    $resultado_horas = $conexion->query($sql_horas);
+    $datos_horas = $resultado_horas->fetch_assoc();
+
+    // Mostrar el panel del tatuador
 ?>
 
 <!DOCTYPE html>
@@ -73,47 +87,106 @@ session_start();
 
 
         <div class="main">
-           
-
             <main class="content px-3 py-4">
                 <div class="container-fluid">
                     <div class="mb-3">
-
                         <?php 
-                        echo "<h3>Bienvenido $_SESSION[usuario] </h3>";
+                        echo "<h3 class='mt-3'>Bienvenido $_SESSION[usuario] </h3>";
                         ?>
 
+                        <div class="row mt-5 mb-5">
+                            <!-- Tarjeta para la cantidad total de horas -->
+                            <div class="col-md-3">
+                                <div class="card-custom">
+                                    <div class="card-body-custom">
+                                        <h5 class="card-title-custom">Cantidad Total de Horas</h5>
+                                        <p class="card-text-custom"><?php echo $datos_horas['total_horas']; ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Tarjeta para horas disponibles -->
+                            <div class="col-md-3">
+                                <div class="card-custom2">
+                                    <div class="card-body-custom">
+                                        <h5 class="card-title-custom2">Horas Disponibles</h5>
+                                        <p class="card-text-custom"><?php echo $datos_horas['horas_disponibles']; ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Tarjeta para horas tomadas -->
+                            <div class="col-md-3">
+                                <div class="card-custom3">
+                                    <div class="card-body-custom">
+                                        <h5 class="card-title-custom3">Horas Tomadas</h5>
+                                        <p class="card-text-custom"><?php echo $datos_horas['horas_tomadas']; ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Tarjeta para horas cerradas -->
+                            <div class="col-md-3">
+                                <div class="card-custom4">
+                                    <div class="card-body-custom">
+                                        <h5 class="card-title-custom4">Horas Cerradas</h5>
+                                        <p class="card-text-custom"><?php echo $datos_horas['horas_cerradas']; ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-3">
+                            <h3>Citas Reservadas</h3>
+                            <?php
+                            // Consulta SQL para obtener las citas del tatuador
+                            $sql_citas = "SELECT c.nombre_cliente, c.telefono, c.correo, hd.estado, hd.fecha
+                                        FROM citas c 
+                                        INNER JOIN horarios_disponibles hd ON c.hora_disponible_id = hd.id
+                                        WHERE c.usuario_id = ? AND hd.estado = 'Tomada'";
+                            $stmt_citas = mysqli_prepare($conexion, $sql_citas);
+                            mysqli_stmt_bind_param($stmt_citas, "i", $usuario_id);
+                            mysqli_stmt_execute($stmt_citas);
+                            $result_citas = mysqli_stmt_get_result($stmt_citas);
+
+                            // Comprobar si hay citas
+                            if (mysqli_num_rows($result_citas) > 0) {
+                                
+                                echo "<table class='table'>";
+                                echo "<thead>";
+                                echo "<tr>";
+                                echo "<th>Nombre Cliente</th>";
+                                echo "<th>Teléfono</th>";
+                                echo "<th>Correo</th>";
+                                echo "<th>Fecha</th>";
+                                echo "<th>Estado</th>";
+                                echo "</tr>";
+                                echo "</thead>";
+                                echo "<tbody>";
+                                while ($row_cita = mysqli_fetch_assoc($result_citas)) {
+                                    // Formatear la fecha
+                                    $fecha_formateada = date("d/m/Y", strtotime($row_cita['fecha']));
+
+                                    // Mostrar los detalles de la cita
+                                    echo "<tr>";
+                                    echo "<td>" . $row_cita['nombre_cliente'] . "</td>";
+                                    echo "<td>" . $row_cita['telefono'] . "</td>";
+                                    echo "<td>" . $row_cita['correo'] . "</td>";
+                                    echo "<td>" . $fecha_formateada . "</td>"; // Fecha formateada
+                                    echo "<td>" . $row_cita['estado'] . "</td>"; // Estado
+                                    echo "</tr>";
+                                }
+                                echo "</tbody>";
+                                echo "</table>";
+                            } else {
+                                echo "<p>No hay citas reservadas en este momento.</p>";
+                            }
+
+                            ?>
+                        </div>
                     </div>
-
-                        <?php
-
-                    if (isset($_SESSION['usuario_id'])) {
-
-                        include '../conexion.php';
-
-                        $usuario_id = $_SESSION['usuario_id'];
-
-                        $consulta_tatuador = mysqli_query($conexion, "SELECT * FROM tatuadores WHERE usuario_id = '$usuario_id'");
-                        $datos_tatuador = mysqli_fetch_array($consulta_tatuador);
-                        
-                        if ($datos_tatuador) {
-                            echo "<p>Nombre: " . $datos_tatuador['nombre'] . "</p>";
-                            echo "<p>Descripción: " . $datos_tatuador['descripcion'] . "</p>";
-                            echo "<p>Estilos: " . $datos_tatuador['estilos'] . "</p>";
-                        } else {
-                            echo "<p>No se encontraron datos del tatuador.</p>";
-                        }
-                    } else {
-                        echo "<p>No se ha iniciado sesión.</p>";
-                    }
-                    ?>
-
                 </div>
+             </div>
         </div>
-    </div>
+
     </main>
-    </div>
-    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
@@ -122,7 +195,11 @@ session_start();
 
 </html>
 
-<?php }
-  else{
+
+<?php 
+    // Cerrar conexión a la base de datos
+    $conexion->close();
+} else {
     header("Location:../index.php");
-  }?>
+}
+?>
