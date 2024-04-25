@@ -89,10 +89,10 @@ if ($_SESSION['tipo_usuario'] == 'tatuador') {
                             <h3>Citas Reservadas</h3>
                             <?php
                             // Consulta SQL para obtener las citas del tatuador
-                            $sql_citas = "SELECT c.nombre_cliente, c.telefono, c.correo, hd.estado, hd.fecha
-                                        FROM citas c 
-                                        INNER JOIN horarios_disponibles hd ON c.hora_disponible_id = hd.id
-                                        WHERE c.usuario_id = ? AND hd.estado = 'Tomada'";
+                            $sql_citas = "SELECT c.nombre_cliente, c.telefono, c.correo, hd.estado, hd.fecha, c.cotizacion
+                            FROM citas c 
+                            INNER JOIN horarios_disponibles hd ON c.hora_disponible_id = hd.id
+                            WHERE c.usuario_id = ? AND hd.estado = 'Tomada'";
                             $stmt_citas = mysqli_prepare($conexion, $sql_citas);
                             mysqli_stmt_bind_param($stmt_citas, "i", $usuario_id);
                             mysqli_stmt_execute($stmt_citas);
@@ -108,6 +108,7 @@ if ($_SESSION['tipo_usuario'] == 'tatuador') {
                                 echo "<th>Teléfono</th>";
                                 echo "<th>Correo</th>";
                                 echo "<th>Fecha</th>";
+                                echo "<th>Ganancia</th>";
                                 echo "<th>Estado</th>";
                                 echo "</tr>";
                                 echo "</thead>";
@@ -122,6 +123,7 @@ if ($_SESSION['tipo_usuario'] == 'tatuador') {
                                     echo "<td>" . $row_cita['telefono'] . "</td>";
                                     echo "<td>" . $row_cita['correo'] . "</td>";
                                     echo "<td>" . $fecha_formateada . "</td>"; // Fecha formateada
+                                    echo "<td>$ " . $row_cita['cotizacion'] . "</td>";
                                     echo "<td>" . $row_cita['estado'] . "</td>"; // Estado
                                     echo "</tr>";
                                 }

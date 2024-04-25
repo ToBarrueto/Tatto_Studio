@@ -13,26 +13,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["cliente_id"])) {
     $telefono = $_POST['telefono'];
     $correo = $_POST['correo'];
     $imagen_referencia = $_FILES['imagen_referencia']['name']; // Nombre del archivo de imagen
-    $zona = $_POST['zona'];
     $alto = $_POST['alto'];
     $ancho = $_POST['ancho'];
     $color = $_POST['color'];
-    $cantidad_sesiones = $_POST['cantidad_sesiones'];
+    $cotizacion = $_POST['cotizacion'];
+    $comision = $_POST['comision'];
+    $precio_total = $_POST['precio_total'];
     $hora_disponible_id = $_POST['hora']; // ID de la hora seleccionada
     
     // Directorio donde se guardará la imagen de referencia
-    $directorio_destino = '../uploads/'; // Ruta del directorio donde deseas guardar las imágenes
+    $directorio_destino = '../referencias/'; // Ruta del directorio donde deseas guardar las imágenes
     
     // Mover la imagen de referencia al directorio de destino
     if(move_uploaded_file($_FILES['imagen_referencia']['tmp_name'], $directorio_destino . $imagen_referencia)) {
         // Insertar los datos en la tabla citas
-        $sql_insertar_cita = "INSERT INTO citas (cliente_id, usuario_id, nombre_cliente, telefono, correo, imagen_referencia, zona, alto, ancho, color, cantidad_sesiones, hora_disponible_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql_insertar_cita = "INSERT INTO citas (cliente_id, usuario_id, nombre_cliente, telefono, correo, imagen_referencia,  alto, ancho, color,cotizacion, comision, precio_total, hora_disponible_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         // Preparar la consulta
         $stmt = mysqli_prepare($conexion, $sql_insertar_cita);
         
         // Vincular los parámetros
-        mysqli_stmt_bind_param($stmt, "iisssssddssi", $cliente_id, $tatuador_id, $nombre_cliente, $telefono, $correo, $imagen_referencia, $zona, $alto, $ancho, $color, $cantidad_sesiones, $hora_disponible_id);
+        mysqli_stmt_bind_param($stmt, "iissssddsdddi", $cliente_id, $tatuador_id, $nombre_cliente, $telefono, $correo, $imagen_referencia, $alto, $ancho, $color,$cotizacion, $comision, $precio_total,  $hora_disponible_id);
         
         // Ejecutar la consulta
         if (mysqli_stmt_execute($stmt)) {
