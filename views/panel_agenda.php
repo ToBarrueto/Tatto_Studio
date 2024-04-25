@@ -86,7 +86,7 @@ if ($_SESSION['tipo_usuario'] == 'tatuador') {
                     <div class="col-md-8">
                         <!-- Mostrar las citas reservadas -->
                         <div class="mt-3">
-                            <h3>Citas Reservadas</h3>
+                            <h3>Citas Reservadas</h3> 
                             <?php
                             // Consulta SQL para obtener las citas del tatuador
                             $sql_citas = "SELECT c.nombre_cliente, c.telefono, c.correo, hd.estado, hd.fecha, c.cotizacion
