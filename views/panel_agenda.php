@@ -82,7 +82,7 @@ if ($_SESSION['tipo_usuario'] == 'tatuador') {
             <div class="container">
                 <div class="row">
                     <!-- Columna del formulario (1/3) -->
-                    
+                      
                     <div class="col-md-8">
                         <!-- Mostrar las citas reservadas -->
                         <div class="mt-3">
