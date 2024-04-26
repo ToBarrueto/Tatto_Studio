@@ -30,7 +30,8 @@ CREATE TABLE `citas` (
 --
 
 INSERT INTO `citas` (`id`, `cliente_id`, `usuario_id`, `nombre_cliente`, `telefono`, `correo`, `imagen_referencia`, `alto`, `ancho`, `color`, `hora_disponible_id`, `cotizacion`, `comision`, `precio_total`) VALUES
-(14, 1, 3, 'Tomas Barrueto', '963431289', 'tomas.barra.barrueto@gmail.com', 'a0f8833fa7f43399b77dd3efefc7ee0a.jpg', 8.00, 8.00, 'si', 21, 38400, 7680, 46080);
+(14, 1, 3, 'Tomas Barrueto', '963431289', 'tomas.barra.barrueto@gmail.com', 'a0f8833fa7f43399b77dd3efefc7ee0a.jpg', 8.00, 8.00, 'si', 21, 38400, 7680, 46080),
+(15, 18, 3, 'Roronoa Zoro', '954236874', 'roronoaz@gmail.com', '60a3cf3d97c568147ac99475d1580038.png', 8.00, 12.00, 'si', 22, 60480, 12096, 72576);
 
 -- --------------------------------------------------------
 
@@ -52,13 +53,16 @@ CREATE TABLE `horarios_disponibles` (
 
 INSERT INTO `horarios_disponibles` (`id`, `usuario_id`, `fecha`, `turno`, `estado`) VALUES
 (21, 3, '2024-04-23', 'pm', 'Tomada'),
-(22, 3, '2024-04-24', 'pm', 'Disponible'),
+(22, 3, '2024-04-24', 'pm', 'Tomada'),
 (23, 3, '2024-04-25', 'pm', 'Disponible'),
 (41, 3, '2024-04-26', 'am', 'Disponible'),
 (42, 3, '2024-04-27', 'am', 'Disponible'),
 (43, 3, '2024-04-28', 'am', 'Disponible'),
 (44, 3, '2024-04-29', 'am', 'Disponible'),
-(45, 3, '2024-04-30', 'am', 'Disponible');
+(45, 3, '2024-04-30', 'am', 'Disponible'),
+(46, 4, '2024-04-26', 'am', 'Disponible'),
+(47, 7, '2024-04-26', 'am', 'Disponible'),
+(48, 6, '2024-04-26', 'am', 'Disponible');
 
 -- --------------------------------------------------------
 
@@ -113,18 +117,19 @@ CREATE TABLE `tatuadores` (
   `nombre` varchar(255) NOT NULL,
   `descripcion` text DEFAULT NULL,
   `imagen_perfil` varchar(255) NOT NULL,
-  `estilos` varchar(255) DEFAULT NULL
+  `estilos` varchar(255) DEFAULT NULL,
+  `precioBase` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `tatuadores`
 --
 
-INSERT INTO `tatuadores` (`id`, `usuario_id`, `nombre`, `descripcion`, `imagen_perfil`, `estilos`) VALUES
-(6, 3, 'Juan Carlos Bodoque', 'cobro baratito ugu ugu ugu', '../assets/img/tatuador1.jpg', 'Paneles,Anime.'),
-(7, 4, 'Nikko Hurtado', 'Especializado en tatuajes de estilo geométrico y minimalista.', '../assets/img/tatuador2.jpg', 'Geometrico, Minimalista'),
-(8, 6, 'Oscar Akermo', 'Especializado en El estilo Japonés Tradicional.', '../assets/img/tatuador3.jpg', 'Japonés'),
-(9, 7, 'Luna Inkheart', 'Especializada en Retratos realistas y Black and grey.', '../assets/img/tatuador4.jpg', 'Realista, Black And Grey.');
+INSERT INTO `tatuadores` (`id`, `usuario_id`, `nombre`, `descripcion`, `imagen_perfil`, `estilos`, `precioBase`) VALUES
+(6, 3, 'Juan Carlos Bodoque', 'cobro baratito ugu ugu ugu', '../assets/imgtatuador1.jpg', 'Paneles,Anime.', 525),
+(7, 4, 'Nikko Hurtado', 'Especializado en tatuajes de estilo geométrico y minimalista.', '../assets/img/tatuador2.jpg', 'Geometrico, Minimalista', 450),
+(8, 6, 'Oscar Akermo', 'Especializado en El estilo Japonés Tradicional.', '../assets/img/tatuador3.jpg', 'Japonés', 600),
+(9, 7, 'Luna Inkheart', 'Especializada en Retratos realistas y Black and grey.', '../assets/img/tatuador4.jpg', 'Realista, Black And Grey.', 700);
 
 -- --------------------------------------------------------
 
@@ -203,13 +208,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `horarios_disponibles`
 --
 ALTER TABLE `horarios_disponibles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT de la tabla `portafolio`
@@ -259,4 +264,3 @@ ALTER TABLE `portafolio`
 ALTER TABLE `tatuadores`
   ADD CONSTRAINT `tatuadores_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`);
 COMMIT;
-
