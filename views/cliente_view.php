@@ -40,7 +40,7 @@ session_start();
             <a class="nav-link btn" href="#">Perforadores</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link btn" href="#">Mi Cuenta</a>
+          <a class="nav-link btn" href="micuenta.php">Mis Reservas</a>
           </li>
           <li class="nav-item">
             <a class="nav-link btn" href="../index.php">Cerrar Sesion</a>
