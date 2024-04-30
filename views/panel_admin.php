@@ -101,32 +101,32 @@ session_start();
                         ?>
 
                         <?php
-// Incluir el archivo de conexión a la base de datos
-include '../conexion.php';
+                        // Incluir el archivo de conexión a la base de datos
+                        include '../conexion.php';
 
-// Consulta para obtener la cantidad de clientes registrados
-$sql_clientes = "SELECT COUNT(*) AS total_clientes FROM usuarios WHERE tipo_usuario = 'cliente'";
-$resultado_clientes = $conexion->query($sql_clientes);
-$total_clientes = $resultado_clientes->fetch_assoc()['total_clientes'];
+                        // Consulta para obtener la cantidad de clientes registrados
+                        $sql_clientes = "SELECT COUNT(*) AS total_clientes FROM usuarios WHERE tipo_usuario = 'cliente'";
+                        $resultado_clientes = $conexion->query($sql_clientes);
+                        $total_clientes = $resultado_clientes->fetch_assoc()['total_clientes'];
 
-// Consulta para obtener la cantidad de tatuadores registrados
-$sql_tatuadores = "SELECT COUNT(*) AS total_tatuadores FROM usuarios WHERE tipo_usuario = 'tatuador'";
-$resultado_tatuadores = $conexion->query($sql_tatuadores);
-$total_tatuadores = $resultado_tatuadores->fetch_assoc()['total_tatuadores'];
+                        // Consulta para obtener la cantidad de tatuadores registrados
+                        $sql_tatuadores = "SELECT COUNT(*) AS total_tatuadores FROM usuarios WHERE tipo_usuario = 'tatuador'";
+                        $resultado_tatuadores = $conexion->query($sql_tatuadores);
+                        $total_tatuadores = $resultado_tatuadores->fetch_assoc()['total_tatuadores'];
 
-// Consulta para obtener la cantidad de perforadores registrados
-$sql_perforadores = "SELECT COUNT(*) AS total_perforadores FROM usuarios WHERE tipo_usuario = 'perforador'";
-$resultado_perforadores = $conexion->query($sql_perforadores);
-$total_perforadores = $resultado_perforadores->fetch_assoc()['total_perforadores'];
+                        // Consulta para obtener la cantidad de perforadores registrados
+                        $sql_perforadores = "SELECT COUNT(*) AS total_perforadores FROM usuarios WHERE tipo_usuario = 'perforador'";
+                        $resultado_perforadores = $conexion->query($sql_perforadores);
+                        $total_perforadores = $resultado_perforadores->fetch_assoc()['total_perforadores'];
 
-// Consulta para obtener la cantidad total de usuarios registrados
-$sql_total_usuarios = "SELECT COUNT(*) AS total_usuarios FROM usuarios";
-$resultado_total_usuarios = $conexion->query($sql_total_usuarios);
-$total_usuarios = $resultado_total_usuarios->fetch_assoc()['total_usuarios'];
+                        // Consulta para obtener la cantidad total de usuarios registrados
+                        $sql_total_usuarios = "SELECT COUNT(*) AS total_usuarios FROM usuarios";
+                        $resultado_total_usuarios = $conexion->query($sql_total_usuarios);
+                        $total_usuarios = $resultado_total_usuarios->fetch_assoc()['total_usuarios'];
 
-// Cerrar la conexión a la base de datos
-$conexion->close();
-?>
+                        // Cerrar la conexión a la base de datos
+                        $conexion->close();
+                        ?>
 
                         <!-- Mostrar las tarjetas con el resumen -->
                         <div class="row">
@@ -134,7 +134,9 @@ $conexion->close();
                                 <div class="card-custom">
                                     <div class="card-body-custom">
                                         <h5 class="card-title-custom">Clientes Registrados</h5>
-                                        <p class="card-text-custom"><?php echo $total_clientes; ?></p>
+                                        <p class="card-text-custom">
+                                            <?php echo $total_clientes; ?>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -142,7 +144,9 @@ $conexion->close();
                                 <div class="card-custom2">
                                     <div class="card-body-custom">
                                         <h5 class="card-title-custom2">Tatuadores Registrados</h5>
-                                        <p class="card-text-custom"><?php echo $total_tatuadores; ?></p>
+                                        <p class="card-text-custom">
+                                            <?php echo $total_tatuadores; ?>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -150,7 +154,9 @@ $conexion->close();
                                 <div class="card-custom3">
                                     <div class="card-body-custom">
                                         <h5 class="card-title-custom3">Perforadores Registrados</h5>
-                                        <p class="card-text-custom"><?php echo $total_perforadores; ?></p>
+                                        <p class="card-text-custom">
+                                            <?php echo $total_perforadores; ?>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -158,14 +164,91 @@ $conexion->close();
                                 <div class="card-custom4">
                                     <div class="card-body-custom">
                                         <h5 class="card-title-custom4">Usuarios Registrados</h5>
-                                        <p class="card-text-custom"><?php echo $total_usuarios; ?></p>
+                                        <p class="card-text-custom">
+                                            <?php echo $total_usuarios; ?>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+
+                    <?php
+                        // Incluir el archivo de conexión a la base de datos
+                        include '../conexion.php';
+
+                        // Consulta SQL para contar las horas tomadas por cada tatuador
+                        $sql = "SELECT t.nombre AS tatuador, COUNT(hd.id) AS horas_tomadas
+                        FROM tatuadores t
+                        INNER JOIN horarios_disponibles hd ON t.usuario_id = hd.usuario_id
+                        WHERE hd.estado = 'Tomada'
+                        GROUP BY t.nombre";
+                        $resultado = mysqli_query($conexion, $sql);
+
+                        // Array para almacenar los datos
+                        $datos_tatuadores = array();
+                        while ($fila = mysqli_fetch_assoc($resultado)) {
+                        $datos_tatuadores[$fila['tatuador']] = $fila['horas_tomadas'];
+                        }
+
+                        // $colores = array('#FF5733', '#33FF57', '#5733FF', '#33FFFF');
+
+                        $sql = "SELECT 
+                            t.nombre AS tatuador,
+                            SUM(c.precio_total) AS dinero_generado
+                        FROM 
+                            citas c
+                        INNER JOIN 
+                            tatuadores t ON c.usuario_id = t.usuario_id
+                        GROUP BY 
+                            t.nombre
+                        ORDER BY 
+                            dinero_generado DESC";
+
+                            $result = $conexion->query($sql);
+
+                            // Procesar los resultados en un formato adecuado para Chart.js
+                            $datos_tatuadores_dinero = array();
+                            while ($row = $result->fetch_assoc()) {
+                                $datos_tatuadores_dinero[$row['tatuador']] = $row['dinero_generado'];
+                            }
+
+                            $sql = "SELECT SUM(comision) AS ganancia_total FROM citas";
+                            $result = $conexion->query($sql);
+
+                            // Procesar los resultados
+                            $ganancia_total = 0;
+                            if ($result->num_rows > 0) {
+                                $row = $result->fetch_assoc();
+                                $ganancia_total = $row["ganancia_total"];
+                            }
 
 
 
+                        // Cerrar conexión
+                        mysqli_close($conexion);
+                    ?>
+
+                    <div class="container">
+                        <div class="row">
+                            <!-- Columna izquierda -->
+                            
+                            <div class="col-md-4 text-center">
+                                <h3>Distribucion de Citas</h3>
+                                <canvas id="graficoHorasTomadas" width="400" height="400"></canvas>
+                            </div>
+                            <!-- Columna derecha -->
+                            <div class="col-md-4 text-center">
+                                <h3>Dinero Generado</h3>
+                                <canvas id="graficoDineroGenerado" width="400" height="400"></canvas>
+                            </div>
+
+                            <div class="col-md-4 text-center">
+                                <h3>Ganancia del estudio</h3>
+                                <canvas id="graficoGananciaTotal" width="400" height="400"></canvas>
+                            </div>
+                        </div>
                     </div>
 
 
@@ -178,8 +261,152 @@ $conexion->close();
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
-    </script>
+        </script>
     <script src="../assets/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+    var ctx = document.getElementById('graficoHorasTomadas').getContext('2d');
+    var data = <?php echo json_encode($datos_tatuadores); ?>;
+    var tatuadores = Object.keys(data);
+    var horasTomadas = Object.values(data);
+
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: tatuadores,
+            datasets: [{
+                label: 'Horas Tomadas',
+                data: horasTomadas,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 159, 64, 0.6)',
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 159, 64, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+            }
+        }
+    });
+</script>
+
+<script>
+    var ctx2 = document.getElementById('graficoDineroGenerado').getContext('2d');
+    var dineroData = <?php echo json_encode($datos_tatuadores_dinero); ?>;
+    var tatuadores2 = Object.keys(dineroData);
+    var dineroGenerado = Object.values(dineroData);
+
+    var myChart2 = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: tatuadores2,
+            datasets: [{
+                label: 'Dinero Generado',
+                data: dineroGenerado,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 159, 64, 0.6)',
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 159, 64, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            },
+            title: {
+                display: true,
+                text: 'Dinero Generado por Tatuador'
+            }
+        }
+    });
+</script>
+
+<script>
+    var ctx3 = document.getElementById('graficoGananciaTotal').getContext('2d');
+    var gananciaData = <?php echo $ganancia_total; ?>;
+    var myChart3 = new Chart(ctx3, {
+        type: 'bar',
+        data: {
+            labels: ['Ganancia Total'],
+            datasets: [{
+                label: 'Ganancia Total del Estudio',
+                data: [gananciaData],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Ganancia Total del Estudio'
+            }
+        }
+    });
+</script>
+
+
 </body>
 
 </html>
