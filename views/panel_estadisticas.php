@@ -88,16 +88,139 @@ session_start();
             </div>
         </aside>
 
+                        <?php
+
+                        include '../conexion.php';
+
+                        $sql = "SELECT t.nombre AS tatuador, COUNT(hd.id) AS horas_tomadas
+                        FROM tatuadores t
+                        INNER JOIN horarios_disponibles hd ON t.usuario_id = hd.usuario_id
+                        WHERE hd.estado = 'Tomada'
+                        GROUP BY t.nombre";
+                        $resultado = mysqli_query($conexion, $sql);
+
+                        $datos_tatuadores31 = array();
+                        while ($fila = mysqli_fetch_assoc($resultado)) {
+                        $datos_tatuadores1[$fila['tatuador']] = $fila['horas_tomadas'];
+                        }
+
+                        $sql = "SELECT t.nombre AS tatuador, SUM(c.comision) AS comision_total
+                                FROM tatuadores t
+                                INNER JOIN citas c ON t.usuario_id = c.usuario_id
+                                GROUP BY t.nombre";
+                        $resultado = mysqli_query($conexion, $sql);
+
+                        $datos_tatuadores = array();
+                        while ($fila = mysqli_fetch_assoc($resultado)) {
+                            $datos_tatuadores[$fila['tatuador']] = $fila['comision_total'];
+                        }
+
+                        $sql = "SELECT 
+                        t.nombre AS tatuador, 
+                        SUM(CASE WHEN c.alto * c.ancho > 100 THEN 1 ELSE 0 END) AS tatuajes_grandes,
+                        SUM(CASE WHEN c.alto * c.ancho <= 100 THEN 1 ELSE 0 END) AS tatuajes_pequenos
+                                FROM 
+                                    tatuadores t
+                                    INNER JOIN citas c ON t.usuario_id = c.usuario_id
+                                GROUP BY 
+                                    t.nombre";
+                        
+                        $resultado = mysqli_query($conexion, $sql);
+                    
+                        // Crear un array para almacenar los datos
+                        $datos_tatuadores3 = array();
+                        while ($fila = mysqli_fetch_assoc($resultado)) {
+                            $datos_tatuadores3[$fila['tatuador']] = array(
+                                'tatuajes_grandes' => $fila['tatuajes_grandes'],
+                                'tatuajes_pequenos' => $fila['tatuajes_pequenos']
+                            );
+                        }
+
+                        $sql = "SELECT 
+                                t.nombre AS tatuador, 
+                                SUM(CASE WHEN c.color = 'Si' THEN 1 ELSE 0 END) AS tatuajes_color,
+                                SUM(CASE WHEN c.color = 'No' THEN 1 ELSE 0 END) AS tatuajes_bn
+                            FROM 
+                                tatuadores t
+                                INNER JOIN citas c ON t.usuario_id = c.usuario_id
+                            GROUP BY 
+                                t.nombre";
+                    
+                    $resultado = mysqli_query($conexion, $sql);
+
+                    // Crear un array para almacenar los datos
+                    $datos_tatuadores4 = array();
+                    while ($fila = mysqli_fetch_assoc($resultado)) {
+                        $datos_tatuadores4[$fila['tatuador']] = array(
+                            'tatuajes_color' => $fila['tatuajes_color'],
+                            'tatuajes_bn' => $fila['tatuajes_bn']
+                        );
+                    }
+
+        
+
+
+                        
+                        $conexion->close();
+                        ?>
+
 
         <div class="main">
 
             <main class="content px-3 py-4">
                 <div class="container-fluid">
-                    <div class="mb-3">
+                
 
-                        <h3>Estadisticas</h3>
+                    <div class="container">
+                        <div class="row">
 
+                        <div class="row">
 
+                            <h2 class="mt-2">Estadisticas de tatuadores</h2>
+
+                            <div class="col-md-3 mt-4 text-center">
+                                <h4>Color / BYN </h4>
+                                <canvas id="graficoColor" width="300" height="300"></canvas>
+                            </div>
+
+                            <div class="col-md-3 mt-4 text-center">
+                                <h4>Grandes / Pequeños</h4>
+                                <canvas id="graficoTatuajes" width="300" height="300"></canvas>
+                            </div>
+                            
+                            <div class="col-md-3 mt-4 text-center">
+                                <h4>Horas Tomadas</h4>
+                                <canvas id="graficoHorasTomadas" width="300" height="300"></canvas>
+                            </div>
+
+                            <div class="col-md-3 mt-4 text-center">
+                                <h4>Comision Generada</h4>
+                                <canvas id="graficoComisionTatuador" width="300" height="300"></canvas>
+                            </div>
+
+                            
+
+                        </div>
+
+                            <!-- Columna izquierda -->
+                            <h2 class="mt-4">Estadisticas del estudio</h2>
+                            <div class="col-md-4 mt-4 text-center">
+                                <h3>Distribucion de Citas</h3>
+                                <canvas id="graficoHorasTomadas" width="400" height="400"></canvas>
+                            </div>
+                            <!-- Columna derecha -->
+                            <div class="col-md-4 mt-4 text-center">
+                                <h3>Desglose de Ganancias</h3>
+                                <canvas id="graficoDineroGenerado" width="400" height="400"></canvas>
+                            </div>
+
+                            <div class="col-md-4 mt-4 text-center">
+                                <h3>Ganancia del estudio</h3>
+                                <canvas id="graficoGananciaTotal" width="400" height="400"></canvas>
+                            </div>
+                        </div>
+
+                        
                     </div>
 
 
@@ -112,6 +235,199 @@ session_start();
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
     <script src="../assets/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+    var ctx = document.getElementById('graficoHorasTomadas').getContext('2d');
+    var data = <?php echo json_encode($datos_tatuadores1); ?>;
+    var tatuadores = Object.keys(data);
+    var horasTomadas = Object.values(data);
+
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: tatuadores,
+            datasets: [{
+                label: 'Horas Tomadas',
+                data: horasTomadas,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 159, 64, 0.6)',
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 159, 64, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+            }
+        }
+    });
+</script>
+
+<script>
+    var ctx = document.getElementById('graficoComisionTatuador').getContext('2d');
+    var data = <?php echo json_encode($datos_tatuadores); ?>;
+    var tatuadores = Object.keys(data);
+    var comisiones = Object.values(data);
+
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: tatuadores,
+            datasets: [{
+                label: 'Comisión Generada (CLP)',
+                data: comisiones,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 159, 64, 0.6)',
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 159, 64, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {}
+        }
+    });
+</script>
+
+<script>
+    var ctx = document.getElementById('graficoTatuajes').getContext('2d');
+    var data = <?php echo json_encode($datos_tatuadores3); ?>;
+    var tatuadores = Object.keys(data);
+    var tatuajesGrandes = [];
+    var tatuajesPequenos = [];
+
+    // Separar los datos en arreglos para tatuajes grandes y pequeños
+    for (var tatuador in data) {
+        tatuajesGrandes.push(data[tatuador]['tatuajes_grandes']);
+        tatuajesPequenos.push(data[tatuador]['tatuajes_pequenos']);
+    }
+
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: tatuadores,
+            datasets: [{
+                label: 'Tatuajes Grandes',
+                data: tatuajesGrandes,
+                backgroundColor: 'rgba(255, 99, 132, 0.6)'
+            }, {
+                label: 'Tatuajes Pequeños',
+                data: tatuajesPequenos,
+                backgroundColor: 'rgba(54, 162, 235, 0.6)'
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Cantidad de Tatuajes Grandes y Pequeños por Tatuador'
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+</script>
+
+<script>
+    var ctx = document.getElementById('graficoColor').getContext('2d');
+    var data = <?php echo json_encode($datos_tatuadores4); ?>;
+    var tatuadores = Object.keys(data);
+    var tatuajesColor = [];
+    var tatuajesBN = [];
+
+    // Separar los datos en arreglos para tatuajes a color y en blanco y negro
+    for (var i = 0; i < tatuadores.length; i++) {
+        var tatuador = tatuadores[i];
+        tatuajesColor.push(data[tatuador]['tatuajes_color']);
+        tatuajesBN.push(data[tatuador]['tatuajes_bn']);
+    }
+
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: tatuadores,
+            datasets: [{
+                label: 'Tatuajes a Color',
+                data: tatuajesColor,
+                backgroundColor: 'rgba(255, 99, 132, 0.6)'
+            }, {
+                label: 'Tatuajes en Blanco y Negro',
+                data: tatuajesBN,
+                backgroundColor: 'rgba(54, 162, 235, 0.6)'
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Cantidad de Tatuajes a Color y en Blanco y Negro por Tatuador'
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+</script>
+
 </body>
 
 </html>
