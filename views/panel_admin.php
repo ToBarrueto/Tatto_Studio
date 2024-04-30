@@ -124,61 +124,7 @@ session_start();
                         $resultado_total_usuarios = $conexion->query($sql_total_usuarios);
                         $total_usuarios = $resultado_total_usuarios->fetch_assoc()['total_usuarios'];
 
-                        // Cerrar la conexión a la base de datos
-                        $conexion->close();
-                        ?>
 
-                        <!-- Mostrar las tarjetas con el resumen -->
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="card-custom">
-                                    <div class="card-body-custom">
-                                        <h5 class="card-title-custom">Clientes Registrados</h5>
-                                        <p class="card-text-custom">
-                                            <?php echo $total_clientes; ?>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card-custom2">
-                                    <div class="card-body-custom">
-                                        <h5 class="card-title-custom2">Tatuadores Registrados</h5>
-                                        <p class="card-text-custom">
-                                            <?php echo $total_tatuadores; ?>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card-custom3">
-                                    <div class="card-body-custom">
-                                        <h5 class="card-title-custom3">Perforadores Registrados</h5>
-                                        <p class="card-text-custom">
-                                            <?php echo $total_perforadores; ?>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card-custom4">
-                                    <div class="card-body-custom">
-                                        <h5 class="card-title-custom4">Usuarios Registrados</h5>
-                                        <p class="card-text-custom">
-                                            <?php echo $total_usuarios; ?>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <?php
-                        // Incluir el archivo de conexión a la base de datos
-                        include '../conexion.php';
-
-                        // Consulta SQL para contar las horas tomadas por cada tatuador
                         $sql = "SELECT t.nombre AS tatuador, COUNT(hd.id) AS horas_tomadas
                         FROM tatuadores t
                         INNER JOIN horarios_disponibles hd ON t.usuario_id = hd.usuario_id
@@ -214,7 +160,21 @@ session_start();
                                 $datos_tatuadores_dinero[$row['tatuador']] = $row['dinero_generado'];
                             }
 
-                            $sql = "SELECT SUM(comision) AS ganancia_total FROM citas";
+                            $sql = "SELECT SUM(comision) AS ganancia_studio FROM citas";
+                            $result = $conexion->query($sql);
+
+                            // Procesar los resultados
+                            $ganancia_studio = 0;
+                            if ($result->num_rows > 0) {
+                                $row = $result->fetch_assoc();
+                                $ganancia_studio = $row["ganancia_studio"];
+                            }
+
+                            $ganancia_formateada = number_format($ganancia_studio, 0, ',', '.');
+
+                            $sql = "SELECT SUM(precio_total) AS ganancia_total FROM citas";
+
+                            // Ejecutar la consulta
                             $result = $conexion->query($sql);
 
                             // Procesar los resultados
@@ -224,11 +184,60 @@ session_start();
                                 $ganancia_total = $row["ganancia_total"];
                             }
 
+                            $ganancia_total_formateada = number_format($ganancia_total, 0, ',', '.');
 
 
-                        // Cerrar conexión
-                        mysqli_close($conexion);
-                    ?>
+
+
+                        // Cerrar la conexión a la base de datos
+                        $conexion->close();
+                        ?>
+
+                        <!-- Mostrar las tarjetas con el resumen -->
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="card-custom">
+                                    <div class="card-body-custom">
+                                        <h5 class="card-title-custom">Clientes Registrados</h5>
+                                        <p class="card-text-custom">
+                                            <?php echo $total_clientes; ?>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card-custom2">
+                                    <div class="card-body-custom">
+                                        <h5 class="card-title-custom2">Tatuadores Registrados</h5>
+                                        <p class="card-text-custom">
+                                            <?php echo $total_tatuadores; ?>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card-custom3">
+                                    <div class="card-body-custom">
+                                        <h5 class="card-title-custom3">Ingresos generados</h5>
+                                        <p class="card-text-custom">$
+                                            <?php echo $ganancia_total_formateada; ?>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card-custom4">
+                                    <div class="card-body-custom">
+                                        <h5 class="card-title-custom4">Comision Estudio</h5>
+                                        <p class="card-text-custom">$
+                                            <?php echo $ganancia_formateada; ?>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
                     <div class="container">
                         <div class="row">
@@ -240,7 +249,7 @@ session_start();
                             </div>
                             <!-- Columna derecha -->
                             <div class="col-md-4 text-center">
-                                <h3>Dinero Generado</h3>
+                                <h3>Desglose de Ganancias</h3>
                                 <canvas id="graficoDineroGenerado" width="400" height="400"></canvas>
                             </div>
 
@@ -379,7 +388,7 @@ session_start();
 
 <script>
     var ctx3 = document.getElementById('graficoGananciaTotal').getContext('2d');
-    var gananciaData = <?php echo $ganancia_total; ?>;
+    var gananciaData = <?php echo $ganancia_studio; ?>;
     var myChart3 = new Chart(ctx3, {
         type: 'bar',
         data: {
