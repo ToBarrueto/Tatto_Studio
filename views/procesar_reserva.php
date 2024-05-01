@@ -42,7 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["cliente_id"])) {
             $stmt_actualizar_hora = mysqli_prepare($conexion, $sql_actualizar_hora);
             mysqli_stmt_bind_param($stmt_actualizar_hora, "i", $hora_disponible_id);
             if (mysqli_stmt_execute($stmt_actualizar_hora)) {
-                echo "Cita reservada con éxito.";
+                header("Location: micuenta.php");
+
             } else {
                 echo "Error al reservar la cita: " . mysqli_error($conexion);
             }

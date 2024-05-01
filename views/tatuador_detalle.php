@@ -33,7 +33,7 @@ if ($_SESSION['tipo_usuario'] == 'cliente') {
                     <a class="nav-link btn" href="#">Perforadores</a>
                 </li>
                 <li class="nav-item">
-            <a class="nav-link btn" href="#">Mi Cuenta</a>
+                <a class="nav-link btn" href="micuenta.php">Mis Reservas</a>
           </li>
                 <li class="nav-item">
                     <a class="nav-link btn" href="../index.php">Cerrar Sesion</a>
@@ -165,6 +165,21 @@ if (isset($_GET['id'])) {
                 echo '</div>';
                 echo '</div>';
 
+                // Consulta para obtener el precioBasePorCm2 del tatuador
+                $sql_precio_base = "SELECT precioBase FROM tatuadores WHERE id = $tatuador_id";
+                $resultado_precio_base = $conexion->query($sql_precio_base);
+
+                if ($resultado_precio_base->num_rows > 0) {
+                    $fila_precio_base = $resultado_precio_base->fetch_assoc();
+                    
+                } else {
+                    $precioBasePorCm2 = 0;
+                }
+
+                echo '<input type="hidden" id="precioBase" value="' . $fila_precio_base['precioBase'] . '">';
+                echo '<script>console.log("Precio base obtenido de la base de datos:", ' . $fila_precio_base['precioBase'] . ');</script>';
+
+
                 // Selección de hora disponible
                 echo '<div class="mb-3">';
                 echo '<label for="hora" class="form-label">Seleccionar Hora Disponible:</label>';
@@ -218,24 +233,31 @@ if (isset($_GET['id'])) {
                 ?>
 
     <script>
-        function calcularCotizacion() {
+     function calcularCotizacion() {
     var alto = document.getElementById('alto').value;
     var ancho = document.getElementById('ancho').value;
     var color = document.getElementById('color').value;
+    var precioBasePorCm2 = document.getElementById('precioBase').value;
     
-    var precioBasePorCm2 = 500; 
-    
+    // Verificar el valor del precio base en la consola del navegador
+    console.log("Precio base por cm2 obtenido de la base de datos:", precioBasePorCm2);
+
+    // Calcular el área del tatuaje
     var area = alto * ancho;
     
+    // Calcular el precio base del tatuaje
     var precioBase = area * precioBasePorCm2;
     
+    // Aplicar un costo adicional si el tatuaje es a color
     if (color === 'si') {
         var costoColor = precioBase * 0.20; 
         precioBase += costoColor;
     }
     
+    // Calcular la comisión
     var comision = precioBase * 0.20;
     
+    // Calcular el precio total
     var cotizacionTotal = precioBase + comision;
     
     // Mostrar la cotización, la comisión y el precio total en el formulario

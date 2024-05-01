@@ -119,19 +119,22 @@ $resultado_usuarios = $conexion->query($sql_usuarios);
                 </tr>
             </thead>
             <tbody>
-                <?php
-                if ($resultado_usuarios->num_rows > 0) {
-                    while ($fila = $resultado_usuarios->fetch_assoc()) {
-                        echo "<tr>";
-                        echo "<td>" . $fila['id'] . "</td>";
-                        echo "<td>" . $fila['username'] . "</td>";
-                        echo "<td>" . $fila['tipo_usuario'] . "</td>";
-                        echo "</tr>";
-                    }
-                } else {
-                    echo "<tr><td colspan='3'>No se encontraron usuarios.</td></tr>";
+            <?php
+        if ($resultado_usuarios->num_rows > 0) {
+            while ($fila = $resultado_usuarios->fetch_assoc()) {
+                // Verificar si el tipo de usuario es "tatuador" o "admin"
+                if ($fila['tipo_usuario'] === 'tatuador' || $fila['tipo_usuario'] === 'admin') {
+                    echo "<tr>";
+                    echo "<td>" . $fila['id'] . "</td>";
+                    echo "<td>" . $fila['username'] . "</td>";
+                    echo "<td>" . $fila['tipo_usuario'] . "</td>";
+                    echo "</tr>";
                 }
-                ?>
+            }
+        } else {
+            echo "<tr><td colspan='3'>No se encontraron usuarios.</td></tr>";
+        }
+        ?>
              </tbody>
         </table>
 
