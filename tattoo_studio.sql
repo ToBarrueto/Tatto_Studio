@@ -1,3 +1,4 @@
+
 --
 -- Base de datos: `tattoo_studio`
 --
@@ -31,7 +32,23 @@ CREATE TABLE `citas` (
 
 INSERT INTO `citas` (`id`, `cliente_id`, `usuario_id`, `nombre_cliente`, `telefono`, `correo`, `imagen_referencia`, `alto`, `ancho`, `color`, `hora_disponible_id`, `cotizacion`, `comision`, `precio_total`) VALUES
 (14, 1, 3, 'Tomas Barrueto', '963431289', 'tomas.barra.barrueto@gmail.com', 'a0f8833fa7f43399b77dd3efefc7ee0a.jpg', 8.00, 8.00, 'si', 21, 38400, 7680, 46080),
-(15, 18, 3, 'Roronoa Zoro', '954236874', 'roronoaz@gmail.com', '60a3cf3d97c568147ac99475d1580038.png', 8.00, 12.00, 'si', 22, 60480, 12096, 72576);
+(15, 18, 3, 'Roronoa Zoro', '954236874', 'roronoaz@gmail.com', 'valorant-logo-transparent-free-png.webp', 8.00, 12.00, 'si', 22, 60480, 12096, 72576),
+(16, 19, 4, 'Bob Esponja', '123456789', 'bob.esponja@gmail.com', 'valorant-logo-transparent-free-png.webp', 10.00, 10.00, 'si', 46, 60000, 12000, 72000),
+(18, 20, 4, 'Homer Simpson', '987654321', 'homer.simpson@gmail.com', 'valorant-logo-transparent-free-png.webp', 15.00, 12.00, 'si', 65, 97200, 19440, 116640),
+(19, 21, 7, 'Kakaroto ', '111222333', 'goku@gmail.com', 'valorant-logo-transparent-free-png.webp', 20.00, 15.00, 'no', 47, 210000, 42000, 252000),
+(20, 22, 3, 'Peter Parker', '999888777', 'spiderman@gmail.com', 'valorant-logo-transparent-free-png.webp', 18.00, 10.00, 'si', 23, 113400, 22680, 136080),
+(21, 28, 6, 'Naruto Uzumaki', '555444333', 'naruto@gmail.com', 'valorant-logo-transparent-free-png.webp', 12.00, 8.00, 'si', 48, 69120, 13824, 82944),
+(22, 31, 6, 'Ironman', '222333444', 'ironman@gmail.com', 'valorant-logo-transparent-free-png.webp', 15.00, 10.00, 'si', 81, 108000, 21600, 129600),
+(23, 44, 7, 'Viuda Negra', '777888999', 'viuda.negra@gmail.com', 'valorant-logo-transparent-free-png.webp', 10.00, 8.00, 'no', 97, 56000, 11200, 67200),
+(24, 24, 4, 'Zabdi cofre', '987654321', 'zabdicofre@gmail.com', 'valorant-logo-transparent-free-png.webp', 15.00, 8.00, 'no', 66, 54000, 10800, 64800),
+(26, 25, 3, 'Mario Mario', '963431289', 'mariobros@gmail.com', 'valorant-logo-transparent-free-png.webp', 8.00, 8.00, 'no', 41, 33600, 6720, 40320),
+(27, 26, 4, 'Luigui Mario', '987654321', 'LuiguiBros@gmail.com', 'valorant-logo-transparent-free-png.webp', 7.00, 9.00, 'si', 67, 0, 0, 0),
+(28, 27, 6, 'Pichu Pikachu Raichu', '987654321', 'PikaPika@gmail.com', 'valorant-logo-transparent-free-png.webp', 16.00, 12.00, 'si', 82, 138240, 27648, 165888),
+(29, 29, 7, 'Sasuke Uchiha', '963891254', 'ClanUchihax100pre@gmail.com', 'valorant-logo-transparent-free-png.webp', 19.00, 12.00, 'no', 98, 159600, 31920, 191520),
+(30, 49, 3, 'Flash', '666777888', 'flash@gmail.com', 'valorant-logo-transparent-free-png.webp', 8.00, 6.00, 'si', 42, 30000, 6000, 36000),
+(31, 1, 3, 'Walala', '987654321', 'Walalin@gmail.com', 'valorant-logo-transparent-free-png.webp', 8.00, 15.00, 'si', 43, 75600, 15120, 90720),
+(32, 1, 6, 'Barsinson', '987654321', 'Barsinson@gmail.com', 'valorant-logo-transparent-free-png.webp', 23.00, 20.00, 'si', 83, 331200, 66240, 397440),
+(34, 24, 4, 'el barsison', '963431289', 'tomas.barra.barrueto@gmail.com', 'valorant-logo-transparent-free-png.webp', 13.00, 17.00, 'no', 114, 99450, 19890, 119340);
 
 -- --------------------------------------------------------
 
@@ -54,15 +71,72 @@ CREATE TABLE `horarios_disponibles` (
 INSERT INTO `horarios_disponibles` (`id`, `usuario_id`, `fecha`, `turno`, `estado`) VALUES
 (21, 3, '2024-04-23', 'pm', 'Tomada'),
 (22, 3, '2024-04-24', 'pm', 'Tomada'),
-(23, 3, '2024-04-25', 'pm', 'Disponible'),
-(41, 3, '2024-04-26', 'am', 'Disponible'),
-(42, 3, '2024-04-27', 'am', 'Disponible'),
-(43, 3, '2024-04-28', 'am', 'Disponible'),
+(23, 3, '2024-04-25', 'pm', 'Tomada'),
+(41, 3, '2024-04-26', 'am', 'Tomada'),
+(42, 3, '2024-04-27', 'am', 'Tomada'),
+(43, 3, '2024-04-28', 'am', 'Tomada'),
 (44, 3, '2024-04-29', 'am', 'Disponible'),
 (45, 3, '2024-04-30', 'am', 'Disponible'),
-(46, 4, '2024-04-26', 'am', 'Disponible'),
-(47, 7, '2024-04-26', 'am', 'Disponible'),
-(48, 6, '2024-04-26', 'am', 'Disponible');
+(46, 4, '2024-04-26', 'am', 'Tomada'),
+(47, 7, '2024-04-26', 'am', 'Tomada'),
+(48, 6, '2024-04-26', 'am', 'Tomada'),
+(51, 3, '2024-05-01', 'am', 'Disponible'),
+(53, 3, '2024-05-02', 'am', 'Disponible'),
+(55, 3, '2024-05-03', 'am', 'Disponible'),
+(58, 3, '2024-05-04', 'pm', 'Disponible'),
+(59, 3, '2024-05-05', 'am', 'Disponible'),
+(62, 3, '2024-05-06', 'pm', 'Disponible'),
+(63, 3, '2024-05-07', 'am', 'Disponible'),
+(65, 4, '2024-04-30', 'am', 'Tomada'),
+(66, 4, '2024-04-30', 'pm', 'Tomada'),
+(67, 4, '2024-05-01', 'am', 'Tomada'),
+(68, 4, '2024-05-01', 'pm', 'Disponible'),
+(69, 4, '2024-05-02', 'am', 'Disponible'),
+(70, 4, '2024-05-02', 'pm', 'Disponible'),
+(71, 4, '2024-05-03', 'am', 'Disponible'),
+(72, 4, '2024-05-03', 'pm', 'Disponible'),
+(73, 4, '2024-05-04', 'am', 'Disponible'),
+(74, 4, '2024-05-04', 'pm', 'Disponible'),
+(75, 4, '2024-05-05', 'am', 'Disponible'),
+(76, 4, '2024-05-05', 'pm', 'Disponible'),
+(77, 4, '2024-05-06', 'am', 'Disponible'),
+(78, 4, '2024-05-06', 'pm', 'Disponible'),
+(79, 4, '2024-05-07', 'am', 'Disponible'),
+(80, 4, '2024-05-07', 'pm', 'Disponible'),
+(81, 6, '2024-04-30', 'am', 'Tomada'),
+(82, 6, '2024-04-30', 'pm', 'Tomada'),
+(83, 6, '2024-05-01', 'am', 'Tomada'),
+(84, 6, '2024-05-01', 'pm', 'Disponible'),
+(85, 6, '2024-05-02', 'am', 'Disponible'),
+(86, 6, '2024-05-02', 'pm', 'Disponible'),
+(87, 6, '2024-05-03', 'am', 'Disponible'),
+(88, 6, '2024-05-03', 'pm', 'Disponible'),
+(89, 6, '2024-05-04', 'am', 'Disponible'),
+(90, 6, '2024-05-04', 'pm', 'Disponible'),
+(91, 6, '2024-05-05', 'am', 'Disponible'),
+(92, 6, '2024-05-05', 'pm', 'Disponible'),
+(93, 6, '2024-05-06', 'am', 'Disponible'),
+(94, 6, '2024-05-06', 'pm', 'Disponible'),
+(95, 6, '2024-05-07', 'am', 'Disponible'),
+(96, 6, '2024-05-07', 'pm', 'Disponible'),
+(97, 7, '2024-04-30', 'am', 'Tomada'),
+(98, 7, '2024-04-30', 'pm', 'Tomada'),
+(99, 7, '2024-05-01', 'am', 'Disponible'),
+(100, 7, '2024-05-01', 'pm', 'Disponible'),
+(101, 7, '2024-05-02', 'am', 'Disponible'),
+(102, 7, '2024-05-02', 'pm', 'Disponible'),
+(103, 7, '2024-05-03', 'am', 'Disponible'),
+(104, 7, '2024-05-03', 'pm', 'Disponible'),
+(105, 7, '2024-05-04', 'am', 'Disponible'),
+(106, 7, '2024-05-04', 'pm', 'Disponible'),
+(107, 7, '2024-05-05', 'am', 'Disponible'),
+(108, 7, '2024-05-05', 'pm', 'Disponible'),
+(109, 7, '2024-05-06', 'am', 'Disponible'),
+(110, 7, '2024-05-06', 'pm', 'Disponible'),
+(111, 7, '2024-05-07', 'am', 'Disponible'),
+(112, 7, '2024-05-07', 'pm', 'Disponible'),
+(113, 66, '2024-04-29', 'am', 'Tomada'),
+(114, 4, '2024-03-05', 'am', 'Tomada');
 
 -- --------------------------------------------------------
 
@@ -127,7 +201,7 @@ CREATE TABLE `tatuadores` (
 
 INSERT INTO `tatuadores` (`id`, `usuario_id`, `nombre`, `descripcion`, `imagen_perfil`, `estilos`, `precioBase`) VALUES
 (6, 3, 'Juan Carlos Bodoque', 'cobro baratito ugu ugu ugu', '../assets/imgtatuador1.jpg', 'Paneles,Anime.', 525),
-(7, 4, 'Nikko Hurtado', 'Especializado en tatuajes de estilo geométrico y minimalista.', '../assets/img/tatuador2.jpg', 'Geometrico, Minimalista', 450),
+(7, 4, 'Nikko Hurtado', 'Especializado en tatuajes de estilo geométrico y minimalista.', '../assets/imgftoperfil.jpg', 'Geometrico, Minimalista', 450),
 (8, 6, 'Oscar Akermo', 'Especializado en El estilo Japonés Tradicional.', '../assets/img/tatuador3.jpg', 'Japonés', 600),
 (9, 7, 'Luna Inkheart', 'Especializada en Retratos realistas y Black and grey.', '../assets/img/tatuador4.jpg', 'Realista, Black And Grey.', 700);
 
@@ -158,7 +232,55 @@ INSERT INTO `usuarios` (`id`, `username`, `password`, `tipo_usuario`) VALUES
 (10, 'cliente', '1', 'cliente'),
 (13, 'cliente tomas', '1', 'cliente'),
 (16, 'luffy', '1', 'cliente'),
-(18, 'zoro', '1', 'cliente');
+(18, 'zoro', '1', 'cliente'),
+(19, 'Bob_Esponja', '1', 'cliente'),
+(20, 'Homer_Simpson', '1', 'cliente'),
+(21, 'Goku', '1', 'cliente'),
+(22, 'Spiderman', '1', 'cliente'),
+(23, 'Batman', '1', 'cliente'),
+(24, 'Harry_Potter', '1', 'cliente'),
+(25, 'Mario', '1', 'cliente'),
+(26, 'Luigi', '1', 'cliente'),
+(27, 'Pikachu', '1', 'cliente'),
+(28, 'Naruto_Uzumaki', '1', 'cliente'),
+(29, 'Sasuke_Uchiha', '1', 'cliente'),
+(30, 'Capitan_America', '1', 'cliente'),
+(31, 'Ironman', '1', 'cliente'),
+(32, 'Thor', '1', 'cliente'),
+(33, 'Wolverine', '1', 'cliente'),
+(34, 'Deadpool', '1', 'cliente'),
+(35, 'Darth_Vader', '1', 'cliente'),
+(36, 'Yoda', '1', 'cliente'),
+(37, 'Obi_Wan_Kenobi', '1', 'cliente'),
+(38, 'Anakin_Skywalker', '1', 'cliente'),
+(39, 'Darth_Maul', '1', 'cliente'),
+(40, 'Frodo_Bolson', '1', 'cliente'),
+(41, 'Legolas', '1', 'cliente'),
+(42, 'Gandalf', '1', 'cliente'),
+(43, 'Hulk', '1', 'cliente'),
+(44, 'Viuda_Negra', '1', 'cliente'),
+(45, 'Thanos', '1', 'cliente'),
+(46, 'Capitan_Marvel', '1', 'cliente'),
+(47, 'Mujer_Maravilla', '1', 'cliente'),
+(48, 'Superman', '1', 'cliente'),
+(49, 'Flash', '1', 'cliente'),
+(50, 'Linterna_Verde', '1', 'cliente'),
+(51, 'Aquaman', '1', 'cliente'),
+(52, 'Shrek', '1', 'cliente'),
+(53, 'Burro', '1', 'cliente'),
+(54, 'Fiona', '1', 'cliente'),
+(55, 'Gato_con_Botas', '1', 'cliente'),
+(56, 'Sin_Dientes', '1', 'cliente'),
+(57, 'Hipo', '1', 'cliente'),
+(58, 'Stitch', '1', 'cliente'),
+(59, 'Lilo', '1', 'cliente'),
+(60, 'Buzz_Lightyear', '1', 'cliente'),
+(61, 'Woody', '1', 'cliente'),
+(62, 'Sullivan', '1', 'cliente'),
+(63, 'Mike_Wazowski', '1', 'cliente'),
+(64, 'Dory', '1', 'cliente'),
+(65, 'Nemo', '1', 'cliente'),
+(66, 'tomasito', '1', 'tatuador');
 
 --
 -- Índices para tablas volcadas
@@ -208,13 +330,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT de la tabla `horarios_disponibles`
 --
 ALTER TABLE `horarios_disponibles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
 --
 -- AUTO_INCREMENT de la tabla `portafolio`
@@ -226,13 +348,13 @@ ALTER TABLE `portafolio`
 -- AUTO_INCREMENT de la tabla `tatuadores`
 --
 ALTER TABLE `tatuadores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- Restricciones para tablas volcadas
@@ -264,3 +386,4 @@ ALTER TABLE `portafolio`
 ALTER TABLE `tatuadores`
   ADD CONSTRAINT `tatuadores_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`);
 COMMIT;
+
