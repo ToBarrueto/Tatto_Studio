@@ -386,4 +386,3 @@ ALTER TABLE `portafolio`
 ALTER TABLE `tatuadores`
   ADD CONSTRAINT `tatuadores_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`);
 COMMIT;
-

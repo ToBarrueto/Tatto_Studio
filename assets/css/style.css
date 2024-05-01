@@ -18,28 +18,7 @@
 }
 
 
-.navbar-nav .nav-link {
-    color: white;
-    font-size: 26px;
-    font-family: "Grenze Gotisch", serif;
-}
-
-.navbar-nav .nav-link.btn:hover {
-    color: #f3db96;
-}
-
-.navbar-nav .nav-link.btn {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: 1px solid rgba(0, 0, 0, 0.99);
-    border-radius: 5px;
-    padding: 8px 16px;
-}
-
-.navbar-light .navbar-toggler {
-    background-color: #ffffff;
-    border-color: #ffffff;
-}
+    
 
 .carousel-text {
     text-align: center;
