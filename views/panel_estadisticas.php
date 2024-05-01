@@ -157,7 +157,71 @@ session_start();
                         );
                     }
 
-        
+                    $sql = "SELECT MONTH(hd.fecha) AS mes, SUM(c.precio_total) AS ingresos_por_mes
+                            FROM citas c
+                            INNER JOIN horarios_disponibles hd ON c.hora_disponible_id = hd.id
+                            GROUP BY mes
+                            ORDER BY mes";
+                    $resultado = mysqli_query($conexion, $sql);
+
+                    // Inicializar el array de datos de ingresos por mes
+                    $datos_ingresos_mes = array();
+
+                    // Recorrer los resultados y almacenarlos en el array
+                    while ($fila = mysqli_fetch_assoc($resultado)) {
+                        // Obtener el nombre del mes a partir del número del mes
+                        $nombre_mes = date("F", mktime(0, 0, 0, $fila['mes'], 1));
+                        
+                        // Almacenar los ingresos por mes en el array
+                        $datos_ingresos_mes[$nombre_mes] = $fila['ingresos_por_mes'];
+                    }
+
+
+                    $sql = "SELECT MONTH(hd.fecha) AS mes, SUM(c.comision) AS comision_por_mes
+                            FROM citas c
+                            INNER JOIN horarios_disponibles hd ON c.hora_disponible_id = hd.id
+                            GROUP BY mes
+                            ORDER BY mes";
+                    $resultado = mysqli_query($conexion, $sql);
+
+                    // Inicializar el array de datos de ingresos por mes
+                    $datos_comision_mes = array();
+
+                    // Recorrer los resultados y almacenarlos en el array
+                    while ($fila = mysqli_fetch_assoc($resultado)) {
+                        // Obtener el nombre del mes a partir del número del mes
+                        $nombre_mes = date("F", mktime(0, 0, 0, $fila['mes'], 1));
+                        
+                        // Almacenar las comisiones por mes en el array
+                        $datos_comision_mes[$nombre_mes] = $fila['comision_por_mes'];
+                    }
+
+                    $sql = "SELECT SUM(precio_total) AS ganancia_total FROM citas";
+
+                    // Ejecutar la consulta
+                    $result = $conexion->query($sql);
+
+                    // Procesar los resultados
+                    $ganancia_total = 0;
+                    if ($result->num_rows > 0) {
+                        $row = $result->fetch_assoc();
+                        $ganancia_total = $row["ganancia_total"];
+                    }
+
+                    $sql = "SELECT SUM(comision) AS comision_total FROM citas";
+
+                    // Ejecutar la consulta
+                    $result = $conexion->query($sql);
+
+                    // Procesar los resultados
+                    $comision_total = 0;
+                    if ($result->num_rows > 0) {
+                        $row = $result->fetch_assoc();
+                        $comision_total = $row["comision_total"];
+                    }
+
+
+
 
 
                         
@@ -204,20 +268,27 @@ session_start();
 
                             <!-- Columna izquierda -->
                             <h2 class="mt-4">Estadisticas del estudio</h2>
-                            <div class="col-md-4 mt-4 text-center">
-                                <h3>Distribucion de Citas</h3>
-                                <canvas id="graficoHorasTomadas" width="400" height="400"></canvas>
+                            <div class="col-md-3 mt-4 text-center">
+                                <h3>Ingresos Mensuales</h3>
+                                <canvas id="ingresosPorMesChart" width="300" height="300"></canvas>
                             </div>
                             <!-- Columna derecha -->
-                            <div class="col-md-4 mt-4 text-center">
-                                <h3>Desglose de Ganancias</h3>
-                                <canvas id="graficoDineroGenerado" width="400" height="400"></canvas>
+                            <div class="col-md-3 mt-4 text-center">
+                                <h3>Ganancia Mensual</h3>
+                                <canvas id="graficoComisiones" width="300" height="300"></canvas>
                             </div>
 
-                            <div class="col-md-4 mt-4 text-center">
-                                <h3>Ganancia del estudio</h3>
-                                <canvas id="graficoGananciaTotal" width="400" height="400"></canvas>
+                            <div class="col-md-3 mt-4 text-center">
+                                <h3>Ingresos Totales</h3>
+                                <canvas id="graficoGananciaTotal" width="300" height="300"></canvas>
                             </div>
+
+                            <div class="col-md-3 mt-4 text-center">
+                                <h3>Ganancia Total</h3>
+                                <canvas id="graficoComisionTotal" width="300" height="300"></canvas>
+                            </div>
+
+
                         </div>
 
                         
@@ -236,6 +307,9 @@ session_start();
     </script>
     <script src="../assets/js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+
+
     <script>
     var ctx = document.getElementById('graficoHorasTomadas').getContext('2d');
     var data = <?php echo json_encode($datos_tatuadores1); ?>;
@@ -353,7 +427,7 @@ session_start();
     }
 
     var myChart = new Chart(ctx, {
-        type: 'bar',
+        type: 'line',
         data: {
             labels: tatuadores,
             datasets: [{
@@ -427,6 +501,187 @@ session_start();
         }
     });
 </script>
+
+<script>
+        // Obtener el contexto del canvas
+        var ctx = document.getElementById('ingresosPorMesChart').getContext('2d');
+
+        // Datos de ingresos por mes (obtenidos desde PHP)
+        var datosIngresosMes = <?php echo json_encode($datos_ingresos_mes); ?>;
+
+        // Nombres de los meses
+        var meses = Object.keys(datosIngresosMes);
+
+        // Valores de los ingresos por mes
+        var ingresosPorMes = Object.values(datosIngresosMes);
+
+        // Crear el gráfico de barras
+        var ingresosPorMesChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: meses,
+                datasets: [{
+                    label: 'Ingresos por Mes',
+                    data: ingresosPorMes,
+                    backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 159, 64, 0.6)',
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 159, 64, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+
+<script>
+        // Obtener el contexto del lienzo para el gráfico
+        var ctx = document.getElementById('graficoComisiones').getContext('2d');
+
+        // Datos para el gráfico (nombres de los meses y comisiones por mes)
+        var nombresMeses = <?php echo json_encode(array_keys($datos_comision_mes)); ?>;
+        var comisionesPorMes = <?php echo json_encode(array_values($datos_comision_mes)); ?>;
+
+        // Crear el gráfico de barras
+        var graficoComisiones = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: nombresMeses,
+                datasets: [{
+                    label: 'Comisiones por Mes',
+                    data: comisionesPorMes,
+                    backgroundColor: [
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 159, 64, 0.6)',
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(255, 159, 64, 0.6)'
+                ],
+                borderColor: [
+
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 159, 64, 0.6)',
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(255, 159, 64, 0.6)'
+                ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+<script>
+    var ctx3 = document.getElementById('graficoGananciaTotal').getContext('2d');
+    var gananciaData = <?php echo $ganancia_total; ?>;
+    var myChart3 = new Chart(ctx3, {
+        type: 'bar',
+        data: {
+            labels: ['Ingresos Totales'],
+            datasets: [{
+                label: 'Ingreso Total del Estudio',
+                data: [gananciaData],
+                backgroundColor: [
+                    'rgba(255, 49, 11, 0.7)'
+                ],
+                borderColor: [
+                    'rgba(255, 122, 122, 0.1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Ingresos Total del Estudio'
+            }
+        }
+    });
+</script>
+
+<script>
+    var ctx3 = document.getElementById('graficoComisionTotal').getContext('2d');
+    var gananciaData = <?php echo $comision_total; ?>;
+    var myChart3 = new Chart(ctx3, {
+        type: 'bar',
+        data: {
+            labels: ['Ganancia Total'],
+            datasets: [{
+                label: 'Ganancia Total del Estudio',
+                data: [gananciaData],
+                backgroundColor: [
+                    'rgba(0, 147, 11, 0.7)'
+                ],
+                borderColor: [
+                    'rgba(255, 122, 122, 0.1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Ganancia Total del Estudio'
+            }
+        }
+    });
+</script>
+
 
 </body>
 

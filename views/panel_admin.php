@@ -241,22 +241,31 @@ session_start();
 
                     <div class="container">
                         <div class="row">
-                            <!-- Columna izquierda -->
-                            
-                            <div class="col-md-4 text-center">
-                                <h3>Distribucion de Citas</h3>
-                                <canvas id="graficoHorasTomadas" width="400" height="400"></canvas>
-                            </div>
-                            <!-- Columna derecha -->
-                            <div class="col-md-4 text-center">
-                                <h3>Desglose de Ganancias</h3>
-                                <canvas id="graficoDineroGenerado" width="400" height="400"></canvas>
+
+                        <div class="col-md-2 text-center">
+                               
+                                <canvas id="g" width="250" height="250"></canvas>
                             </div>
 
+                            <!-- Columna izquierda -->
                             <div class="col-md-4 text-center">
                                 <h3>Ganancia del estudio</h3>
-                                <canvas id="graficoGananciaTotal" width="400" height="400"></canvas>
+                                <canvas id="graficoGananciaTotal" width="250" height="250"></canvas>
                             </div>
+                            
+                            
+                            <!-- Columna derecha -->
+                            <div class="col-md-4 ml-2 text-center">
+                                <h3>Desglose de Ganancias</h3>
+                                <canvas id="graficoDineroGenerado" width="250" height="250"></canvas>
+                            </div>
+
+                            <div class="col-md-2 text-center">
+                               
+                                <canvas id="g" width="250" height="250"></canvas>
+                            </div>
+
+                           
                         </div>
                     </div>
 
