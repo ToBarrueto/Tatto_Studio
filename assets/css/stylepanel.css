@@ -275,6 +275,13 @@ a.sidebar-link:hover {
     border-bottom-right-radius: 16px; /* Para que el borde derecho tenga la misma curvatura que la tarjeta */
 }
 
+.card-2{
+    background-color: #f4f4f4;
+    margin-bottom: 20px;
+    border: 1px solid #020202;
+    border-radius: 16px;
+
+}
 
 
 
