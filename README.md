@@ -1,1 +1,0 @@
-# Tatto_Studio
