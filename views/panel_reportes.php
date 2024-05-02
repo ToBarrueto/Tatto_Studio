@@ -23,7 +23,7 @@ session_start();
 
 <body>
     <div class="wrapper">
-        <aside id="sidebar">
+    <aside id="sidebar">
             <div class="d-flex">
                 <button class="toggle-btn" type="button">
                     <i class="lni lni-grid-alt"></i>
@@ -43,38 +43,38 @@ session_start();
 
                 <li class="sidebar-item">
                     <a href="panel_crearusuario.php" class="sidebar-link">
-                        <i class="lni lni-circle-plus"></i>
+                    <i class="lni lni-circle-plus"></i>
                         <span>Crear usuario</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a href="panel_agregartrabajador.php" class="sidebar-link">
-                        <i class="lni lni-users"></i>
+                    <i class="lni lni-users"></i>
                         <span>Registrar trabajador</span>
                     </a>
                 </li>
 
-
+                
 
                 <li class="sidebar-item">
                     <a href="panel_trabajadores.php" class="sidebar-link">
-
-                        <i class="lni lni-network"></i>
+                    
+                    <i class="lni lni-network"></i>
                         <span> Ver Trabajadores</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a href="panel_estadisticas.php" class="sidebar-link">
-                        <i class="lni lni-bar-chart"></i>
+                    <i class="lni lni-bar-chart"></i>
                         <span>Estadisticas</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a href="panel_reportes.php" class="sidebar-link">
-                        <i class="lni lni-clipboard"></i>
+                    <i class="lni lni-clipboard"></i>
                         <span>Reportes</span>
                     </a>
                 </li>
@@ -90,111 +90,23 @@ session_start();
 
 
         <div class="main">
+           
+
             <main class="content px-3 py-4">
                 <div class="container-fluid">
                     <div class="mb-3">
 
-                        <h1>Reportes</h1>
+                        <h3>Reportes</h3>
+                        
 
-                        <div class="container text-center mt-4">
-
-                            <div class="container text-center">
-                                <div class="row g-5">
-
-                                    <div class="col-6">
-                                        <div class="card-2">
-                                            <h3 class="mt-4 mb-4">Generar Reporte Mensual de Desempeño</h3>
-                                            <form class="mb-4" action="generar_reporte.php" method="GET" target="_blank">
-                                                <label for="mes">Mes:</label>
-                                                <select name="mes" id="mes">
-                                                    <option value="1">Enero</option>
-                                                    <option value="2">Febrero</option>
-                                                    <option value="3">Marzo</option>
-                                                    <option value="4">Abril</option>
-                                                    <option value="5">Mayo</option>
-                                                    <option value="6">Junio</option>
-                                                    <option value="7">Julio</option>
-                                                    <option value="8">Agosto</option>
-                                                    <option value="9">Septiembre</option>
-                                                    <option value="10">Octubre</option>
-                                                    <option value="11">Noviembre</option>
-                                                    <option value="12">Diciembre</option>
-                                                </select>
-                                                <label for="año">Año:</label>
-                                                <input type="number" name="año" id="año" min="1900" max="2100"
-                                                    value="<?php echo date('Y'); ?>">
-                                                    <div class="mt-3">
-                                                        <button type="submit" class="btn btn-dark">Generar Reporte PDF</button>
-                                                    </div>
-                                            </form>
-                                        </div>                                  
-                                    </div>
-
-                                    <div class="col-6">
-                                        <div class="card-2">
-                                            <h3 class="mt-4 mb-4">Generar Reporte Anual de Desempeño</h3>
-                                            <form class="mb-4" action="generar_reporte_AD.php" method="GET" target="_blank">
-                                                
-                                                <label for="año">Año:</label>
-                                                <input type="number" name="año" id="año" min="1900" max="2100"
-                                                    value="<?php echo date('Y'); ?>">
-                                                    <div class="mt-3">
-                                                        <button type="submit" class="btn btn-dark">Generar Reporte PDF</button>
-                                                    </div>
-                                            </form>
-                                        </div>                                  
-                                    </div>
-
-                                    <div class="col-6">
-                                        <div class="card-2">
-                                            <h3 class="mt-4 mb-4">Generar Reporte Mensual de Ganancias</h3>
-                                            <form class="mb-4" action="generar_reporte.php" method="GET" target="_blank">
-                                                <label for="mes">Mes:</label>
-                                                <select name="mes" id="mes">
-                                                    <option value="1">Enero</option>
-                                                    <option value="2">Febrero</option>
-                                                    <option value="3">Marzo</option>
-                                                    <option value="4">Abril</option>
-                                                    <option value="5">Mayo</option>
-                                                    <option value="6">Junio</option>
-                                                    <option value="7">Julio</option>
-                                                    <option value="8">Agosto</option>
-                                                    <option value="9">Septiembre</option>
-                                                    <option value="10">Octubre</option>
-                                                    <option value="11">Noviembre</option>
-                                                    <option value="12">Diciembre</option>
-                                                </select>
-                                                <label for="año">Año:</label>
-                                                <input type="number" name="año" id="año" min="1900" max="2100"
-                                                    value="<?php echo date('Y'); ?>">
-                                                    <div class="mt-3">
-                                                        <button  type="submit" class="btn btn-dark">Generar Reporte PDF</button>
-                                                    </div>
-                                            </form>
-                                        </div>                                  
-                                    </div>
-
-                                    <div class="col-6">
-                                        <div class="card-2">
-                                            <h3 class="mt-4 mb-4">Generar Reporte Anual de Ganancias</h3>
-                                            <form class="mb-4" action="generar_reporte.php" method="GET" target="_blank">
-                                                <label for="año">Año:</label>
-                                                <input type="number" name="año" id="año" min="1900" max="2100"
-                                                    value="<?php echo date('Y'); ?>">
-                                                    <div class="mt-3">
-                                                        <button type="submit" class="btn btn-dark">Generar Reporte PDF</button>
-                                                    </div>
-                                            </form>
-                                        </div>                                  
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
                     </div>
+
+                        
+
                 </div>
         </div>
-        </main>
+    </div>
+    </main>
     </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
