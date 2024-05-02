@@ -58,14 +58,6 @@ session_start();
 
 
                 <li class="sidebar-item">
-                    <a href="panel_trabajadores.php" class="sidebar-link">
-
-                        <i class="lni lni-network"></i>
-                        <span> Ver Trabajadores</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
                     <a href="panel_estadisticas.php" class="sidebar-link">
                         <i class="lni lni-bar-chart"></i>
                         <span>Estadisticas</span>
@@ -90,13 +82,18 @@ session_start();
 
         <main class="main">
 
-            
-
-
-            <div class="content px-3 py-4">
+        <main class="content px-3 py-4">
                 <div class="container-fluid">
                     <div class="mb-3">
-                        <h3 >Registrar Trabajadores</h3>
+
+
+
+
+           
+                <div class="container">
+                    <div class="row gx-5">
+                    <div class="col-6 col-md-4 card-2 ml-4">
+                    <h3 class="mt-2" >Registrar Trabajadores</h3>
                         <form action="agregar_trabajador.php" method="POST" enctype="multipart/form-data">
                             <div class="mb-2 mt-4">
                                 <label for="nombre" class="form-label">Nombre:</label>
@@ -127,9 +124,69 @@ session_start();
                                     <option value="perforador">Perforador</option>
                                 </select>
                             </div>
+                            <div class="text-center mb-3">
                             <button type="submit" class="btn btn-primary mt-2">Agregar Usuario</button>
+                            </div>
                         </form>
+                        </div>
+                        
+                        <div class=" col-md-8 text-center">
+
+                                <h3 class="mb-5">Trabajadores del estudio</h3>
+
+                                <?php
+                                    // Incluir el archivo de conexión a la base de datos
+                                    include '../conexion.php';
+
+                                    // Realizar la consulta para obtener todos los tatuadores
+                                    $sql = "SELECT * FROM tatuadores";
+                                    $resultado = $conexion->query($sql);
+
+                                    // Verificar si hay resultados
+                                    if ($resultado->num_rows > 0) {
+                                        // Mostrar una tabla HTML con la información de cada tatuador
+                                        echo "<h5>Tatuadores</h5>";
+                                        echo "<div class='table-responsive'>";
+                                        echo "<table class='table table-striped table-bordered'>";
+                                        echo "<thead>";
+                                        echo "<tr>";
+                                        echo "<th>Nombre</th>";
+                                        echo "<th>Descripción</th>";
+                                        echo "<th>Estilos</th>";
+                                        echo "<th>Acciones</th>"; // Columna para acciones
+                                        echo "</tr>";
+                                        echo "</thead>";
+                                        echo "<tbody>";
+                                        while ($row = $resultado->fetch_assoc()) {
+                                            echo "<tr>";
+                                            echo "<td>" . $row['nombre'] . "</td>";
+                                            echo "<td>" . $row['descripcion'] . "</td>";
+                                            echo "<td>" . $row['estilos'] . "</td>";
+                                            echo "<td>"; // Inicio de la celda de acciones
+                                            echo "<form action='eliminar_trabajador.php' method='POST'>";
+                                            echo "<input type='hidden' name='id_usuario' value='" . $row['usuario_id'] . "'>";
+                                            echo "<button type='submit' class='btn btn-danger' onclick='return confirm(\"¿Estás seguro de que quieres eliminar a este usuario?\")'><i class='lni lni-trash-can'></i></button>";
+                                            echo "</form>";
+                                            echo "</td>"; // Fin de la celda de acciones
+                                            echo "</tr>";
+                                        }
+                                        echo "</tbody>";
+                                        echo "</table>";
+                                        echo "</div>";
+                                    } else {
+                                        echo "<p class='text-muted'>No se encontraron tatuadores.</p>";
+                                    }
+
+                                    // Cerrar la conexión a la base de datos
+                                    $conexion->close();
+                                ?>
+
+
+                        </div>
                     </div>
+
+                   
+                    
                 </div>
             </div>
         </main>

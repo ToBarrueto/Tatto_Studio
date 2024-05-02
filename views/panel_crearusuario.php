@@ -23,7 +23,7 @@ session_start();
 
 <body>
     <div class="wrapper">
-    <aside id="sidebar">
+        <aside id="sidebar">
             <div class="d-flex">
                 <button class="toggle-btn" type="button">
                     <i class="lni lni-grid-alt"></i>
@@ -43,38 +43,29 @@ session_start();
 
                 <li class="sidebar-item">
                     <a href="panel_crearusuario.php" class="sidebar-link">
-                    <i class="lni lni-circle-plus"></i>
+                        <i class="lni lni-circle-plus"></i>
                         <span>Crear usuario</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a href="panel_agregartrabajador.php" class="sidebar-link">
-                    <i class="lni lni-users"></i>
+                        <i class="lni lni-users"></i>
                         <span>Registrar trabajador</span>
                     </a>
                 </li>
 
-                
-
-                <li class="sidebar-item">
-                    <a href="panel_trabajadores.php" class="sidebar-link">
-                    
-                    <i class="lni lni-network"></i>
-                        <span> Ver Trabajadores</span>
-                    </a>
-                </li>
 
                 <li class="sidebar-item">
                     <a href="panel_estadisticas.php" class="sidebar-link">
-                    <i class="lni lni-bar-chart"></i>
+                        <i class="lni lni-bar-chart"></i>
                         <span>Estadisticas</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a href="panel_reportes.php" class="sidebar-link">
-                    <i class="lni lni-clipboard"></i>
+                        <i class="lni lni-clipboard"></i>
                         <span>Reportes</span>
                     </a>
                 </li>
@@ -90,83 +81,91 @@ session_start();
 
 
         <div class="main">
-           
+
 
             <main class="content px-3 py-4">
                 <div class="container-fluid">
                     <div class="mb-3">
 
                         <h3> Crear usuarios</h3>
-                        
+
                         <?php
-// Incluir el archivo de conexión a la base de datos
-include '../conexion.php';
+                            // Incluir el archivo de conexión a la base de datos
+                            include '../conexion.php';
 
-// Obtener todos los usuarios registrados
-$sql_usuarios = "SELECT * FROM usuarios";
-$resultado_usuarios = $conexion->query($sql_usuarios);
-?>
-
-
-    <div class="container mt-5">
+                            // Obtener todos los usuarios registrados
+                            $sql_usuarios = "SELECT * FROM usuarios";
+                            $resultado_usuarios = $conexion->query($sql_usuarios);
+                            ?>
 
 
-    <h5 class="mt-3 mb-3">Agregar Nuevo Usuario</h5>
-        <form action="crear_usuario.php" method="POST">
-            <div  class="form-group mt-3 mb-3">
-                <label for="username">Nombre de usuario:</label>
-                <input type="text" name="username" id="username" class="form-control" required>
-            </div>
-            <div class="form-group mt-3 mb-3">
-                <label for="password">Contraseña:</label>
-                <input type="password" name="password" id="password" class="form-control" required>
-            </div>
-            <div class="form-group mt-3 mb-3">
-                <label for="tipo_usuario">Tipo de usuario:</label>
-                <select name="tipo_usuario" id="tipo_usuario" class="form-control" required>
-                    <option value="cliente">Cliente</option>
-                    <option value="tatuador">Tatuador</option>
-                    <option value="admin">Administrador</option>
-                </select>
-            </div>
-            <!-- Otros campos del usuario si es necesario -->
-            <button type="submit" class="btn btn-primary">Agregar Usuario</button>
-        </form>
+                        <div class="container mt-5">
+                            <div class="row g-5 ">
+                                <div class="card-2 col-6 col-md-4">
+                                    <div>
+                                        <h5 class="mt-3 mb-3">Agregar Nuevo Usuario</h5>
+                                        <form action="crear_usuario.php" method="POST">
+                                            <div class="form-group mt-3 mb-3">
+                                                <label for="username">Nombre de usuario:</label>
+                                                <input type="text" name="username" id="username" class="form-control"
+                                                    required>
 
-        <HR></HR>
-        <h5 class="mt-3 mb-3">Usuarios Registrados</h5>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre de usuario</th>
-                    <th>Tipo de usuario</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php
-        if ($resultado_usuarios->num_rows > 0) {
-            while ($fila = $resultado_usuarios->fetch_assoc()) {
-                // Verificar si el tipo de usuario es "tatuador" o "admin"
-                if ($fila['tipo_usuario'] === 'tatuador' || $fila['tipo_usuario'] === 'admin') {
-                    echo "<tr>";
-                    echo "<td>" . $fila['id'] . "</td>";
-                    echo "<td>" . $fila['username'] . "</td>";
-                    echo "<td>" . $fila['tipo_usuario'] . "</td>";
-                    echo "</tr>";
-                }
-            }
-        } else {
-            echo "<tr><td colspan='3'>No se encontraron usuarios.</td></tr>";
-        }
-        ?>
-             </tbody>
-        </table>
+                                            </div>
+                                            <div class="form-group mt-3 mb-3">
+                                                <label for="password">Contraseña:</label>
+                                                <input type="password" name="password" id="password"
+                                                    class="form-control" required>
+                                            </div>
+                                            <div class="form-group mt-3 mb-3">
+                                                <label for="tipo_usuario">Tipo de usuario:</label>
+                                                <select name="tipo_usuario" id="tipo_usuario" class="form-control"
+                                                    required>
+                                                    <option value="cliente">Cliente</option>
+                                                    <option value="tatuador">Tatuador</option>
+                                                    <option value="admin">Administrador</option>
+                                                </select>
+                                            </div>
+                                           <div class="text-center mb-3">
+                                            <button type="submit" class="btn btn-primary">Agregar Usuario</button>
+                                        </div>
+                                        </form>
 
-        <hr>
+                                    </div>
+                                </div>
 
-        
-    </div>
+                                <div class="col-sm-6 col-md-8">
+                                    <div>
+                                        <h5 class="mt-3 mb-3">Usuarios Registrados</h5>
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Nombre de usuario</th>
+                                                    <th>Tipo de usuario</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                            if ($resultado_usuarios->num_rows > 0) {
+                                                while ($fila = $resultado_usuarios->fetch_assoc()) {
+                                                    // Verificar si el tipo de usuario es "tatuador" o "admin"
+                                                    if ($fila['tipo_usuario'] === 'tatuador' || $fila['tipo_usuario'] === 'admin') {
+                                                        echo "<tr>";
+                                                        echo "<td>" . $fila['id'] . "</td>";
+                                                        echo "<td>" . $fila['username'] . "</td>";
+                                                        echo "<td>" . $fila['tipo_usuario'] . "</td>";
+                                                        echo "</tr>";
+                                                    }
+                                                }
+                                            } else {
+                                                echo "<tr><td colspan='3'>No se encontraron usuarios.</td></tr>";
+                                            }
+                                            ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
 </body>
 
 </html>
@@ -176,20 +175,11 @@ $resultado_usuarios = $conexion->query($sql_usuarios);
 $conexion->close();
 ?>
 
-                    </div>
 
-                        
-
-                </div>
-        </div>
-    </div>
-    </main>
-    </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
-    <script src="../assets/js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+<script src="../assets/js/script.js"></script>
 </body>
 
 </html>

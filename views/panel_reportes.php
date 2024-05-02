@@ -58,14 +58,6 @@ session_start();
 
 
                 <li class="sidebar-item">
-                    <a href="panel_trabajadores.php" class="sidebar-link">
-
-                        <i class="lni lni-network"></i>
-                        <span> Ver Trabajadores</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
                     <a href="panel_estadisticas.php" class="sidebar-link">
                         <i class="lni lni-bar-chart"></i>
                         <span>Estadisticas</span>
