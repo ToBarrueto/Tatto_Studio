@@ -1,0 +1,259 @@
+@import url('https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@100..900&family=Mina:wght@400;700&family=Staatliches&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.fondo {
+    background-color: #1F1F1F;
+}
+
+.logo {
+    width: 90px;
+
+}
+
+footer {
+    position: sticky;
+	background: #101010;
+	padding: 86px 0;
+    bottom: 0;
+    width: 100%;
+}
+.single-content {
+	text-align: center;
+	padding: 115px 0;
+}
+.single-box p {
+	color: #fff;
+	line-height: 1.9;
+}
+.single-box h3 {
+	font-size: 16px;
+	font-weight: 700;
+	color: #fff;
+}
+.single-box .card-area i {
+	color: #ffffff;
+	font-size: 20px;
+	margin-right: 10px;
+}
+.single-box ul {
+	list-style: none;
+	padding: 0;
+}
+.single-box ul li a {
+	text-decoration: none;
+	color: #fff;
+	line-height: 2.5;
+	font-weight: 100;
+}
+.single-box h2 {
+	color: #fff;
+	font-size: 20px;
+	font-weight: 700;
+}
+#basic-addon2 {
+	background: #fe1e4f;
+	color: #fff;
+}
+.socials i {
+	font-size: 18px;
+	margin-right: 15px;
+}
+.single-box i{
+    
+    color: #fff;
+}
+@media (max-width: 767px) {
+	.single-box {
+		margin-bottom: 50px;
+	}
+}
+@media (min-width: 768px) and (max-width: 991px) {
+	.single-box {
+		margin-bottom: 50px;
+	}
+}
+
+
+
+.navbar-nav .nav-link {
+    color: rgb(82, 82, 82);
+    font-size: 25px;
+    font-family: "Grenze Gotisch", serif;
+}
+
+
+.carousel-text {
+    text-align: center;
+    color: #fff;
+    margin-top: 150px;
+    font-family: "Grenze Gotisch", serif;
+}
+
+.carousel-text h5 {
+    font-size: 36px;
+    margin-bottom: 10px;
+    font-family: "Grenze Gotisch", serif;
+}
+
+.carousel-text p {
+    font-size: 18px;
+    margin-top: 20px;
+    font-family: "Grenze Gotisch", serif;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: 1px solid rgba(0, 0, 0, 0.99);
+    border-radius: 5px;
+    padding: 8px 16px;
+    margin-top: 150px;
+}
+
+
+.btn-carusel {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+    font-size: 16px !important;
+    color: white !important;
+    border: 1px solid #fff !important;
+    border-radius: 5px !important;
+    padding: 8px 16px !important;
+    margin-top: 10px !important;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-top: 20px;
+}
+
+.card {
+    background-color: rgba(0, 0, 0, 0.8) !important;
+    color: white !important;
+    font-family: "Grenze Gotisch", serif;
+    line-height: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    width: calc(25% - 20px);
+    /* Para mostrar 4 tarjetas por fila */
+    box-sizing: border-box;
+    /* Incluir padding y borde en el ancho */
+
+}
+
+.card-perfil {
+    background-color: rgba(238, 0, 0, 0.3) !important;
+    color: white !important;
+    font-family: "Grenze Gotisch", serif;
+    line-height: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-left: 100px;
+    margin-bottom: 50px;
+    width: calc(25% - 20px);
+    box-sizing: border-box;
+    /* Incluir padding y borde en el ancho */
+}
+
+.card-perfil img {
+    width: 100%;
+    /* La imagen ocupará el ancho completo del card */
+    height: auto;
+    /* La altura se ajustará automáticamente para mantener la proporción de aspecto */
+}
+
+
+.h1-custom {
+    font-family: "Grenze Gotisch", serif;
+    font-size: 50px;
+    color: white;
+    margin: 20px;
+    padding: 8px 8px;
+    
+
+
+}
+
+
+
+.btn-ver {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+    font-size: 16px !important;
+    color: white !important;
+    border: none !important;
+    border: 1px solid #fff !important;
+    border-radius: 5px !important;
+    padding: 8px 16px !important;
+    margin-top: 10px;
+    display: block;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card-perfil {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.portafolio {
+    display: flex;
+    flex-wrap: nowrap;
+    
+}
+
+
+
+.portafolio .card img {
+    max-width: 100%;
+    height: auto;
+}
+
+@media (max-width: 992px) {
+    .portafolio .card {
+        width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 768px) {
+    .portafolio .card {
+        width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 576px) {
+    .portafolio .card {
+        width: calc(100% - 20px);
+    }
+}
+
+
+
+@media (max-width: 768px) {
+   
+
+    .card {
+        width: calc(100% - 20px);
+        /* Para mostrar 1 tarjeta por fila en dispositivos móviles */
+    }
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Para ocultar la barra de desplazamiento horizontal si aún está presente */
+}
+
+
+
+
+
