@@ -109,6 +109,31 @@ $resultado_usuarios = $conexion->query($sql_usuarios);
 
 
     <div class="container mt-5">
+
+
+    <h5 class="mt-3 mb-3">Agregar Nuevo Usuario</h5>
+        <form action="crear_usuario.php" method="POST">
+            <div  class="form-group mt-3 mb-3">
+                <label for="username">Nombre de usuario:</label>
+                <input type="text" name="username" id="username" class="form-control" required>
+            </div>
+            <div class="form-group mt-3 mb-3">
+                <label for="password">Contraseña:</label>
+                <input type="password" name="password" id="password" class="form-control" required>
+            </div>
+            <div class="form-group mt-3 mb-3">
+                <label for="tipo_usuario">Tipo de usuario:</label>
+                <select name="tipo_usuario" id="tipo_usuario" class="form-control" required>
+                    <option value="cliente">Cliente</option>
+                    <option value="tatuador">Tatuador</option>
+                    <option value="admin">Administrador</option>
+                </select>
+            </div>
+            <!-- Otros campos del usuario si es necesario -->
+            <button type="submit" class="btn btn-primary">Agregar Usuario</button>
+        </form>
+
+        <HR></HR>
         <h5 class="mt-3 mb-3">Usuarios Registrados</h5>
         <table class="table table-striped">
             <thead>
@@ -140,27 +165,7 @@ $resultado_usuarios = $conexion->query($sql_usuarios);
 
         <hr>
 
-        <h5 class="mt-3 mb-3">Agregar Nuevo Usuario</h5>
-        <form action="crear_usuario.php" method="POST">
-            <div  class="form-group mt-3 mb-3">
-                <label for="username">Nombre de usuario:</label>
-                <input type="text" name="username" id="username" class="form-control" required>
-            </div>
-            <div class="form-group mt-3 mb-3">
-                <label for="password">Contraseña:</label>
-                <input type="password" name="password" id="password" class="form-control" required>
-            </div>
-            <div class="form-group mt-3 mb-3">
-                <label for="tipo_usuario">Tipo de usuario:</label>
-                <select name="tipo_usuario" id="tipo_usuario" class="form-control" required>
-                    <option value="cliente">Cliente</option>
-                    <option value="tatuador">Tatuador</option>
-                    <option value="admin">Administrador</option>
-                </select>
-            </div>
-            <!-- Otros campos del usuario si es necesario -->
-            <button type="submit" class="btn btn-primary">Agregar Usuario</button>
-        </form>
+        
     </div>
 </body>
 
