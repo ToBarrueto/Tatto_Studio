@@ -44,7 +44,7 @@ session_start();
                 <a class="nav-link" href="#">Perforadores</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Intranet</a>
+                <a class="nav-link" href="micuenta.php">Mis Reservas</a>
               </li>
               <li class="nav-item">
                     <a class="nav-link btn" href="../index.php">Cerrar Sesion</a>

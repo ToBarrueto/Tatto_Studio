@@ -19,7 +19,7 @@ session_start();
 </head>
 <body class="fondo">
 <nav class="navbar navbar-expand-lg navbar-light ">
-          <a class="navbar-brand mr-auto" href="#">
+          <a class="navbar-brand mr-auto" href="cliente_view.php">
           <img class="logo" src="../assets/img/logo.png" alt=""></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon "></span>
@@ -38,7 +38,7 @@ session_start();
                 <a class="nav-link" href="#">Perforadores</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href='/micuenta.php'>Mis reservas</a>
+                <a class="nav-link" href='micuenta.php'>Mis reservas</a>
               </li>
               <li class="nav-item">
                     <a class="nav-link btn" href="../index.php">Cerrar Sesion</a>
