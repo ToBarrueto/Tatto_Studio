@@ -1,4 +1,3 @@
-
 --
 -- Base de datos: `tattoo_studio`
 --
@@ -42,7 +41,6 @@ INSERT INTO `citas` (`id`, `cliente_id`, `usuario_id`, `nombre_cliente`, `telefo
 (23, 44, 7, 'Viuda Negra', '777888999', 'viuda.negra@gmail.com', 'valorant-logo-transparent-free-png.webp', 10.00, 8.00, 'no', 97, 56000, 11200, 67200),
 (24, 24, 4, 'Zabdi cofre', '987654321', 'zabdicofre@gmail.com', 'valorant-logo-transparent-free-png.webp', 15.00, 8.00, 'no', 66, 54000, 10800, 64800),
 (26, 25, 3, 'Mario Mario', '963431289', 'mariobros@gmail.com', 'valorant-logo-transparent-free-png.webp', 8.00, 8.00, 'no', 41, 33600, 6720, 40320),
-(27, 26, 4, 'Luigui Mario', '987654321', 'LuiguiBros@gmail.com', 'valorant-logo-transparent-free-png.webp', 7.00, 9.00, 'si', 67, 0, 0, 0),
 (28, 27, 6, 'Pichu Pikachu Raichu', '987654321', 'PikaPika@gmail.com', 'valorant-logo-transparent-free-png.webp', 16.00, 12.00, 'si', 82, 138240, 27648, 165888),
 (29, 29, 7, 'Sasuke Uchiha', '963891254', 'ClanUchihax100pre@gmail.com', 'valorant-logo-transparent-free-png.webp', 19.00, 12.00, 'no', 98, 159600, 31920, 191520),
 (30, 49, 3, 'Flash', '666777888', 'flash@gmail.com', 'valorant-logo-transparent-free-png.webp', 8.00, 6.00, 'si', 42, 30000, 6000, 36000),
@@ -135,7 +133,6 @@ INSERT INTO `horarios_disponibles` (`id`, `usuario_id`, `fecha`, `turno`, `estad
 (110, 7, '2024-05-06', 'pm', 'Disponible'),
 (111, 7, '2024-05-07', 'am', 'Disponible'),
 (112, 7, '2024-05-07', 'pm', 'Disponible'),
-(113, 66, '2024-04-29', 'am', 'Tomada'),
 (114, 4, '2024-03-05', 'am', 'Tomada');
 
 -- --------------------------------------------------------
@@ -279,8 +276,7 @@ INSERT INTO `usuarios` (`id`, `username`, `password`, `tipo_usuario`) VALUES
 (62, 'Sullivan', '1', 'cliente'),
 (63, 'Mike_Wazowski', '1', 'cliente'),
 (64, 'Dory', '1', 'cliente'),
-(65, 'Nemo', '1', 'cliente'),
-(66, 'tomasito', '1', 'tatuador');
+(65, 'Nemo', '1', 'cliente');
 
 --
 -- Índices para tablas volcadas
@@ -386,4 +382,3 @@ ALTER TABLE `portafolio`
 ALTER TABLE `tatuadores`
   ADD CONSTRAINT `tatuadores_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`);
 COMMIT;
-
