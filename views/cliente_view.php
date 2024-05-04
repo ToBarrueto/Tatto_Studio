@@ -47,7 +47,7 @@ session_start();
                 <a class="nav-link" href="micuenta.php">Mis Reservas</a>
               </li>
               <li class="nav-item">
-                    <a class="nav-link btn" href="../index.php">Cerrar Sesion</a>
+                <a class="nav-link" href="../index.php">Cerrar Sesion</a>
               </li>
               
             </ul>

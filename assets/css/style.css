@@ -78,9 +78,13 @@ footer {
 }
 
 
+.navbar-nav {
+    --bs-navbar-hover-color: rgba(217, 255, 0, 0.8);
+}
 
 .navbar-nav .nav-link {
-    color: rgb(82, 82, 82);
+    
+    color: rgb(255, 255, 255);
     font-size: 25px;
     font-family: "Grenze Gotisch", serif;
 }

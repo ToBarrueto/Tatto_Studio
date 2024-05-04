@@ -32,7 +32,7 @@ session_start();
                 <a class="nav-link" href="#">Nosotros</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="tatuadores_view.php">Tatuadores</a>
+                <a class="nav-link active" href="tatuadores_view.php">Tatuadores</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Perforadores</a>

@@ -19,9 +19,9 @@ include("controllers/validar.php")
     
 <nav class="navbar navbar-dark bg-dark fixed-top">
 
-  <div class="container-fluid">
+  <div class="container-fluid m-3">
 
-    <a class="navbar-brand" href="#">Offcanvas dark navbar</a>
+    <a class="navbar-brand" href="#">TattoStudioINK</a>
     
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -64,22 +64,22 @@ include("controllers/validar.php")
   </div>
 </nav>
 
-    <div class=" bg-body-secondary bg-opacity-10 p-5 rounded-5 shadow">
+    <div class=" bg-body-secondary bg-opacity-10 p-5 rounded-5 shadow" >
         <h1  class=" text-center fs-1 fw-bold">Login</h1>
             <form method="post">
                 <div class="mb-3">
                     <label class="form-label">Nombre de usuario</label>
-                    <input type="text" class="form-control" name="Nusuario" placeholder="Usuario">
+                    <input type="text" class="form-control" id="username" name="Nusuario" placeholder="Usuario">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" name="Pass" placeholder="Contraseña">
+                    <input type="password" class="form-control" id="password" name="Pass" placeholder="Contraseña">
 
 
 
                     <div class="d-flex justify-content-around mt-1">
                         <div class="d-flex align-items-center gap-1 m-1">
-                            <input class="form-check-input" type="checkbox" />
+                            <input class="form-check-input" type="checkbox" id="rememberMe"/>
                             <div class="pt-1">Recuerdame</div>
                         </div>
 
@@ -102,6 +102,7 @@ include("controllers/validar.php")
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>    
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+<script src='assets/js/script.js'></script>
 </body>
 
 

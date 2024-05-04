@@ -43,7 +43,7 @@ session_start();
                 <a class="nav-link" href="#">Perforadores</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href='micuenta.php'>Mis reservas</a>
+                <a class="nav-link active" href='micuenta.php'>Mis reservas</a>
               </li>
               <li class="nav-item">
                     <a class="nav-link btn" href="../index.php">Cerrar Sesion</a>
@@ -52,7 +52,7 @@ session_start();
             </ul>
           </div>
         </nav>
-
+    <div class="m-5">
     <?php 
 
     if ($_SESSION['tipo_usuario'] == 'cliente') {
@@ -131,7 +131,7 @@ session_start();
         exit(); // Asegúrate de salir del script después de redirigir
     }
     ?>
-
+  </div>
 
 
   </div>

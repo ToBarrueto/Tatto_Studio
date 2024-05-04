@@ -18,7 +18,7 @@
     <header>
         <a href="#" class="logo">TattoStudioINK</a>
         <nav>
-            <ul>
+            <ul >
                 <li><a href="#">Inicio</a></li>
                 <li><a href="#">Nosotros</a></li>
                 <li><a href="#">Servicios</a></li>
