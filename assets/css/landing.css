@@ -48,6 +48,7 @@ header ul li{
 }
 
 header ul li a{
+    font-size: 18px;
     position: relative;
     font-family: helvetica;
     margin: 0 15px;
@@ -55,17 +56,18 @@ header ul li a{
     color: #fff;
     letter-spacing: 2px;
     font-weight: 600;
-    transition: 0.7s;
+    
 }
 
 .zona1{
     position: relative;
     width: 100%;
     height: 100vh;
-    background-image: url(../img/landing/background.jpeg);
+    background-image: url(../img/landing/background1.jpeg);
     background-size: cover;
     background-position: center center;
 }
+
 header.abajo .logo,
 header.abajo ul li a{
     color: #000;
@@ -83,10 +85,9 @@ ul li ul.dropdown {
 
 ul li ul.dropdown li {
     display: block;
-    width: 150px; 
+    width: 170px; 
     margin-top: 10px;
     white-space: nowrap; 
-    transition: color 0.3s;
 }
 
 
@@ -95,17 +96,175 @@ ul li:hover ul.dropdown {
     display: block;
 }
 
+
 .title{
     color: #fff;
-    font-size: 82px;
+    font-size: 98px;
     font-weight: bold;
-    margin-top: 18rem;
-    margin-bottom: 2rem;
+    margin-top: 16rem;
+    margin-bottom: 3rem;
     font-style: italic;
 }
 .p-custom{
-    color: #fff;
-    font-size: 21px;
-    font-weight: bold;
+    color: #ececec;
+    font-size: 32px;
+    font-weight: 400;
     font-style: italic;
 }
+
+.button-custom {
+    background-color: #000;
+    color: #fff;
+    border-color: #fff;
+    padding: 12px 32px 12px 32px;
+    border-radius: 16px;
+    font-size: 26px;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s; /* Agregamos una transición suave */
+}
+
+.button-custom:hover {
+    background-color: #ff0000; /* Hacemos que el fondo sea transparente al pasar el cursor sobre el botón */
+    color: #fff; /* Mantenemos el color del texto */
+   
+}
+
+/* Estilos hover */
+header ul li a:hover {
+    color: #ff0000; /* Cambia el color del texto al pasar el cursor sobre el enlace */
+}
+
+.zona2{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-image: url(../img/landing/blanco.jpg);
+    background-size: cover;
+    background-position: center center;
+}
+
+.p-custom1{
+    color: #ff0000;
+    font-size: 21px;
+    font-weight: 400;
+    font-style: italic;
+    margin-top: 5rem;
+}
+
+
+
+.title-custom{
+    color: #000000;
+    font-size: 72px;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    margin-top: 42px !important;
+    font-style: italic;
+}
+
+.imagen-custom {
+    max-width: 120%;
+    margin-top: 2rem;
+    margin-left: 4rem;
+}
+
+.p-custom2{
+    color: #000000;
+    font-size: 32px;
+    font-weight: 400;
+    font-style: italic;
+    margin-top: 1rem;
+}
+
+.container-icons {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Esto centrará los elementos horizontalmente */
+    text-align: center; /* Esto centrará el texto */
+
+
+
+}
+
+.p-icons{
+    margin-top: 15px;
+    font-size: 32px;
+    font-style: italic;
+    font-weight: 700;
+    color: #ff0000;
+}
+
+.zona3{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-image: url(../img/landing/gris.jpg);
+    background-size: cover;
+    background-position: center center;
+}
+
+
+.title-custom3{
+    color: #000000;
+    font-size: 72px;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    margin-top: 7rem !important;
+    font-style: italic;
+}
+
+.p-custom3{
+    color: #000000;
+    font-size: 24px;
+    font-weight: 400;
+    font-style: italic;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+}
+
+.card-giratoria {
+    width: 400px; /* Ancho de la tarjeta */
+    height: 500px; /* Alto de la tarjeta */
+    perspective: 1000px; /* Perspectiva para efecto 3D */
+  }
+  
+  .card-inner {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+  }
+  
+  .card-giratoria:hover .card-inner {
+    transform: rotateY(180deg); /* Girar en el eje Y al pasar el cursor */
+  }
+  
+  .card-front, .card-back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden; /* Ocultar el reverso */
+  }
+  
+  .card-front {
+    background-color: #f0f0f0; /* Color de fondo frontal */
+  }
+  
+  .card-back {
+    background-color: #ffffff; /* Color de fondo trasero */
+    transform: rotateY(180deg); /* Girar 180 grados inicialmente */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .card-back h2 {
+    font-size: 20px;
+  }
+  
+  .card-back p {
+    font-size: 14px;
+    margin-top: 10px;
+  }
