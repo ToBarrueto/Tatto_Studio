@@ -1,3 +1,10 @@
+<?php 
+session_start();
+  if ($_SESSION['tipo_usuario'] == 'cliente')
+    {
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -69,7 +76,7 @@
                             <div class="col">
                                 <div class="container-icons">
                                     <p class="p-icons">+4500 Tattos</p>
-                                    <img src="../assets/img/landing/machine.jpg" alt="">
+                                    <img src="../assets/img/landing/machine.png" alt="">
                                 </div>
                             </div>
                             <div class="col">
@@ -96,7 +103,9 @@
                 <div class="col">
                     <h1 class="title-custom3">Nuestros Servicios</h1>
                     <p class="p-custom3">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias voluptatibus porro soluta totam minima velit magni, provident earum. Quia dolorum recusandae voluptatem iure itaque provident cumque adipisci fugiat illum explicabo!</p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias voluptatibus porro soluta
+                        totam minima velit magni, provident earum. Quia dolorum recusandae voluptatem iure itaque
+                        provident cumque adipisci fugiat illum explicabo!</p>
                 </div>
 
                 <div class="container px-4 text-center">
@@ -110,7 +119,10 @@
                                         </div>
                                         <div class="card-back">
                                             <h2>TATUAJES</h2>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias voluptatibus porro soluta totam minima velit magni, provident earum. Quia dolorum recusandae voluptatem iure itaque provident cumque adipisci fugiat illum explicabo!
+                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
+                                                voluptatibus porro soluta totam minima velit magni, provident earum.
+                                                Quia dolorum recusandae voluptatem iure itaque provident cumque adipisci
+                                                fugiat illum explicabo!
                                             </p>
                                         </div>
                                     </div>
@@ -127,8 +139,14 @@
                                         </div>
                                         <div class="card-back">
                                             <h2>PIERCINGS</h2>
-                                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab, dolorem mollitia ad temporibus repudiandae cupiditate earum fugit explicabo ex provident corrupti itaque eos magni nesciunt in? Minus harum inventore doloribus!
-                                            Accusamus, rerum suscipit eligendi ea laboriosam aliquid omnis harum cumque, nihil earum eaque ducimus officia? Excepturi impedit beatae alias, ipsa ea voluptates, quam nobis molestiae minima asperiores, ut quaerat velit?</p>
+                                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab, dolorem
+                                                mollitia ad temporibus repudiandae cupiditate earum fugit explicabo ex
+                                                provident corrupti itaque eos magni nesciunt in? Minus harum inventore
+                                                doloribus!
+                                                Accusamus, rerum suscipit eligendi ea laboriosam aliquid omnis harum
+                                                cumque, nihil earum eaque ducimus officia? Excepturi impedit beatae
+                                                alias, ipsa ea voluptates, quam nobis molestiae minima asperiores, ut
+                                                quaerat velit?</p>
                                         </div>
                                     </div>
                                 </div>
@@ -136,6 +154,78 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="zona4 d-flex justify-content-center">
+        <div class="text-center">
+            <div class="col">
+                <h1 class="title-custom4">Tatuadores</h1>
+            </div>
+
+            <div class="px-1 text-center">
+                <div class="row justify-content-between"> <!-- Añade la clase justify-content-between aquí -->
+                    <?php
+                    // Conexión a la base de datos
+                    $servername = "localhost";
+                    $username = "root";
+                    $password = "";
+                    $database = "tattoo_studio";
+    
+                    // Crea la conexión
+                    $conn = new mysqli($servername, $username, $password, $database);
+    
+                    // Verifica la conexión
+                    if ($conn->connect_error) {
+                        die("La conexión a la base de datos ha fallado: " . $conn->connect_error);
+                    }
+    
+                    /// Realizar la consulta a la base de datos para obtener los datos de los tatuadores
+                    $sql = "SELECT id, nombre, estilos, imagen_perfil FROM tatuadores";
+                    $resultado = $conn->query($sql);
+    
+                    // Verificar si se obtuvieron resultados
+                    if ($resultado->num_rows > 0) {
+                        // Mostrar los datos de los tatuadores
+                        while ($row = $resultado->fetch_assoc()) {
+                            echo '<div class="col-md-3">'; // Utiliza col-md-3 para que haya 4 columnas en una fila en pantallas medianas
+                            echo '<div>';
+                            echo '<article class="card__article">';
+                            echo '<img src="' . $row["imagen_perfil"] . '" alt="' . $row["nombre"] . '" class="card__img">';
+                            echo '<div class="card__data">';
+                            echo '<span class="card__description">' . $row["estilos"] . '</span>';
+                            echo '<h2 class="card__title">' . $row["nombre"] . '</h2>';
+                            echo '<a href="tatuador_detalle.php?id=' . $row["id"] . '" class="button-custom2">Ver Trabajos</a>';
+                            echo '</div>';
+                            echo '</article>';
+                            echo '</div>';
+                            echo '</div>';
+                        }
+                    } else {
+                        echo "No se encontraron tatuadores.";
+                    }
+    
+                    // Cierra la conexión a la base de datos
+                    $conn->close();
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="zona3 d-flex justify-content-center ">
+        <div class="container text-center ">
+            <div class="row">
+                <div class="col">
+                    <h1 class="title-custom3">FAQ</h1>
+                    <p class="p-custom3">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias voluptatibus porro soluta
+                        totam minima velit magni, provident earum. Quia dolorum recusandae voluptatem iure itaque
+                        provident cumque adipisci fugiat illum explicabo!</p>
+                </div>
+
+                
             </div>
         </div>
     </div>
@@ -160,3 +250,8 @@
 </body>
 
 </html>
+
+<?php }
+  else{
+    header("Location:../index.php");
+  }?>

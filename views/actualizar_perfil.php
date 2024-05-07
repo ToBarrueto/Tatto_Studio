@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verificar si se ha seleccionado un archivo
     if (isset($_FILES["imagen_perfil"]) && $_FILES["imagen_perfil"]["error"] == UPLOAD_ERR_OK) {
         // Directorio de almacenamiento de las imágenes
-        $directorio_destino = "../assets/img";
+        $directorio_destino = "../assets/img/";
 
         // Obtener información del archivo cargado
         $nombre_archivo = basename($_FILES["imagen_perfil"]["name"]);
