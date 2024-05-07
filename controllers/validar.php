@@ -21,7 +21,7 @@ if(isset($_POST['inicioSesion'])){
             $_SESSION['tipo_usuario'] = $detalles['tipo_usuario'];
 
             if ($_SESSION['tipo_usuario'] == 'cliente'){
-                header("Location:views/cliente_view.php");
+                header("Location:views/landing.php");
             }
 
             if ($_SESSION['tipo_usuario'] == 'tatuador'){

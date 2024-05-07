@@ -27,15 +27,15 @@ session_start();
         <nav>
             <ul>
                 <li><a href="#">Inicio</a></li>
-                <li><a href="#">Nosotros</a></li>
-                <li><a href="#">Servicios</a></li>
-                <li><a href="#">Tatuadores</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#tatuadores">Tatuadores</a></li>
                 <li>
                     <a href="#">Mi Cuenta &#x25BE;</a>
                     <ul class="dropdown">
                         <li><a href="#">Mis Datos</a></li>
                         <li><a href="#">Mis Reservas</a></li>
-                        <li><a href="#">Cerrar Sesion</a></li>
+                        <li><a href="../index.php">Cerrar Sesion</a></li>
                     </ul>
                 </li>
             </ul>
@@ -60,7 +60,7 @@ session_start();
         </div>
     </div>
 
-    <div class="zona2 d-flex justify-content-center ">
+    <div id="nosotros" class="zona2  d-flex justify-content-center ">
         <div class="container text-center ">
             <p class="p-custom1">ESTUDIO DE TATUAJES Y PERFORACIONES</p>
             <div class="row g-5">
@@ -97,7 +97,7 @@ session_start();
         </div>
     </div>
 
-    <div class="zona3 d-flex justify-content-center ">
+    <div  id="servicios" class="zona3 d-flex justify-content-center ">
         <div class="container text-center ">
             <div class="row">
                 <div class="col">
@@ -135,7 +135,7 @@ session_start();
                                 <div class="card-giratoria">
                                     <div class="card-inner">
                                         <div class="card-front">
-                                            <img src="../assets/img/landing/card-piercing.jpg" alt="Imagen">
+                                            <img  src="../assets/img/landing/card-piercing.jpg" alt="Imagen">
                                         </div>
                                         <div class="card-back">
                                             <h2>PIERCINGS</h2>
@@ -158,7 +158,7 @@ session_start();
         </div>
     </div>
 
-    <div class="zona4 d-flex justify-content-center">
+    <div id="tatuadores" class="zona4 d-flex justify-content-center">
         <div class="text-center">
             <div class="col">
                 <h1 class="title-custom4">Tatuadores</h1>
