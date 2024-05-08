@@ -484,3 +484,17 @@ header ul li a:hover {
     color: #fff; /* Mantenemos el color del texto */
    
 }
+
+.imagen-formulario img {
+  width: 500%; /* La imagen no debe exceder el ancho del contenedor */
+
+}
+
+.title-custom5{
+  color: #000000;
+  font-size: 72px;
+  font-weight: bold;
+  margin-bottom: 3rem;
+  margin-top: 6rem !important;
+  font-style: italic;
+}

@@ -5,95 +5,111 @@ if ($_SESSION['tipo_usuario'] == 'cliente') {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalles del Tatuador</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    
+    <link rel="stylesheet" href="../assets/css/landing.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
 </head>
-<body class="fondo">
-<div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="cliente_view.php"><img class="logo" src="../assets/img/logo.png" alt=""></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-      
-        <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link btn" href="#">Nosotros</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn" href="tatuadores_view.php">Tatuadores</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn" href="#">Perforadores</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link btn" href="micuenta.php">Mis Reservas</a>
-          </li>
-                <li class="nav-item">
-                    <a class="nav-link btn" href="../index.php">Cerrar Sesion</a>
+
+<body>
+
+    <header>
+        <a href="landing.php" class="logo">TattoStudioINK</a>
+        <nav>
+            <ul>
+                <li><a href="landing.php#">Inicio</a></li>
+                <li><a href="landing.php#nosotros">Nosotros</a></li>
+                <li><a href="landing.php#servicios">Servicios</a></li>
+                <li><a href="landing.php#tatuadores">Tatuadores</a></li>
+                <li>
+                    <a href="#">Mi Cuenta &#x25BE;</a>
+                    <ul class="dropdown">
+                        <li><a href="micuenta.php">Mis Reservas</a></li>
+                        <li><a href="../index.php">Cerrar Sesion</a></li>
+                    </ul>
                 </li>
             </ul>
-        </div>
-    </nav>
-</div>
+        </nav>
+    </header>
 
-<?php
-include '../conexion.php'; 
+    <div class="zona3 d-flex justify-content-center ">
+        <div class="container text-center ">
+            <div class="row">
 
-if (isset($_GET['id'])) {
-    $tatuador_id = $_GET['id'];
+                <?php
+                include '../conexion.php'; 
+    
+                if (isset($_GET['id'])) {
+                    $tatuador_id = $_GET['id'];
+    
+                    $sql_usuario_id = "SELECT usuario_id FROM tatuadores WHERE id = $tatuador_id";
+                    $resultado_usuario_id = $conexion->query($sql_usuario_id);
+    
+                    if ($resultado_usuario_id->num_rows > 0) {
+                        $fila_usuario_id = $resultado_usuario_id->fetch_assoc();
+                        $usuario_id = $fila_usuario_id['usuario_id'];
+    
+                        $sql_tatuador = "SELECT * FROM tatuadores WHERE id = $tatuador_id";
+                        $resultado_tatuador = $conexion->query($sql_tatuador);
+    
+                        if ($resultado_tatuador->num_rows > 0) {
+                            $tatuador = $resultado_tatuador->fetch_assoc();
+    
+                            // Mostrar el portafolio del tatuador
+                            $sql_portafolio = "SELECT * FROM portafolio WHERE usuario_id = $usuario_id";
+                            $resultado_portafolio = $conexion->query($sql_portafolio);
+    
+                            if ($resultado_portafolio->num_rows > 0) {
+                                echo "<h1 class='title-custom3'>Trabajos de {$tatuador['nombre']}</h1>";
+                                echo "<p class='p-custom'>{$tatuador['descripcion']}</p>";
+                                
+                                // Contador para rastrear el número de imágenes mostradas
+                                $contador = 0;
+    
+                                // Abre la primera fila
+                                echo '<div class="row">';
+    
+                                while ($fila_portafolio = $resultado_portafolio->fetch_assoc()) {
+                                    // Si el contador alcanza 3, cierra la fila actual y abre una nueva
+                                    if ($contador % 4 == 0 && $contador != 0) {
+                                        echo '</div>'; // Cierra la fila actual
+                                        echo '<div class="row g-2">'; // Abre una nueva fila
+                                    }
+    
+                                    echo '<div class="col-md-3">';
+                                    echo '<img src="'. $fila_portafolio["ruta_imagen"].'" alt="Imagen de Tatuaje" class="img-fluid m-2">';
+                                    echo '</div>';
+    
+                                    $contador++;
+                                }
+    
+                                // Cierra la fila final
+                                echo '</div>';
+                                
+                            } else {
+                                echo 'El tatuador no tiene imágenes en su portafolio.';
+                            }
+    
+                            echo '</div>'; 
+                            echo '</div>'; 
+                            echo '</div>'; 
 
-    $sql_usuario_id = "SELECT usuario_id FROM tatuadores WHERE id = $tatuador_id";
-    $resultado_usuario_id = $conexion->query($sql_usuario_id);
-
-    if ($resultado_usuario_id->num_rows > 0) {
-        $fila_usuario_id = $resultado_usuario_id->fetch_assoc();
-        $usuario_id = $fila_usuario_id['usuario_id'];
-
-        $sql_tatuador = "SELECT * FROM tatuadores WHERE id = $tatuador_id";
-        $resultado_tatuador = $conexion->query($sql_tatuador);
-
-        if ($resultado_tatuador->num_rows > 0) {
-            $tatuador = $resultado_tatuador->fetch_assoc();
-
-            // Mostrar el portafolio del tatuador
-            $sql_portafolio = "SELECT * FROM portafolio WHERE usuario_id = $usuario_id";
-            $resultado_portafolio = $conexion->query($sql_portafolio);
-
-            if ($resultado_portafolio->num_rows > 0) {
-                echo '<h1 class="h1-custom">Portafolio</h1>';
-                echo '<div class="portafolio">';
-                while ($fila_portafolio = $resultado_portafolio->fetch_assoc()) {
-                    echo '<div class="card">';
-                    echo '<img src="'. $fila_portafolio["ruta_imagen"].'" alt="Imagen de Tatuaje">';
-                    echo '</div>';
-                }
-                echo '</div>';
-            } else {
-                echo 'El tatuador no tiene imágenes en su portafolio.';
-            }
-
-            echo '<h1 class="h1-custom mb-4">Haz tu reserva</h1>';
+            echo '<div class="zona4 d-flex justify-content-center ">';
+            echo '<div class="container text-center ">';
+            echo "<h1 class='title-custom5'>Cotiza y Agenda tu Hora</h1>";
+            echo '<div class="row d-flex justify-content-center ">';
             
-            echo '<div class="row">';
-            echo '<div class="card col-3 ms-4">';
-            echo "<h1>{$tatuador['nombre']}</h2>";
-            echo '<img src="' . $tatuador["imagen_perfil"] . '" alt="' . $tatuador["nombre"] . '">';
-            echo "<p>Estilos: {$tatuador['estilos']}</p>";
-            echo "<p>Sobre mi: {$tatuador['descripcion']}</p>";
-            echo '</div>';
 
              // Formulario de reserva de citas
            
-                echo '<div class="card col-8 ms-5">';
+                echo '<div class="card col-8">';
                 echo '<div class="card-body">';
-                echo '<h2>Reservar Cita</h2>';
+                echo '<h2>Formulario de Reserva</h2>';
                 echo '<form action="procesar_reserva.php" method="POST" enctype="multipart/form-data">';
                 echo '<input type="hidden" name="tatuador_id" value="' . $usuario_id . '">';
 
@@ -102,40 +118,40 @@ if (isset($_GET['id'])) {
 
                 // Campos adicionales
                 echo '<div class="row">';
-                echo '<div class="col-md-6">';
-                echo '<div class="mb-3">';
+                echo '<div class="col-md-6 mt-3">';
+                echo '<div class="mb-2">';
                 echo '<label for="nombre_cliente" class="form-label">Nombre Completo:</label>';
                 echo '<input type="text" class="form-control" id="nombre_cliente" name="nombre_cliente" required>';
                 echo '</div>';
 
-                echo '<div class="mb-3">';
+                echo '<div class="mb-2">';
                 echo '<label for="telefono" class="form-label">Número de Celular:</label>';
                 echo '<input type="tel" class="form-control" id="telefono" name="telefono" required>';
                 echo '</div>';
 
-                echo '<div class="mb-3">';
+                echo '<div class="mb-2">';
                 echo '<label for="correo" class="form-label">Correo Electrónico:</label>';
                 echo '<input type="email" class="form-control" id="correo" name="correo" required>';
                 echo '</div>';
 
-                echo '<div class="mb-3">';
+                echo '<div class="mb-2">';
                 echo '<label for="imagen_referencia" class="form-label">Imagen de Referencia:</label>';
                 echo '<input type="file" class="form-control" id="imagen_referencia" name="imagen_referencia">';
                 echo '</div>';
                 echo '</div>';
 
-                echo '<div class="col-md-6">';
-                echo '<div class="mb-3">';
+                echo '<div class="col-md-6 mt-3">';
+                echo '<div class="mb-2">';
                 echo '<label for="alto" class="form-label">Alto del Tatuaje (cm):</label>';
                 echo '<input type="number" class="form-control" id="alto" name="alto" required>';
                 echo '</div>';
 
-                echo '<div class="mb-3">';
+                echo '<div class="mb-2">';
                 echo '<label for="ancho" class="form-label">Ancho del Tatuaje (cm):</label>';
                 echo '<input type="number" class="form-control" id="ancho" name="ancho" required>';
                 echo '</div>';
 
-                echo '<div class="mb-3">';
+                echo '<div class="mb-2">';
                 echo '<label for="color" class="form-label">Color:</label>';
                 echo '<select class="form-select" id="color" name="color">';
                 echo '<option value="si">Con color</option>';
@@ -143,17 +159,17 @@ if (isset($_GET['id'])) {
                 echo '</select>';
                 echo '</div>';
 
-                echo '<div class="mb-3">';
+                echo '<div class="mb-2">';
                 echo '<label for="cotizacion" class="form-label">Cotización:</label>';
                 echo '<input type="text" class="form-control" id="cotizacion_aproximada" name="cotizacion" readonly>';
                 echo '</div>';
 
-                echo '<div class="mb-3">';
+                echo '<div class="mb-2">';
                 echo '<label for="comision" class="form-label">Comisión:</label>';
                 echo '<input type="text" class="form-control" id="comision_aproximada"  name="comision" readonly>';
                 echo '</div>';
 
-                echo '<div class="mb-3">';
+                echo '<div class="mb-2">';
                 echo '<label for="precio_total" class="form-label">Precio Total:</label>';
                 echo '<input type="text" class="form-control" id="precio_total_aproximado" name="precio_total" readonly>';
                 echo '</div>';
@@ -209,7 +225,7 @@ if (isset($_GET['id'])) {
                 echo '</select>';
                 echo '</div>';
 
-                echo '<button type="submit" class="btn btn-primary">Reservar cita</button>';
+                echo '<button type="submit" class="btn btn-primary mb-3">Reservar cita</button>';
                 echo '</form>';
                 echo '</div>';
                 echo '</div>';
@@ -231,47 +247,51 @@ if (isset($_GET['id'])) {
                     header("Location:../index.php");
                 }
                 ?>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        window.addEventListener("scroll", function () {
+            var header = document.querySelector("header");
+            header.classList.toggle("abajo", window.scrollY > 0);
+        })
+    </script>
 
     <script>
-     function calcularCotizacion() {
-    var alto = document.getElementById('alto').value;
-    var ancho = document.getElementById('ancho').value;
-    var color = document.getElementById('color').value;
-    var precioBasePorCm2 = document.getElementById('precioBase').value;
-    
-    // Verificar el valor del precio base en la consola del navegador
-    console.log("Precio base por cm2 obtenido de la base de datos:", precioBasePorCm2);
+        function calcularCotizacion() {
+            var alto = document.getElementById('alto').value;
+            var ancho = document.getElementById('ancho').value;
+            var color = document.getElementById('color').value;
+            var precioBasePorCm2 = document.getElementById('precioBase').value;
 
-    // Calcular el área del tatuaje
-    var area = alto * ancho;
-    
-    // Calcular el precio base del tatuaje
-    var precioBase = area * precioBasePorCm2;
-    
-    // Aplicar un costo adicional si el tatuaje es a color
-    if (color === 'si') {
-        var costoColor = precioBase * 0.20; 
-        precioBase += costoColor;
-    }
-    
-    // Calcular la comisión
-    var comision = precioBase * 0.20;
-    
-    // Calcular el precio total
-    var cotizacionTotal = precioBase + comision;
-    
-    // Mostrar la cotización, la comisión y el precio total en el formulario
-    document.getElementById('cotizacion_aproximada').value = Math.floor(precioBase);
-    document.getElementById('comision_aproximada').value = Math.floor(comision);
-    document.getElementById('precio_total_aproximado').value = Math.floor(cotizacionTotal);
-}
+            // Verificar el valor del precio base en la consola del navegador
+            console.log("Precio base por cm2 obtenido de la base de datos:", precioBasePorCm2);
+
+            // Calcular el área del tatuaje
+            var area = alto * ancho;
+
+            // Calcular el precio base del tatuaje
+            var precioBase = area * precioBasePorCm2;
+
+            // Aplicar un costo adicional si el tatuaje es a color
+            if (color === 'si') {
+                var costoColor = precioBase * 0.20;
+                precioBase += costoColor;
+            }
+
+            // Calcular la comisión
+            var comision = precioBase * 0.20;
+
+            // Calcular el precio total
+            var cotizacionTotal = precioBase + comision;
+
+            // Mostrar la cotización, la comisión y el precio total en el formulario
+            document.getElementById('cotizacion_aproximada').value = Math.floor(precioBase);
+            document.getElementById('comision_aproximada').value = Math.floor(comision);
+            document.getElementById('precio_total_aproximado').value = Math.floor(cotizacionTotal);
+        }
     </script>
 </body>
-
-<footer class="bg-dark text-white mt-3">
-  <div class="text-center py-3 fondo">
-    <p class="mb-0">&copy; 2024 TattoStudioINK</p>
-  </div>
-</footer>
 
 </html>

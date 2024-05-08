@@ -33,8 +33,7 @@ session_start();
                 <li>
                     <a href="#">Mi Cuenta &#x25BE;</a>
                     <ul class="dropdown">
-                        <li><a href="#">Mis Datos</a></li>
-                        <li><a href="#">Mis Reservas</a></li>
+                        <li><a href="micuenta.php">Mis Reservas</a></li>
                         <li><a href="../index.php">Cerrar Sesion</a></li>
                     </ul>
                 </li>
