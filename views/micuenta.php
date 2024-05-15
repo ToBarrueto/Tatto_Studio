@@ -18,6 +18,7 @@ session_start();
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<script src="https://www.paypal.com/sdk/js?client-id=ARPOFtWdnhuV3YwzncncSwHL7vXVXBVqLU3iFbrQ4O5cWqkPDM2JMqWRLEL7PbMh5S12Lw2EiZw9igzx&currency=USD"></script>
 
 </head>
 
@@ -89,6 +90,7 @@ session_start();
             echo '<th scope="col">Hora</th>';
             echo '<th scope="col">Precio Total</th>'; // Cambié el título de la columna
             echo '<th scope="col">Estado</th>';
+            echo '<th scope="col">Reserva</th>';
             echo '</tr>';
             echo '</thead>';
             echo '<tbody>';
@@ -104,6 +106,7 @@ session_start();
                 echo '<td>' . $fila_cita['hora_formato'] . '</td>';
                 echo '<td>$' . $precio_total_clp . '</td>'; // Mostrar el precio total en formato CLP
                 echo '<td>' . $fila_cita['estado_horario'] . '</td>';
+                echo '<td><a href="detalle_reserva.php?id=' . $fila_cita['id'] . '">Ir a Pagar</a></td>';
                 echo '</tr>';
             }
             
@@ -128,6 +131,7 @@ session_start();
         exit(); // Asegúrate de salir del script después de redirigir
     }
     ?>
+    
 
                 
             </div>

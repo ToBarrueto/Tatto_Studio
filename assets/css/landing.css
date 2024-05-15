@@ -498,3 +498,9 @@ header ul li a:hover {
   margin-top: 6rem !important;
   font-style: italic;
 }
+
+.p-custom4{
+  color: #000;
+  font-size: 21px;
+  font-weight: 600;
+}
