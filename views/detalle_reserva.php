@@ -129,6 +129,27 @@ if (isset($_GET['id'])) {
 
 
 <script>
+
+function clpToUsd(clpAmount) {
+    // Eliminar los puntos del formato CLP
+    clpAmount = clpAmount.replace(/\./g, '');
+    // Convertir a número
+    clpAmount = parseFloat(clpAmount);
+    // Aquí realizar la conversión real de CLP a USD
+    // Por ahora, supongamos que 1 CLP equivale a 0.0014 USD
+    return clpAmount * 0.0011;
+}
+
+// Valor en CLP
+var precio_15_porcentaje_clp = '<?php echo $precio_15_porcentaje_clp; ?>';
+
+// Convertir a USD
+var precio_15_porcentaje_usd = clpToUsd(precio_15_porcentaje_clp);
+
+
+    console.log("Monto en CLP:", precio_15_porcentaje_clp);
+    console.log("Monto en USD:", precio_15_porcentaje_usd);
+
 paypal.Buttons({
 
     // Sets up the transaction when a payment button is clicked
@@ -141,7 +162,7 @@ paypal.Buttons({
 
                 amount: {
 
-                    value: '1' // Can also reference a variable or function
+                    value: precio_15_porcentaje_usd.toFixed(2) // Can also reference a variable or function
 
                 }
 
