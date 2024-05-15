@@ -4,9 +4,9 @@ include '../conexion.php';
 if (isset($_GET['id'])) {
     $reserva_id = $_GET['id'];
 
-
     $sql = "SELECT citas.*, tatuadores.nombre AS nombre_tatuador, 
-    DATE_FORMAT(horarios_disponibles.fecha, '%d/%m/%Y') AS fecha_formato
+    DATE_FORMAT(horarios_disponibles.fecha, '%d/%m/%Y') AS fecha_formato,
+    horarios_disponibles.id AS horario_disponible_id
     FROM citas 
     INNER JOIN tatuadores ON citas.usuario_id = tatuadores.usuario_id 
     INNER JOIN horarios_disponibles ON citas.hora_disponible_id = horarios_disponibles.id 
@@ -21,6 +21,7 @@ if (isset($_GET['id'])) {
         $fila_reserva = $resultado->fetch_assoc();
         $nombre_tatuador = $fila_reserva['nombre_tatuador'];
         $fecha_reserva = $fila_reserva['fecha_formato'];
+        $horario_disponible_id = $fila_reserva['horario_disponible_id'];
 
         // Calcular el 15% del precio total
         $precio_total = $fila_reserva['precio_total'];
@@ -72,7 +73,7 @@ if (isset($_GET['id'])) {
 <body>
     <div class="zona3 d-flex justify-content-center">
         <div class="container">
-        <h1 class="title-custom3 text-center">Pagar Reserva</h1>
+            <h1 class="title-custom3 text-center">Pagar Reserva</h1>
             <div class="row">
                 <div class="row d-flex justify-content-center">
                     <div class="card col-8 mt-5">
@@ -85,18 +86,22 @@ if (isset($_GET['id'])) {
                                             <?php echo $fila_reserva['nombre_cliente']; ?></p>
                                     </div>
                                     <div class="mb-4">
-                                        <p><strong class="p-custom4">Teléfono: </strong> <?php echo $fila_reserva['telefono']; ?></p>
+                                        <p><strong class="p-custom4">Teléfono: </strong>
+                                            <?php echo $fila_reserva['telefono']; ?></p>
                                     </div>
                                     <div class="mb-4">
-                                        <p><strong class="p-custom4">Correo: </strong> <?php echo $fila_reserva['correo']; ?></p>
+                                        <p><strong class="p-custom4">Correo: </strong>
+                                            <?php echo $fila_reserva['correo']; ?></p>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mt-3">
                                     <div class="mb-4">
-                                        <p><strong class="p-custom4">Tatuador: </strong> <?php echo $nombre_tatuador; ?></p>
+                                        <p><strong class="p-custom4">Tatuador: </strong> <?php echo $nombre_tatuador; ?>
+                                        </p>
                                     </div>
                                     <div class="mb-4">
-                                        <p><strong class="p-custom4">Fecha de la Reserva: </strong> <?php echo $fecha_reserva; ?></p>
+                                        <p><strong class="p-custom4">Fecha de la Reserva: </strong>
+                                            <?php echo $fecha_reserva; ?></p>
                                     </div>
                                     <div class="mb-4">
                                         <p><strong class="p-custom4">Total Reserva (15%): </strong>
@@ -106,7 +111,7 @@ if (isset($_GET['id'])) {
 
                                     </div>
                                     <div class="mt-3">
-                                    <p class="p-custom4">Realizar pago</p>
+                                        <p class="p-custom4">Realizar pago</p>
                                         <div id="paypal-button-container"></div>
                                     </div>
 
@@ -129,7 +134,6 @@ if (isset($_GET['id'])) {
 
 
 <script>
-
 function clpToUsd(clpAmount) {
     // Eliminar los puntos del formato CLP
     clpAmount = clpAmount.replace(/\./g, '');
@@ -147,8 +151,8 @@ var precio_15_porcentaje_clp = '<?php echo $precio_15_porcentaje_clp; ?>';
 var precio_15_porcentaje_usd = clpToUsd(precio_15_porcentaje_clp);
 
 
-    console.log("Monto en CLP:", precio_15_porcentaje_clp);
-    console.log("Monto en USD:", precio_15_porcentaje_usd);
+console.log("Monto en CLP:", precio_15_porcentaje_clp);
+console.log("Monto en USD:", precio_15_porcentaje_usd);
 
 paypal.Buttons({
 
@@ -162,7 +166,8 @@ paypal.Buttons({
 
                 amount: {
 
-                    value: precio_15_porcentaje_usd.toFixed(2) // Can also reference a variable or function
+                    value: precio_15_porcentaje_usd.toFixed(
+                        2) // Can also reference a variable or function
 
                 }
 
@@ -175,18 +180,13 @@ paypal.Buttons({
     // Finalize the transaction after payer approval
 
     onApprove: (data, actions) => {
-
-        return actions.order.capture().then(function(orderData) {
-
-
-
-            alert(`Transacción exitosa.`);
-
-
-
-        });
-
-    }
+    return actions.order.capture().then(function(orderData) {
+        // La transacción se realizó con éxito
+        alert(`Transacción exitosa.`);
+        // Redirigir a actualizar_estado.php con el ID de la reserva
+        window.location.href = `actualizar_estado.php?id=<?php echo $reserva_id; ?>`;
+    });
+}
 
 }).render('#paypal-button-container');
 </script>

@@ -106,7 +106,11 @@ session_start();
                 echo '<td>' . $fila_cita['hora_formato'] . '</td>';
                 echo '<td>$' . $precio_total_clp . '</td>'; // Mostrar el precio total en formato CLP
                 echo '<td>' . $fila_cita['estado_horario'] . '</td>';
-                echo '<td><a href="detalle_reserva.php?id=' . $fila_cita['id'] . '">Ir a Pagar</a></td>';
+                if ($fila_cita['estado_horario'] == 'Confirmada') {
+                    echo '<td>Pagada</td>'; // Si el estado es "Confirmada", mostrar "Pagada" en lugar del enlace
+                } else {
+                    echo '<td><a href="detalle_reserva.php?id=' . $fila_cita['id'] . '">Ir a Pagar</a></td>';
+                }
                 echo '</tr>';
             }
             
