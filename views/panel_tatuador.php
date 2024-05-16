@@ -11,7 +11,7 @@ if ($_SESSION['tipo_usuario'] == 'tatuador') {
                     COUNT(*) AS total_horas,
                     SUM(CASE WHEN estado = 'Disponible' THEN 1 ELSE 0 END) AS horas_disponibles,
                     SUM(CASE WHEN estado = 'Tomada' THEN 1 ELSE 0 END) AS horas_tomadas,
-                    SUM(CASE WHEN estado = 'Cerrada' THEN 1 ELSE 0 END) AS horas_cerradas
+                    SUM(CASE WHEN estado = 'Confirmada' THEN 1 ELSE 0 END) AS horas_confirmadas
                   FROM horarios_disponibles 
                   WHERE usuario_id = $usuario_id";
 
@@ -126,15 +126,103 @@ if ($_SESSION['tipo_usuario'] == 'tatuador') {
                             <div class="col-md-3">
                                 <div class="card-custom4">
                                     <div class="card-body-custom">
-                                        <h5 class="card-title-custom4">Horas Cerradas</h5>
-                                        <p class="card-text-custom"><?php echo $datos_horas['horas_cerradas']; ?></p>
+                                        <h5 class="card-title-custom4">Horas Confirmadas</h5>
+                                        <p class="card-text-custom"><?php echo $datos_horas['horas_confirmadas']; ?></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="mt-3">
-                            <h3>Citas Reservadas</h3>
+                            <h3>Citas Confirmadas</h3>
+                            <?php
+                            // Determinar el número de página actual
+                            $pagina_actual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+
+                            // Calcular el offset para la consulta SQL
+                            $offset = ($pagina_actual - 1) * 5; // 5 elementos por página
+
+                            // Consulta SQL para obtener las citas del tatuador con paginación
+                            $sql_citas = "SELECT c.nombre_cliente, c.telefono, c.correo, hd.estado, hd.fecha, c.cotizacion
+                            FROM citas c 
+                            INNER JOIN horarios_disponibles hd ON c.hora_disponible_id = hd.id
+                            WHERE c.usuario_id = ? AND hd.estado = 'Confirmada'
+                            LIMIT 5 OFFSET ?";
+                            $stmt_citas = mysqli_prepare($conexion, $sql_citas);
+                            mysqli_stmt_bind_param($stmt_citas, "ii", $usuario_id, $offset);
+                            mysqli_stmt_execute($stmt_citas);
+                            $result_citas = mysqli_stmt_get_result($stmt_citas);
+
+                            if (mysqli_num_rows($result_citas) > 0) {
+                                echo "<table class='table'>";
+                                echo "<thead>";
+                                echo "<tr>";
+                                echo "<th>Nombre Cliente</th>";
+                                echo "<th>Teléfono</th>";
+                                echo "<th>Correo</th>";
+                                echo "<th>Fecha</th>";
+                                echo "<th>Ganancia</th>";
+                                echo "<th>Estado</th>";
+                                echo "</tr>";
+                                echo "</thead>";
+                                echo "<tbody>";
+                                while ($row_cita = mysqli_fetch_assoc($result_citas)) {
+                                    // Formatear la fecha
+                                    $fecha_formateada = date("d/m/Y", strtotime($row_cita['fecha']));
+
+                                    // Mostrar los detalles de la cita
+                                    echo "<tr>";
+                                    echo "<td>" . $row_cita['nombre_cliente'] . "</td>";
+                                    echo "<td>" . $row_cita['telefono'] . "</td>";
+                                    echo "<td>" . $row_cita['correo'] . "</td>";
+                                    echo "<td>" . $fecha_formateada . "</td>"; // Fecha formateada
+                                    echo "<td>$ " . $row_cita['cotizacion'] . "</td>";
+                                    echo "<td>" . $row_cita['estado'] . "</td>"; // Estado
+                                    echo "</tr>";
+                                }
+                                echo "</tbody>";
+                                echo "</table>";
+
+                                // Calcular el número total de páginas
+                                $sql_count = "SELECT COUNT(*) as total FROM citas c 
+                                            INNER JOIN horarios_disponibles hd ON c.hora_disponible_id = hd.id
+                                            WHERE c.usuario_id = ? AND hd.estado = 'Tomada'";
+                                $stmt_count = mysqli_prepare($conexion, $sql_count);
+                                mysqli_stmt_bind_param($stmt_count, "i", $usuario_id);
+                                mysqli_stmt_execute($stmt_count);
+                                $result_count = mysqli_stmt_get_result($stmt_count);
+                                $row_count = mysqli_fetch_assoc($result_count);
+                                $total_citas = $row_count['total'];
+                                $total_paginas = ceil($total_citas / 5); // 5 elementos por página
+
+                                // Mostrar enlaces de paginación
+                                echo "<div class='row'>";
+                                echo "<div class='col'>";
+                                echo "<nav aria-label='Page navigation'>";
+                                echo "<ul class='pagination justify-content-center'>";
+                                if ($pagina_actual != 1) {
+                                    echo "<li class='page-item'><a class='page-link' href='panel_tatuador.php?pagina=1'>Primera</a></li>";
+                                    echo "<li class='page-item'><a class='page-link' href='panel_tatuador.php?pagina=" . ($pagina_actual - 1) . "'>&laquo;</a></li>";
+                                }
+                                for ($i = 1; $i <= $total_paginas; $i++) {
+                                    echo "<li class='page-item " . ($pagina_actual == $i ? 'active' : '') . "'><a class='page-link' href='panel_tatuador.php?pagina=" . $i . "'>$i</a></li>";
+                                }
+                                if ($pagina_actual != $total_paginas) {
+                                    echo "<li class='page-item'><a class='page-link' href='panel_tatuador.php?pagina=" . ($pagina_actual + 1) . "'>&raquo;</a></li>";
+                                    echo "<li class='page-item'><a class='page-link' href='panel_tatuador.php?pagina=" . $total_paginas . "'>Última</a></li>";
+                                }
+                                echo "</ul>";
+                                echo "</nav>";
+                                echo "</div>";
+                                echo "</div>";
+                            } else {
+                                echo "<p>No hay citas reservadas en este momento.</p>";
+                            }
+                            ?>
+                        </div>
+
+                        <div class="mt-3">
+                            <h3>Citas Tomadas</h3>
                             <?php
                             // Determinar el número de página actual
                             $pagina_actual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
@@ -220,6 +308,8 @@ if ($_SESSION['tipo_usuario'] == 'tatuador') {
                             }
                             ?>
                         </div>
+
+
                     </div>
                 </div>
              </div>
