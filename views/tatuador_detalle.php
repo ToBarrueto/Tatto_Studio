@@ -65,8 +65,8 @@ if ($_SESSION['tipo_usuario'] == 'cliente') {
                             $resultado_portafolio = $conexion->query($sql_portafolio);
     
                             if ($resultado_portafolio->num_rows > 0) {
-                                echo "<h1 class='title-custom3'>Trabajos de {$tatuador['nombre']}</h1>";
-                                echo "<p class='p-custom'>{$tatuador['descripcion']}</p>";
+                                echo "<h1 class='title-custom5'>Trabajos de {$tatuador['nombre']}</h1>";
+                                echo "<p class='p-custom5'>{$tatuador['descripcion']}</p>";
                                 
                                 // Contador para rastrear el número de imágenes mostradas
                                 $contador = 0;
@@ -101,15 +101,15 @@ if ($_SESSION['tipo_usuario'] == 'cliente') {
 
             echo '<div class="zona4 d-flex justify-content-center ">';
             echo '<div class="container text-center ">';
-            echo "<h1 class='title-custom5'>Cotiza y Agenda tu Hora</h1>";
-            echo '<div class="row d-flex justify-content-center ">';
+            
+            echo '<div class="row d-flex justify-content-center mt-5">';
             
 
              // Formulario de reserva de citas
            
-                echo '<div class="card col-8">';
+                echo '<div class="card col-8 mt-5">';
                 echo '<div class="card-body">';
-                echo '<h2>Formulario de Reserva</h2>';
+                echo '<h2>Cotiza y Agenda tu Hora</h2>';
                 echo '<form action="procesar_reserva.php" method="POST" enctype="multipart/form-data">';
                 echo '<input type="hidden" name="tatuador_id" value="' . $usuario_id . '">';
 

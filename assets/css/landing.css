@@ -495,10 +495,10 @@ header ul li a:hover {
 }
 
 .title-custom5{
-  color: #000000;
-  font-size: 72px;
+  color: #fff;
+  font-size: 51px;
   font-weight: bold;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
   margin-top: 6rem !important;
   font-style: italic;
 }
@@ -507,4 +507,14 @@ header ul li a:hover {
   color: #000;
   font-size: 21px;
   font-weight: 600;
+}
+
+.m-top{
+margin-top: 1rem;
+}
+
+.p-custom5{
+  color: #fff;
+  font-size: 21px;
+  font-weight: 400;
 }
