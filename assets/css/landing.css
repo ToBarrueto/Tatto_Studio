@@ -110,17 +110,21 @@ ul li:hover ul.dropdown {
     font-size: 32px;
     font-weight: 400;
     font-style: italic;
+    margin-bottom: 1rem !important;
 }
 
 .button-custom {
     background-color: #000;
     color: #fff;
     border-color: #fff;
-    padding: 12px 32px 12px 32px;
+    padding: 16px 32px 16px 32px;
     border-radius: 16px;
     font-size: 26px;
     font-weight: bold;
     transition: background-color 0.3s, color 0.3s; /* Agregamos una transición suave */
+    text-decoration: none;
+    margin-top: 1rem;
+    
 }
 
 .button-custom:hover {
@@ -285,8 +289,8 @@ header ul li a:hover {
     color: #000000;
     font-size: 72px;
     font-weight: bold;
-    margin-bottom: 4rem;
-    margin-top: 7rem !important;
+    margin-bottom: 2rem;
+    margin-top: 6rem !important;
     font-style: italic;
 }
 

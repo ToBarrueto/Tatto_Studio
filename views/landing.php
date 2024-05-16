@@ -40,18 +40,17 @@
 
     <div class="zona1 d-flex justify-content-center ">
         <div class="container text-center ">
-            <div class="row">
+            <div class="row mb-4">
                 <div class="col">
                     <h1 class="title">TattoStudioINK</h1>
                     <p class="p-custom">
                         "Nacemos desde el amor a la tinta, al arte y todos sus variantes, para poder regarlo por toda
                         Santiago
                         en general. Entregando trabajos de calidad y que perduren en el tiempo."</p>
-                    <button class="button-custom mt-5">Agenda tu Hora</button>
+                    
                 </div>
-
-
             </div>
+            <a class="button-custom" href="#tatuadores">Agenda tu Hora</a>
         </div>
     </div>
 
