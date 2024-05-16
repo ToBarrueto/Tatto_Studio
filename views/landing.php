@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -11,7 +9,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mulish&display=swap">
+
 
 
 </head>
@@ -47,7 +48,7 @@
                         "Nacemos desde el amor a la tinta, al arte y todos sus variantes, para poder regarlo por toda
                         Santiago
                         en general. Entregando trabajos de calidad y que perduren en el tiempo."</p>
-                    
+
                 </div>
             </div>
             <a class="button-custom" href="#tatuadores">Agenda tu Hora</a>
@@ -91,7 +92,7 @@
         </div>
     </div>
 
-    <div  id="servicios" class="zona3 d-flex justify-content-center ">
+    <div id="servicios" class="zona3 d-flex justify-content-center ">
         <div class="container text-center ">
             <div class="row">
                 <div class="col">
@@ -129,7 +130,7 @@
                                 <div class="card-giratoria">
                                     <div class="card-inner">
                                         <div class="card-front">
-                                            <img  src="../assets/img/landing/card-piercing.jpg" alt="Imagen">
+                                            <img src="../assets/img/landing/card-piercing.jpg" alt="Imagen">
                                         </div>
                                         <div class="card-back">
                                             <h2>PIERCINGS</h2>
@@ -212,14 +213,107 @@
         <div class="container text-center ">
             <div class="row">
                 <div class="col">
-                    <h1 class="title-custom3">FAQ</h1>
-                    <p class="p-custom3">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias voluptatibus porro soluta
-                        totam minima velit magni, provident earum. Quia dolorum recusandae voluptatem iure itaque
-                        provident cumque adipisci fugiat illum explicabo!</p>
+                    <h1 class="title-custom3">Preguntas Frecuentes</h1>
+
+                    <div class="faq-container">
+                        <details>
+                            <summary>
+                                <span class="faq-title">
+                                    ¿Qué es TattoStudioInk y cómo funciona?
+                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="expand-icon" width="24" height="24"
+                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M9 6l6 6l-6 6"></path>
+                                </svg>
+                            </summary>
+                            <div class="faq-content">
+                                TattoStudioInk es una plataforma en línea diseñada para facilitar la conexión entre
+                                clientes interesados en obtener tatuajes y tatuadores profesionales disponibles en
+                                estudios de tatuajes. Funciona como un intermediario digital que permite a los clientes
+                                explorar perfiles de tatuadores, solicitar cotizaciones, reservar citas y gestionar sus
+                                servicios de tatuaje, todo en un solo lugar.
+                            </div>
+                        </details>
+                        <details>
+                            <summary>
+                                <span class="faq-title">
+                                    ¿Cómo beneficia TattoStudioInk a los clientes?
+                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="expand-icon" width="24" height="24"
+                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M9 6l6 6l-6 6"></path>
+                                </svg>
+                            </summary>
+                            <div class="faq-content">
+                                TattoStudioInk beneficia a los clientes al ofrecerles una forma conveniente de
+                                encontrar y comunicarse con tatuadores profesionales, facilitando la búsqueda de
+                                información sobre estilos de trabajo, disponibilidad y precios. Además, les permite
+                                reservar citas en línea y gestionar sus servicios de manera eficiente, ahorrando tiempo
+                                y esfuerzo.
+                            </div>
+                        </details>
+                        <details>
+                            <summary>
+                                <span class="faq-title">¿Qué diferencia a TattoStudioInk de otras plataformas similares?
+
+                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="expand-icon" width="24" height="24"
+                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M9 6l6 6l-6 6"></path>
+                                </svg>
+                            </summary>
+                            <div class="faq-content">Lo que diferencia a TattoStudioInk es nuestra atención al
+                                detalle y nuestro enfoque en la experiencia del usuario. Nuestra plataforma está
+                                diseñada para ser intuitiva y fácil de usar, tanto para clientes como para tatuadores.
+                                Además, ofrecemos una amplia gama de funcionalidades, como sistema de cotización,
+                                reserva de citas y gestión de perfiles, todo en un solo lugar, lo que hace que sea la
+                                opción ideal para aquellos que buscan una solución integral para la conexión entre
+                                clientes y tatuadores.
+                            </div>
+                        </details>
+                        <details>
+                            <summary>
+                                <span class="faq-title">¿Qué tipo de información puedo encontrar en los perfiles de los
+                                    tatuadores?</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="expand-icon" width="24" height="24"
+                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M9 6l6 6l-6 6"></path>
+                                </svg>
+                            </summary>
+                            <div class="faq-content">En los perfiles de los tatuadores, los usuarios pueden encontrar
+                                información detallada sobre su experiencia, estilo de trabajo, áreas de especialización
+                                y portfolio de trabajos anteriores.</div>
+                        </details>
+                        <details>
+                            <summary>
+                                <span class="faq-title">¿Cómo puedo pagar por mis servicios de tatuaje a través de
+                                    TattoStudioInk?</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="expand-icon" width="24" height="24"
+                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M9 6l6 6l-6 6"></path>
+                                </svg>
+                            </summary>
+                            <div class="faq-content">Ofrecemos varias opciones de pago convenientes para tus servicios
+                                de tatuaje. Puedes pagar en línea a través de nuestra plataforma utilizando tarjetas de
+                                crédito/débito, servicios de pago en línea seguros como PayPal, y además, recuerda que
+                                para confirmar tu reserva, se requiere un pago inicial que corresponde al 15% del costo
+                                total del servicio. Además, algunos tatuadores pueden ofrecer la opción de pagar en
+                                persona en el estudio el día de tu cita.</div>
+                        </details>
+                    </div>
                 </div>
 
-                
+
             </div>
         </div>
     </div>
@@ -234,6 +328,109 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
         crossorigin="anonymous"></script>
+    <script> class Accordion {
+            constructor(el) {
+                this.el = el;
+                this.summary = el.querySelector("summary");
+                this.content = el.querySelector(".faq-content");
+                this.expandIcon = this.summary.querySelector(".expand-icon");
+                this.animation = null;
+                this.isClosing = false;
+                this.isExpanding = false;
+                this.summary.addEventListener("click", (e) => this.onClick(e));
+            }
+
+            onClick(e) {
+                e.preventDefault();
+                this.el.style.overflow = "hidden";
+
+                if (this.isClosing || !this.el.open) {
+                    this.open();
+                } else if (this.isExpanding || this.el.open) {
+                    this.shrink();
+                }
+            }
+
+            shrink() {
+                this.isClosing = true;
+
+                const startHeight = `${this.el.offsetHeight}px`;
+                const endHeight = `${this.summary.offsetHeight}px`;
+
+                if (this.animation) {
+                    this.animation.cancel();
+                }
+
+                this.animation = this.el.animate(
+                    {
+                        height: [startHeight, endHeight],
+                    },
+                    {
+                        duration: 200,
+                        easing: "ease-out",
+                    }
+                );
+
+                this.animation.onfinish = () => {
+                    this.expandIcon.setAttribute("src", "assets/plus.svg");
+                    return this.onAnimationFinish(false);
+                };
+                this.animation.oncancel = () => {
+                    this.expandIcon.setAttribute("src", "assets/plus.svg");
+                    return (this.isClosing = false);
+                };
+            }
+
+            open() {
+                this.el.style.height = `${this.el.offsetHeight}px`;
+                this.el.open = true;
+                window.requestAnimationFrame(() => this.expand());
+            }
+
+            expand() {
+                this.isExpanding = true;
+
+                const startHeight = `${this.el.offsetHeight}px`;
+                const endHeight = `${this.summary.offsetHeight + this.content.offsetHeight
+                    }px`;
+
+                if (this.animation) {
+                    this.animation.cancel();
+                }
+
+                this.animation = this.el.animate(
+                    {
+                        height: [startHeight, endHeight],
+                    },
+                    {
+                        duration: 200,
+                        easing: "ease-out",
+                    }
+                );
+
+                this.animation.onfinish = () => {
+                    this.expandIcon.setAttribute("src", "assets/minus.svg");
+                    return this.onAnimationFinish(true);
+                };
+                this.animation.oncancel = () => {
+                    this.expandIcon.setAttribute("src", "assets/minus.svg");
+                    return (this.isExpanding = false);
+                };
+            }
+
+            onAnimationFinish(open) {
+                this.el.open = open;
+                this.animation = null;
+                this.isClosing = false;
+                this.isExpanding = false;
+                this.el.style.height = this.el.style.overflow = "";
+            }
+        }
+
+        document.querySelectorAll("details").forEach((el) => {
+            new Accordion(el);
+        });
+    </script>
 
     <script type="text/javascript">
         window.addEventListener("scroll", function () {
@@ -244,4 +441,3 @@
 </body>
 
 </html>
-
