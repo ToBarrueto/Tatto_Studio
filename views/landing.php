@@ -318,126 +318,138 @@
         </div>
     </div>
 
+    <div class="zona5 d-flex">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 ">
+                    <h2>AQUI DEBE IR FOOTER</h2>
+                </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-        crossorigin="anonymous"></script>
-    <script> class Accordion {
-            constructor(el) {
-                this.el = el;
-                this.summary = el.querySelector("summary");
-                this.content = el.querySelector(".faq-content");
-                this.expandIcon = this.summary.querySelector(".expand-icon");
-                this.animation = null;
-                this.isClosing = false;
-                this.isExpanding = false;
-                this.summary.addEventListener("click", (e) => this.onClick(e));
-            }
+                <div class="col-md-4">
+                    <h2>AQUI DEBE IR API Mapa</h2>
+                </div>
+            </div>
+        </div>
 
-            onClick(e) {
-                e.preventDefault();
-                this.el.style.overflow = "hidden";
-
-                if (this.isClosing || !this.el.open) {
-                    this.open();
-                } else if (this.isExpanding || this.el.open) {
-                    this.shrink();
-                }
-            }
-
-            shrink() {
-                this.isClosing = true;
-
-                const startHeight = `${this.el.offsetHeight}px`;
-                const endHeight = `${this.summary.offsetHeight}px`;
-
-                if (this.animation) {
-                    this.animation.cancel();
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+            integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+            crossorigin="anonymous"></script>
+        <script> class Accordion {
+                constructor(el) {
+                    this.el = el;
+                    this.summary = el.querySelector("summary");
+                    this.content = el.querySelector(".faq-content");
+                    this.expandIcon = this.summary.querySelector(".expand-icon");
+                    this.animation = null;
+                    this.isClosing = false;
+                    this.isExpanding = false;
+                    this.summary.addEventListener("click", (e) => this.onClick(e));
                 }
 
-                this.animation = this.el.animate(
-                    {
-                        height: [startHeight, endHeight],
-                    },
-                    {
-                        duration: 200,
-                        easing: "ease-out",
+                onClick(e) {
+                    e.preventDefault();
+                    this.el.style.overflow = "hidden";
+
+                    if (this.isClosing || !this.el.open) {
+                        this.open();
+                    } else if (this.isExpanding || this.el.open) {
+                        this.shrink();
                     }
-                );
-
-                this.animation.onfinish = () => {
-                    this.expandIcon.setAttribute("src", "assets/plus.svg");
-                    return this.onAnimationFinish(false);
-                };
-                this.animation.oncancel = () => {
-                    this.expandIcon.setAttribute("src", "assets/plus.svg");
-                    return (this.isClosing = false);
-                };
-            }
-
-            open() {
-                this.el.style.height = `${this.el.offsetHeight}px`;
-                this.el.open = true;
-                window.requestAnimationFrame(() => this.expand());
-            }
-
-            expand() {
-                this.isExpanding = true;
-
-                const startHeight = `${this.el.offsetHeight}px`;
-                const endHeight = `${this.summary.offsetHeight + this.content.offsetHeight
-                    }px`;
-
-                if (this.animation) {
-                    this.animation.cancel();
                 }
 
-                this.animation = this.el.animate(
-                    {
-                        height: [startHeight, endHeight],
-                    },
-                    {
-                        duration: 200,
-                        easing: "ease-out",
+                shrink() {
+                    this.isClosing = true;
+
+                    const startHeight = `${this.el.offsetHeight}px`;
+                    const endHeight = `${this.summary.offsetHeight}px`;
+
+                    if (this.animation) {
+                        this.animation.cancel();
                     }
-                );
 
-                this.animation.onfinish = () => {
-                    this.expandIcon.setAttribute("src", "assets/minus.svg");
-                    return this.onAnimationFinish(true);
-                };
-                this.animation.oncancel = () => {
-                    this.expandIcon.setAttribute("src", "assets/minus.svg");
-                    return (this.isExpanding = false);
-                };
+                    this.animation = this.el.animate(
+                        {
+                            height: [startHeight, endHeight],
+                        },
+                        {
+                            duration: 200,
+                            easing: "ease-out",
+                        }
+                    );
+
+                    this.animation.onfinish = () => {
+                        this.expandIcon.setAttribute("src", "assets/plus.svg");
+                        return this.onAnimationFinish(false);
+                    };
+                    this.animation.oncancel = () => {
+                        this.expandIcon.setAttribute("src", "assets/plus.svg");
+                        return (this.isClosing = false);
+                    };
+                }
+
+                open() {
+                    this.el.style.height = `${this.el.offsetHeight}px`;
+                    this.el.open = true;
+                    window.requestAnimationFrame(() => this.expand());
+                }
+
+                expand() {
+                    this.isExpanding = true;
+
+                    const startHeight = `${this.el.offsetHeight}px`;
+                    const endHeight = `${this.summary.offsetHeight + this.content.offsetHeight
+                        }px`;
+
+                    if (this.animation) {
+                        this.animation.cancel();
+                    }
+
+                    this.animation = this.el.animate(
+                        {
+                            height: [startHeight, endHeight],
+                        },
+                        {
+                            duration: 200,
+                            easing: "ease-out",
+                        }
+                    );
+
+                    this.animation.onfinish = () => {
+                        this.expandIcon.setAttribute("src", "assets/minus.svg");
+                        return this.onAnimationFinish(true);
+                    };
+                    this.animation.oncancel = () => {
+                        this.expandIcon.setAttribute("src", "assets/minus.svg");
+                        return (this.isExpanding = false);
+                    };
+                }
+
+                onAnimationFinish(open) {
+                    this.el.open = open;
+                    this.animation = null;
+                    this.isClosing = false;
+                    this.isExpanding = false;
+                    this.el.style.height = this.el.style.overflow = "";
+                }
             }
 
-            onAnimationFinish(open) {
-                this.el.open = open;
-                this.animation = null;
-                this.isClosing = false;
-                this.isExpanding = false;
-                this.el.style.height = this.el.style.overflow = "";
-            }
-        }
+            document.querySelectorAll("details").forEach((el) => {
+                new Accordion(el);
+            });
+        </script>
 
-        document.querySelectorAll("details").forEach((el) => {
-            new Accordion(el);
-        });
-    </script>
-
-    <script type="text/javascript">
-        window.addEventListener("scroll", function () {
-            var header = document.querySelector("header");
-            header.classList.toggle("abajo", window.scrollY > 0);
-        })
-    </script>
+        <script type="text/javascript">
+            window.addEventListener("scroll", function () {
+                var header = document.querySelector("header");
+                header.classList.toggle("abajo", window.scrollY > 0);
+            })
+        </script>
 </body>
 
 </html>
