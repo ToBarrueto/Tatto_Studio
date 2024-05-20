@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+require '../vendor/autoload.php';
+
 // Verificar si se han recibido los datos del formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["cliente_id"])) {
     // Incluir la conexión a la base de datos
@@ -42,8 +44,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["cliente_id"])) {
             $stmt_actualizar_hora = mysqli_prepare($conexion, $sql_actualizar_hora);
             mysqli_stmt_bind_param($stmt_actualizar_hora, "i", $hora_disponible_id);
             if (mysqli_stmt_execute($stmt_actualizar_hora)) {
-                header("Location: micuenta.php");
 
+                // Obtener los detalles de la cita incluyendo el nombre del tatuador y la hora formateada
+                $sql_citas = "SELECT citas.*, 
+                                tatuadores.nombre AS nombre_tatuador, 
+                                DATE_FORMAT(horarios_disponibles.fecha, '%d/%m/%Y') AS fecha_formato,
+                                CASE 
+                                    WHEN horarios_disponibles.turno = 'am' THEN '09:00 a 14:00'
+                                    WHEN horarios_disponibles.turno = 'pm' THEN '16:00 a 21:00'
+                                END AS hora_formato,
+                                horarios_disponibles.estado AS estado_horario
+                            FROM citas
+                            INNER JOIN tatuadores ON citas.usuario_id = tatuadores.usuario_id
+                            INNER JOIN horarios_disponibles ON citas.hora_disponible_id = horarios_disponibles.id
+                            WHERE citas.cliente_id = ?";
+                $stmt_citas = mysqli_prepare($conexion, $sql_citas);
+                mysqli_stmt_bind_param($stmt_citas, "i", $cliente_id);
+                mysqli_stmt_execute($stmt_citas);
+                $result = mysqli_stmt_get_result($stmt_citas);
+                $detalle_cita = mysqli_fetch_assoc($result);
+                
+                // Formatear el precio en pesos chilenos
+                $precio_formateado = number_format($precio_total, 0, ',', '.');
+                $comision_formateada = number_format($precio_total * 0.15, 0, ',', '.');
+                
+                // Enviar el correo de confirmación
+                // Enviar el correo de confirmación
+                try {
+                    $resend = Resend::client('re_Y4AyptWs_D1YDCdmTmrLfpmwj6Siv6sK5');
+                    $resend->emails->send([
+                        'from' => 'TattoStudioINK<onboarding@resend.dev>',
+                        'to' => [$correo],
+                        'subject' => 'Hora Tomada para el ' .$detalle_cita['fecha_formato'] . ' con ' . $detalle_cita['nombre_tatuador'] . '',
+                        'html' => '<p>Estimado ' . $nombre_cliente . ',</p><p>Tu hora ah sido tomada exitosamente. Aquí están los detalles:</p><ul><li>Tatuador: ' . $detalle_cita['nombre_tatuador'] . '</li>
+                        <li>Fecha: ' .$detalle_cita['fecha_formato'] . '</li><li>Precio Total: $' .  $precio_formateado . '</li></ul><p>Recuerda que debes pagar el 15% de tu reserva ($' . $comision_formateada . ') para que la hora quede confirmada.</p>
+                        <p>Gracias por confiar en nosotros.</p>'
+                        
+
+                    ]);
+                } catch (Exception $e) {
+                    echo 'Error al enviar el correo: ',  $e->getMessage(), "\n";
+                }
+                
+                // Redireccionar a la página de cuenta
+                header("Location: micuenta.php");
             } else {
                 echo "Error al reservar la cita: " . mysqli_error($conexion);
             }
