@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Incluir el archivo de conexión a la base de datos
 include 'conexion.php';
 
@@ -22,8 +23,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt_insertar = mysqli_prepare($conexion, $sql_insertar);
         mysqli_stmt_bind_param($stmt_insertar, "sss", $username, $password, $tipo_usuario);
         if (mysqli_stmt_execute($stmt_insertar)) {
-            echo "Usuario registrado correctamente como cliente.";
-            header("Location:index.php");
+            $_SESSION['registro_exitoso'] = true;
+            header("Location: index.php");
+            exit;
         } else {
             echo "ERROR: No se pudo ejecutar la consulta. " . mysqli_error($conexion);
         }

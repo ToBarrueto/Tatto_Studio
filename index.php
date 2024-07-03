@@ -1,6 +1,9 @@
 <?php
 session_start();
-session_destroy();
+$registro_exitoso = isset($_SESSION['registro_exitoso']) ? $_SESSION['registro_exitoso'] : false;
+if ($registro_exitoso) {
+    unset($_SESSION['registro_exitoso']);
+}
 include("controllers/validar.php")
 ?>
 
@@ -84,6 +87,23 @@ include("controllers/validar.php")
     </div>
   </div>
 
+  <div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="registroModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="registroModalLabel">Registro Exitoso</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ¡Te has registrado correctamente!
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
   </script>
@@ -102,11 +122,15 @@ include("controllers/validar.php")
       containerFormLogin.classList.remove("hide");
     });
 
-
     document.getElementById("sign-up").addEventListener("click", () => {
       containerFormLogin.classList.add("hide");
       containerFormRegister.classList.remove("hide");
     });
+
+    <?php if ($registro_exitoso): ?>
+    const registroModal = new bootstrap.Modal(document.getElementById('registroModal'));
+    registroModal.show();
+    <?php endif; ?>
   </script>
 </body>
 

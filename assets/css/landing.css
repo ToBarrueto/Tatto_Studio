@@ -114,7 +114,7 @@ ul li:hover ul.dropdown {
 }
 
 .button-custom {
-    background-color: #000;
+    background-color: #ff0000;
     color: #fff;
     border-color: #fff;
     padding: 16px 32px 16px 32px;
@@ -128,8 +128,8 @@ ul li:hover ul.dropdown {
 }
 
 .button-custom:hover {
-    background-color: #ff0000; /* Hacemos que el fondo sea transparente al pasar el cursor sobre el botón */
-    color: #fff; /* Mantenemos el color del texto */
+    background-color: #FFF; /* Hacemos que el fondo sea transparente al pasar el cursor sobre el botón */
+    color: #ff0000; /* Mantenemos el color del texto */
    
 }
 

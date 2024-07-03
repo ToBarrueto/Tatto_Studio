@@ -72,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["cliente_id"])) {
                 // Enviar el correo de confirmación
                 try {
                     $resend = Resend::client('re_Y4AyptWs_D1YDCdmTmrLfpmwj6Siv6sK5');
-                    $resend->emails->send([
+                    $resend->emails->send([ 
                         'from' => 'TattoStudioINK<onboarding@resend.dev>',
                         'to' => [$correo],
                         'subject' => 'Hora Tomada para el ' .$detalle_cita['fecha_formato'] . ' con ' . $detalle_cita['nombre_tatuador'] . '',

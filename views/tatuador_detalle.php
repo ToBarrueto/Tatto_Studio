@@ -174,7 +174,7 @@ if ($_SESSION['tipo_usuario'] == 'cliente') {
                 echo '<input type="text" class="form-control" id="precio_total_aproximado" name="precio_total" readonly>';
                 echo '</div>';
 
-                echo '<button type="button" onclick="calcularCotizacion()" class="btn btn-primary mt-2">Calcular Cotización</button>';
+                echo '<button type="button" onclick="calcularCotizacion()" class="btn btn-dark mt-2">Calcular Cotización</button>';
                 
                 
                 echo '</div>';
@@ -225,7 +225,7 @@ if ($_SESSION['tipo_usuario'] == 'cliente') {
                 echo '</select>';
                 echo '</div>';
 
-                echo '<button type="submit" class="btn btn-primary mb-3">Reservar cita</button>';
+                echo '<button type="submit" class="btn btn-dark mb-3">Reservar cita</button>';
                 echo '</form>';
                 echo '</div>';
                 echo '</div>';
