@@ -11,8 +11,12 @@ if ($_SESSION['tipo_usuario'] == 'cliente') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalles del Tatuador</title>
     <link rel="stylesheet" href="../assets/css/landing.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
 
 </head>
 
@@ -36,6 +40,24 @@ if ($_SESSION['tipo_usuario'] == 'cliente') {
             </ul>
         </nav>
     </header>
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logoutModalLabel">Confirmación de Cierre de Sesión</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas cerrar sesión?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <a id="confirmLogout" class="btn btn-dark">Salir</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <div class="zona3 d-flex justify-content-center ">
         <div class="container text-center ">
@@ -252,46 +274,69 @@ if ($_SESSION['tipo_usuario'] == 'cliente') {
     </div>
 
     <script type="text/javascript">
-        window.addEventListener("scroll", function () {
-            var header = document.querySelector("header");
-            header.classList.toggle("abajo", window.scrollY > 0);
-        })
+    window.addEventListener("scroll", function() {
+        var header = document.querySelector("header");
+        header.classList.toggle("abajo", window.scrollY > 0);
+    })
     </script>
 
     <script>
-        function calcularCotizacion() {
-            var alto = document.getElementById('alto').value;
-            var ancho = document.getElementById('ancho').value;
-            var color = document.getElementById('color').value;
-            var precioBasePorCm2 = document.getElementById('precioBase').value;
+    function calcularCotizacion() {
+        var alto = document.getElementById('alto').value;
+        var ancho = document.getElementById('ancho').value;
+        var color = document.getElementById('color').value;
+        var precioBasePorCm2 = document.getElementById('precioBase').value;
 
-            // Verificar el valor del precio base en la consola del navegador
-            console.log("Precio base por cm2 obtenido de la base de datos:", precioBasePorCm2);
+        // Verificar el valor del precio base en la consola del navegador
+        console.log("Precio base por cm2 obtenido de la base de datos:", precioBasePorCm2);
 
-            // Calcular el área del tatuaje
-            var area = alto * ancho;
+        // Calcular el área del tatuaje
+        var area = alto * ancho;
 
-            // Calcular el precio base del tatuaje
-            var precioBase = area * precioBasePorCm2;
+        // Calcular el precio base del tatuaje
+        var precioBase = area * precioBasePorCm2;
 
-            // Aplicar un costo adicional si el tatuaje es a color
-            if (color === 'si') {
-                var costoColor = precioBase * 0.20;
-                precioBase += costoColor;
-            }
-
-            // Calcular la comisión
-            var comision = precioBase * 0.20;
-
-            // Calcular el precio total
-            var cotizacionTotal = precioBase + comision;
-
-            // Mostrar la cotización, la comisión y el precio total en el formulario
-            document.getElementById('cotizacion_aproximada').value = Math.floor(precioBase);
-            document.getElementById('comision_aproximada').value = Math.floor(comision);
-            document.getElementById('precio_total_aproximado').value = Math.floor(cotizacionTotal);
+        // Aplicar un costo adicional si el tatuaje es a color
+        if (color === 'si') {
+            var costoColor = precioBase * 0.20;
+            precioBase += costoColor;
         }
+
+        // Calcular la comisión
+        var comision = precioBase * 0.20;
+
+        // Calcular el precio total
+        var cotizacionTotal = precioBase + comision;
+
+        // Mostrar la cotización, la comisión y el precio total en el formulario
+        document.getElementById('cotizacion_aproximada').value = Math.floor(precioBase);
+        document.getElementById('comision_aproximada').value = Math.floor(comision);
+        document.getElementById('precio_total_aproximado').value = Math.floor(cotizacionTotal);
+    }
     </script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var logoutLink = document.querySelector('a[href="../index.php"]');
+        var confirmLogoutButton = document.getElementById('confirmLogout');
+
+        if (logoutLink) {
+            logoutLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                var logoutModal = new bootstrap.Modal(document.getElementById('logoutModal'));
+                logoutModal.show();
+            });
+
+            confirmLogoutButton.addEventListener('click', function() {
+                window.location.href = '../index.php';
+            });
+        }
+    });
+    </script>
+
+    
+
+
 </body>
 
 </html>
