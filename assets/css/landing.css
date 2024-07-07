@@ -135,7 +135,8 @@ ul li:hover ul.dropdown {
 
 /* Estilos hover */
 header ul li a:hover {
-    color: #ff0000; /* Cambia el color del texto al pasar el cursor sobre el enlace */
+    font-weight: 600;
+    font-size: 20px;
 }
 
 .zona2{
@@ -571,7 +572,7 @@ summary {
   --white: #FFF;
   --background: #23252b;
   --background-hover: #383D4F;
-  --primary-blue: #00E0FE;
+  --primary-blue: #fe3300;
   --blue-gray: #f4fcff;
 }
 

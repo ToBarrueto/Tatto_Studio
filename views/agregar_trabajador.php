@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Ejecutar la consulta
             if (mysqli_stmt_execute($stmt)) {
                 // Redirigir a la página de creación de usuario con éxito
-                header("Location: panel_trabajadores.php?mensaje=Usuario agregado exitosamente.");
+                header("Location: panel_agregartrabajador.php?mensaje=Usuario agregado exitosamente.");
                 exit();
             } else {
                 echo "Error al ejecutar la consulta: " . mysqli_error($conexion);
